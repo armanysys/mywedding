@@ -1,0 +1,33 @@
+"use client"
+import { ChevronDown } from "lucide-react"
+
+export function Hero() {
+  return (
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img src="/romantic-wedding-photo-.jpg" alt="Julia y Armando" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/20" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 text-center text-white px-4">
+        <p className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-light">Celebra con nosotros</p>
+        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 text-balance">Julia & Armando</h1>
+        <div className="w-16 h-px bg-white/60 mx-auto mb-6" />
+        <p className="text-xl md:text-2xl font-light tracking-wide">15 de Junio, 2025</p>
+      </div>
+
+      {/* Scroll Indicator */}
+      <button
+        onClick={() => {
+          document.getElementById("details")?.scrollIntoView({ behavior: "smooth" })
+        }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white animate-bounce"
+        aria-label="Scroll down"
+      >
+        <ChevronDown className="w-8 h-8" />
+      </button>
+    </section>
+  )
+}

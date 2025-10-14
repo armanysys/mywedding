@@ -15,7 +15,7 @@ export function Hero() {
         <p className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-light">Celebra con nosotros</p>
         <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 text-balance">Julia & Armando</h1>
         <div className="w-16 h-px bg-white/60 mx-auto mb-6" />
-        <p className="text-xl md:text-2xl font-light tracking-wide">15 de Junio, 2025</p>
+        <p className="text-xl md:text-2xl font-light tracking-wide">19 de Abril, 2026</p>
       </div>
 
       {/* Scroll Indicator */}

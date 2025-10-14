@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Camera, Hash } from "lucide-react"
+import { Camera } from "lucide-react"
 
 const categories = ["Todos", "Pareja", "Ceremonia", "Recepción", "Detalles"]
 
@@ -18,7 +18,6 @@ export function PhotoGallery() {
 
             {/* Hashtag */}
             <div className="inline-flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm mb-8">
-              <Hash className="w-5 h-5 text-sage" />
               <span className="font-medium text-lg">#JuliaYArmando2025</span>
             </div>
 
@@ -30,9 +29,8 @@ export function PhotoGallery() {
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
-                    activeCategory === category ? "bg-sage text-white" : "bg-white text-foreground hover:bg-sage/10"
-                  }`}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${activeCategory === category ? "bg-sage text-white" : "bg-white text-foreground hover:bg-sage/10"
+                    }`}
                 >
                   {category}
                 </button>

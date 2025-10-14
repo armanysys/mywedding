@@ -1,15 +1,6 @@
-import { scheduleItem } from "@/lib/data/schedule-Item.data"
 import React from "react"
-
-export interface ItineraryProps {
-  Title: string
-  Description: string
-}
-
-const itineraryProps: ItineraryProps = {
-  Title: "Itinerario del Día",
-  Description: "Un día lleno de amor, alegría y celebración",
-}
+import { scheduleItem } from "@/lib/data/schedule-Item.data"
+import { itineraryProps } from "@/lib/data/ItineraryProps.data"
 
 export function Itinerary() {
   return (

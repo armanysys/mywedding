@@ -1,5 +1,8 @@
 "use client"
+
 import { ChevronDown } from "lucide-react"
+import { Countdown } from "../countdown/countdown"
+import heroData from "../../lib/data/hero.data"
 
 export function Hero() {
   return (
@@ -12,10 +15,13 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center text-white px-4">
-        <p className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-light">Celebra con nosotros</p>
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 text-balance">Julia & Armando</h1>
+        <p className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-light">{heroData.subtitle}</p>
+        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 text-balance">{heroData.title}</h1>
         <div className="w-16 h-px bg-white/60 mx-auto mb-6" />
-        <p className="text-xl md:text-2xl font-light tracking-wide">15 de Junio, 2025</p>
+        <p className="text-xl md:text-2xl font-light tracking-wide">{heroData.dateLabel}</p>
+
+        {/* Countdown */}
+        <Countdown targetDateISO={heroData.targetDateISO} />
       </div>
 
       {/* Scroll Indicator */}

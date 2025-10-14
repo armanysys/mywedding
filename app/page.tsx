@@ -1,12 +1,12 @@
-import { Hero } from "@/components/hero"
-import { EventDetails } from "@/components/event-details"
-import { Itinerary } from "@/components/itinerary"
-import { PhotoGallery } from "@/components/photo-gallery"
-import { GiftRegistry } from "@/components/gift-registry"
-import { Logistics } from "@/components/logistics"
-import { SpotifyPlaylist } from "@/components/spotify-playlist"
-import { RsvpForm } from "@/components/rsvp-form"
-import { Footer } from "@/components/footer"
+import { Hero } from "@/components/sections/hero"
+import { EventDetails } from "@/components/sections/event-details"
+import { Itinerary } from "@/components/sections/itinerary"
+import { PhotoGallery } from "@/components/sections/photo-gallery"
+import { GiftRegistry } from "@/components/sections/gift-registry"
+import { Logistics } from "@/components/sections/logistics"
+import { SpotifyPlaylist } from "@/components/sections/spotify-playlist"
+import { RsvpForm } from "@/components/sections/rsvp-form"
+import { Footer } from "@/components/sections/footer"
 
 export default function WeddingPage() {
   return (

@@ -1,6 +1,5 @@
-import React from "react"
-import { scheduleItem } from "@/lib/data/schedule-Item.data"
-import { itineraryProps } from "@/lib/data/ItineraryProps.data"
+import { scheduleItem } from "@/lib/data/schedule-item-data"
+import { itineraryProps } from "@/lib/data/itinerary-props-data"
 
 export function Itinerary() {
   return (
@@ -10,9 +9,7 @@ export function Itinerary() {
           <div className="text-center mb-16">
             <h2 className="font-serif text-4xl md:text-5xl mb-6">{itineraryProps.Title}</h2>
             <div className="w-24 h-px bg-sage mx-auto mb-6" />
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-              {itineraryProps.Description}
-            </p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">{itineraryProps.Description}</p>
           </div>
 
           <div className="space-y-8">

@@ -2,7 +2,7 @@
 
 import { ChevronDown } from "lucide-react"
 import { Countdown } from "../countdown/countdown"
-import heroData from "../../lib/data/hero.data"
+import heroData from "@/lib/data/hero-data"
 
 export function Hero() {
   return (

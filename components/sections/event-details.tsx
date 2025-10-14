@@ -1,6 +1,6 @@
 import { Calendar, Clock, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import eventDetailsData from "@/lib/data/event-details.data"
+import eventDetailsData from "@/lib/data/event-details-data"
 
 export function EventDetails() {
   const { id, title, intro, dateBlock, timeBlock, locationBlock } = eventDetailsData

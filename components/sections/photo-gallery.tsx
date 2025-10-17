@@ -1,16 +1,12 @@
 "use client"
 
 import type React from "react"
-
 import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react"
 import { photosItems } from "@/lib/data/photo-Item-data"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 
 const getImageUrl = (src: string, size: { width: number; height: number }) => {
-  if (src.startsWith("/placeholder.svg")) {
-    return `${src}?height=${size.height}&width=${size.width}`
-  }
   return `${src}?height=${size.height}&width=${size.width}`
 }
 
@@ -18,11 +14,11 @@ function PhotoTile({
   photo,
   onClick,
 }: {
-  photo: typeof photosItems[number]
+  photo: (typeof photosItems)[number]
   onClick: () => void
 }) {
   return (
-    <div key={photo.id} className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer" onClick={onClick}>
+    <div className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer" onClick={onClick}>
       <img
         src={getImageUrl(photo.src || "/placeholder.svg", { width: 400, height: 400 })}
         alt={photo.alt}
@@ -46,15 +42,24 @@ function Lightbox({
   onClose: () => void
   onNext: () => void
   onPrevious: () => void
-  carouselRef: React.RefObject<HTMLDivElement | null>
+  carouselRef: React.RefObject<HTMLDivElement>
   onTouchStart: (e: React.TouchEvent) => void
   onTouchMove: (e: React.TouchEvent) => void
   onTouchEnd: () => void
 }) {
+  const currentPhoto = photosItems[selectedIndex]
+  const photoCounter = `${selectedIndex + 1} / ${photosItems.length}`
+
   return (
     <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center" onClick={onClose}>
       {/* Close Button */}
-      <Button variant="ghost" size="icon" className="absolute top-4 right-4 z-50 text-white hover:bg-white/20" onClick={onClose}>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
+        onClick={onClose}
+        aria-label="Cerrar galería"
+      >
         <X className="w-6 h-6" />
       </Button>
 
@@ -69,6 +74,7 @@ function Lightbox({
             e.stopPropagation()
             onPrevious()
           }}
+          aria-label="Foto anterior"
         >
           <ChevronLeft className="w-8 h-8" />
         </Button>
@@ -76,13 +82,11 @@ function Lightbox({
         {/* Image */}
         <div className="relative max-w-5xl max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
           <img
-            src={getImageUrl(photosItems[selectedIndex].src || "/placeholder.svg", { width: 1200, height: 1200 })}
-            alt={photosItems[selectedIndex].alt}
+            src={getImageUrl(currentPhoto.src || "/placeholder.svg", { width: 1200, height: 1200 })}
+            alt={currentPhoto.alt}
             className="max-w-full max-h-[85vh] object-contain rounded-lg"
           />
-          <p className="text-white text-center mt-4">
-            {selectedIndex + 1} / {photosItems.length}
-          </p>
+          <p className="text-white text-center mt-4">{photoCounter}</p>
         </div>
 
         {/* Next Arrow */}
@@ -94,21 +98,39 @@ function Lightbox({
             e.stopPropagation()
             onNext()
           }}
+          aria-label="Foto siguiente"
         >
           <ChevronRight className="w-8 h-8" />
         </Button>
       </div>
 
       {/* Mobile: Horizontal Carousel with Swipe */}
-      <div className="md:hidden w-full h-full flex items-center" onClick={(e) => e.stopPropagation()} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
-        <div ref={carouselRef} className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide w-full" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+      <div
+        className="md:hidden w-full h-full flex items-center"
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <div
+          ref={carouselRef}
+          className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide w-full"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
           {photosItems.map((photo, index) => (
-            <div key={photo.id} className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center snap-center px-4">
-              <img src={getImageUrl(photo.src || "/placeholder.svg", { width: 800, height: 800 })} alt={photo.alt} className="max-w-full max-h-[70vh] object-contain rounded-lg" />
+            <div
+              key={photo.id}
+              className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center snap-center px-4"
+            >
+              <img
+                src={getImageUrl(photo.src || "/placeholder.svg", { width: 800, height: 800 })}
+                alt={photo.alt}
+                className="max-w-full max-h-[70vh] object-contain rounded-lg"
+              />
               <p className="text-white text-center mt-4">
                 {index + 1} / {photosItems.length}
               </p>
-              <p className="text-white/70 text-sm mt-2">Desliza para ver más →</p>
+              {index === selectedIndex && <p className="text-white/70 text-sm mt-2">Desliza para ver más →</p>}
             </div>
           ))}
         </div>
@@ -123,54 +145,32 @@ export function PhotoGallery() {
   const [touchEnd, setTouchEnd] = useState<number | null>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
 
-  // Minimum swipe distance (in px)
   const minSwipeDistance = 50
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedIndex === null) return
+  const handlePrevious = useCallback(() => {
+    setSelectedIndex((prev) => {
+      if (prev === null) return null
+      return (prev - 1 + photosItems.length) % photosItems.length
+    })
+  }, [])
 
-      if (e.key === "ArrowLeft") {
-        handlePrevious()
-      } else if (e.key === "ArrowRight") {
-        handleNext()
-      } else if (e.key === "Escape") {
-        setSelectedIndex(null)
-      }
-    }
+  const handleNext = useCallback(() => {
+    setSelectedIndex((prev) => {
+      if (prev === null) return null
+      return (prev + 1) % photosItems.length
+    })
+  }, [])
 
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [selectedIndex])
-
-  useEffect(() => {
-    if (selectedIndex !== null) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-  }, [selectedIndex])
-
-  const handlePrevious = () => {
-    if (selectedIndex === null) return
-    setSelectedIndex((selectedIndex - 1 + photosItems.length) % photosItems.length)
-  }
-
-  const handleNext = () => {
-    if (selectedIndex === null) return
-    setSelectedIndex((selectedIndex + 1) % photosItems.length)
-  }
-
-  const onTouchStart = (e: React.TouchEvent) => {
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
     setTouchEnd(null)
     setTouchStart(e.targetTouches[0].clientX)
-  }
+  }, [])
 
-  const onTouchMove = (e: React.TouchEvent) => {
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX)
-  }
+  }, [])
 
-  const onTouchEnd = () => {
+  const onTouchEnd = useCallback(() => {
     if (!touchStart || !touchEnd) return
 
     const distance = touchStart - touchEnd
@@ -182,7 +182,33 @@ export function PhotoGallery() {
     } else if (isRightSwipe) {
       handlePrevious()
     }
-  }
+  }, [touchStart, touchEnd, handleNext, handlePrevious])
+
+  useEffect(() => {
+    if (selectedIndex === null) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        handlePrevious()
+      } else if (e.key === "ArrowRight") {
+        handleNext()
+      } else if (e.key === "Escape") {
+        setSelectedIndex(null)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [selectedIndex, handlePrevious, handleNext])
+
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      document.body.style.overflow = "hidden"
+      return () => {
+        document.body.style.overflow = "unset"
+      }
+    }
+  }, [selectedIndex])
 
   useEffect(() => {
     if (selectedIndex !== null && carouselRef.current) {

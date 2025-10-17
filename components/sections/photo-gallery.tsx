@@ -1,13 +1,9 @@
 "use client"
 
-import { useState } from "react"
 import { Camera } from "lucide-react"
-
-const categories = ["Todos", "Pareja", "Ceremonia", "Recepción", "Detalles"]
+import { photosItems } from "@/lib/data/photo-Item-data"
 
 export function PhotoGallery() {
-  const [activeCategory, setActiveCategory] = useState("Todos")
-
   return (
     <section className="py-20 md:py-32 bg-cream">
       <div className="container mx-auto px-4">
@@ -23,28 +19,15 @@ export function PhotoGallery() {
 
             <p className="text-muted-foreground mb-8 text-pretty">Comparte tus fotos usando nuestro hashtag oficial</p>
 
-            {/* Category Filter */}
-            <div className="flex flex-wrap justify-center gap-3 mb-12">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${activeCategory === category ? "bg-sage text-white" : "bg-white text-foreground hover:bg-sage/10"
-                    }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
           </div>
 
           {/* Photo Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer">
+            {photosItems.map((photo) => (
+              <div key={photo.id} className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer">
                 <img
-                  src={`/romantic-wedding-photo-.jpg?height=400&width=400&query=romantic wedding photo ${i}`}
-                  alt={`Foto de boda ${i}`}
+                  src={photo.src}
+                  alt={photo.alt}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
               </div>

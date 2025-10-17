@@ -42,7 +42,7 @@ function Lightbox({
   onClose: () => void
   onNext: () => void
   onPrevious: () => void
-  carouselRef: React.RefObject<HTMLDivElement>
+  carouselRef: React.RefObject<HTMLDivElement | null>
   onTouchStart: (e: React.TouchEvent) => void
   onTouchMove: (e: React.TouchEvent) => void
   onTouchEnd: () => void

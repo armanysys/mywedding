@@ -3,7 +3,7 @@ import { PhotoItem } from "../interfaces/PhotoItem";
 export const photosItems: PhotoItem[] = [
     {
         id: 1,
-        src: "/romantic-wedding-photo-.jpg",
+        src: "/romantic-wedding-photo-.jpg?height=400&width=400&query=romantic wedding photo 1",
         alt: "Foto de boda 1"
     },
     {

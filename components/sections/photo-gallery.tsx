@@ -7,6 +7,116 @@ import { photosItems } from "@/lib/data/photo-Item-data"
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 
+const getImageUrl = (src: string, size: { width: number; height: number }) => {
+  if (src.startsWith("/placeholder.svg")) {
+    return `${src}?height=${size.height}&width=${size.width}`
+  }
+  return `${src}?height=${size.height}&width=${size.width}`
+}
+
+function PhotoTile({
+  photo,
+  onClick,
+}: {
+  photo: typeof photosItems[number]
+  onClick: () => void
+}) {
+  return (
+    <div key={photo.id} className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer" onClick={onClick}>
+      <img
+        src={getImageUrl(photo.src || "/placeholder.svg", { width: 400, height: 400 })}
+        alt={photo.alt}
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+      />
+    </div>
+  )
+}
+
+function Lightbox({
+  selectedIndex,
+  onClose,
+  onNext,
+  onPrevious,
+  carouselRef,
+  onTouchStart,
+  onTouchMove,
+  onTouchEnd,
+}: {
+  selectedIndex: number
+  onClose: () => void
+  onNext: () => void
+  onPrevious: () => void
+  carouselRef: React.RefObject<HTMLDivElement | null>
+  onTouchStart: (e: React.TouchEvent) => void
+  onTouchMove: (e: React.TouchEvent) => void
+  onTouchEnd: () => void
+}) {
+  return (
+    <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center" onClick={onClose}>
+      {/* Close Button */}
+      <Button variant="ghost" size="icon" className="absolute top-4 right-4 z-50 text-white hover:bg-white/20" onClick={onClose}>
+        <X className="w-6 h-6" />
+      </Button>
+
+      {/* Desktop: Single Image with Navigation Arrows */}
+      <div className="hidden md:flex items-center justify-center w-full h-full px-20">
+        {/* Previous Arrow */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute left-4 text-white hover:bg-white/20 h-12 w-12"
+          onClick={(e) => {
+            e.stopPropagation()
+            onPrevious()
+          }}
+        >
+          <ChevronLeft className="w-8 h-8" />
+        </Button>
+
+        {/* Image */}
+        <div className="relative max-w-5xl max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
+          <img
+            src={getImageUrl(photosItems[selectedIndex].src || "/placeholder.svg", { width: 1200, height: 1200 })}
+            alt={photosItems[selectedIndex].alt}
+            className="max-w-full max-h-[85vh] object-contain rounded-lg"
+          />
+          <p className="text-white text-center mt-4">
+            {selectedIndex + 1} / {photosItems.length}
+          </p>
+        </div>
+
+        {/* Next Arrow */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-4 text-white hover:bg-white/20 h-12 w-12"
+          onClick={(e) => {
+            e.stopPropagation()
+            onNext()
+          }}
+        >
+          <ChevronRight className="w-8 h-8" />
+        </Button>
+      </div>
+
+      {/* Mobile: Horizontal Carousel with Swipe */}
+      <div className="md:hidden w-full h-full flex items-center" onClick={(e) => e.stopPropagation()} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
+        <div ref={carouselRef} className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide w-full" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+          {photosItems.map((photo, index) => (
+            <div key={photo.id} className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center snap-center px-4">
+              <img src={getImageUrl(photo.src || "/placeholder.svg", { width: 800, height: 800 })} alt={photo.alt} className="max-w-full max-h-[70vh] object-contain rounded-lg" />
+              <p className="text-white text-center mt-4">
+                {index + 1} / {photosItems.length}
+              </p>
+              <p className="text-white/70 text-sm mt-2">Desliza para ver más →</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function PhotoGallery() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [touchStart, setTouchStart] = useState<number | null>(null)
@@ -15,13 +125,6 @@ export function PhotoGallery() {
 
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50
-
-  const getImageUrl = (src: string, size: { width: number; height: number }) => {
-    if (src.startsWith("/placeholder.svg")) {
-      return `${src}?height=${size.height}&width=${size.width}`
-    }
-    return `${src}?height=${size.height}&width=${size.width}`
-  }
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -113,17 +216,7 @@ export function PhotoGallery() {
           {/* Photo Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {photosItems.map((photo, index) => (
-              <div
-                key={photo.id}
-                className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer"
-                onClick={() => setSelectedIndex(index)}
-              >
-                <img
-                  src={getImageUrl(photo.src || "/placeholder.svg", { width: 400, height: 400 })}
-                  alt={photo.alt}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
+              <PhotoTile key={photo.id} photo={photo} onClick={() => setSelectedIndex(index)} />
             ))}
           </div>
 
@@ -138,93 +231,16 @@ export function PhotoGallery() {
       </div>
 
       {selectedIndex !== null && (
-        <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
-          onClick={() => setSelectedIndex(null)}
-        >
-          {/* Close Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
-            onClick={() => setSelectedIndex(null)}
-          >
-            <X className="w-6 h-6" />
-          </Button>
-
-          {/* Desktop: Single Image with Navigation Arrows */}
-          <div className="hidden md:flex items-center justify-center w-full h-full px-20">
-            {/* Previous Arrow */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute left-4 text-white hover:bg-white/20 h-12 w-12"
-              onClick={(e) => {
-                e.stopPropagation()
-                handlePrevious()
-              }}
-            >
-              <ChevronLeft className="w-8 h-8" />
-            </Button>
-
-            {/* Image */}
-            <div className="relative max-w-5xl max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={getImageUrl(photosItems[selectedIndex].src || "/placeholder.svg", { width: 1200, height: 1200 })}
-                alt={photosItems[selectedIndex].alt}
-                className="max-w-full max-h-[85vh] object-contain rounded-lg"
-              />
-              <p className="text-white text-center mt-4">
-                {selectedIndex + 1} / {photosItems.length}
-              </p>
-            </div>
-
-            {/* Next Arrow */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-4 text-white hover:bg-white/20 h-12 w-12"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleNext()
-              }}
-            >
-              <ChevronRight className="w-8 h-8" />
-            </Button>
-          </div>
-
-          {/* Mobile: Horizontal Carousel with Swipe */}
-          <div
-            className="md:hidden w-full h-full flex items-center"
-            onClick={(e) => e.stopPropagation()}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
-            <div
-              ref={carouselRef}
-              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide w-full"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-            >
-              {photosItems.map((photo, index) => (
-                <div
-                  key={photo.id}
-                  className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center snap-center px-4"
-                >
-                  <img
-                    src={getImageUrl(photo.src || "/placeholder.svg", { width: 800, height: 800 })}
-                    alt={photo.alt}
-                    className="max-w-full max-h-[70vh] object-contain rounded-lg"
-                  />
-                  <p className="text-white text-center mt-4">
-                    {index + 1} / {photosItems.length}
-                  </p>
-                  <p className="text-white/70 text-sm mt-2">Desliza para ver más →</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <Lightbox
+          selectedIndex={selectedIndex}
+          onClose={() => setSelectedIndex(null)}
+          onNext={handleNext}
+          onPrevious={handlePrevious}
+          carouselRef={carouselRef}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        />
       )}
     </section>
   )

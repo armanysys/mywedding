@@ -1,5 +1,6 @@
 import { scheduleItem } from "@/lib/data/schedule-item-data"
 import { itineraryProps } from "@/lib/data/itinerary-props-data"
+import { iconMap } from "@/lib/data/icon-map"
 
 export function Itinerary() {
   return (
@@ -14,7 +15,7 @@ export function Itinerary() {
 
           <div className="space-y-8">
             {scheduleItem.map((item, index) => {
-              const Icon = item.icon
+              const Icon = iconMap[item.icon as keyof typeof iconMap]
               return (
                 <div key={index} className="flex gap-6 items-start group hover:translate-x-2 transition-transform">
                   <div className="flex-shrink-0">

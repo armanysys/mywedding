@@ -8,7 +8,7 @@ export const photosItems: PhotoItem[] = [
     },
     {
         id: 2,
-        src: "/romantic-wedding-photo-.jpg?height=400&width=400&query=romantic wedding photo 2",
+        src: "/workship25.jpg?height=400&width=400&query=romantic wedding photo 2",
         alt: "Foto de boda 2"
     },
     {

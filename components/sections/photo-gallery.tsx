@@ -16,6 +16,13 @@ export function PhotoGallery() {
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50
 
+  const getImageUrl = (src: string, size: { width: number; height: number }) => {
+    if (src.startsWith("/placeholder.svg")) {
+      return `${src}?height=${size.height}&width=${size.width}`
+    }
+    return `${src}?height=${size.height}&width=${size.width}`
+  }
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedIndex === null) return
@@ -112,7 +119,7 @@ export function PhotoGallery() {
                 onClick={() => setSelectedIndex(index)}
               >
                 <img
-                  src={photo.src || "/placeholder.svg"}
+                  src={getImageUrl(photo.src || "/placeholder.svg", { width: 400, height: 400 })}
                   alt={photo.alt}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
@@ -163,7 +170,7 @@ export function PhotoGallery() {
             {/* Image */}
             <div className="relative max-w-5xl max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
               <img
-                src={photosItems[selectedIndex].src || "/placeholder.svg"}
+                src={getImageUrl(photosItems[selectedIndex].src || "/placeholder.svg", { width: 1200, height: 1200 })}
                 alt={photosItems[selectedIndex].alt}
                 className="max-w-full max-h-[85vh] object-contain rounded-lg"
               />
@@ -205,7 +212,7 @@ export function PhotoGallery() {
                   className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center snap-center px-4"
                 >
                   <img
-                    src={photo.src || "/placeholder.svg"}
+                    src={getImageUrl(photo.src || "/placeholder.svg", { width: 800, height: 800 })}
                     alt={photo.alt}
                     className="max-w-full max-h-[70vh] object-contain rounded-lg"
                   />

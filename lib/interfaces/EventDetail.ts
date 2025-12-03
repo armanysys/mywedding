@@ -6,7 +6,7 @@ export interface EventBlock {
     extra?: string
 }
 
-export interface EventDetailsData {
+export interface EventDetails {
     id: string
     title: string
     intro?: string

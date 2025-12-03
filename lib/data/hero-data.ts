@@ -1,6 +1,6 @@
-import type { HeroData } from "@/lib/interfaces/HeroData"
+import type { Hero } from "@/lib/interfaces/Hero"
 
-export const heroData: HeroData = {
+export const heroData: Hero = {
   title: "Julia & Armando",
   subtitle: "Celebra con nosotros",
   dateLabel: "19 de Abril, 2026",

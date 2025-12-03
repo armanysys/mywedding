@@ -5,7 +5,7 @@ import type { Hero } from "@/lib/interfaces/Hero"
  * Centralized service for all hero-related API calls
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api/hero"
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || ""
 
 /**
  * Fetches hero section data from the API

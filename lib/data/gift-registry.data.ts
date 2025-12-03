@@ -1,4 +1,4 @@
-import { GiftRegistryData, RegistryItem, TransferDetails } from "../interfaces/GiftSection"
+import { GiftRegistry, RegistryItem, TransferDetails } from "../interfaces/Gift"
 
 export const mesasRegalos: RegistryItem[] = [
     {
@@ -24,7 +24,7 @@ export const transferDetails: TransferDetails = {
     holder: "Julia García",
 }
 
-export const giftRegistryData: GiftRegistryData = {
+export const giftRegistryData: GiftRegistry = {
     title: "Mesa de Regalos",
     intro:
         "Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo, estas son nuestras opciones",

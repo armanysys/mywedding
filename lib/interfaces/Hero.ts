@@ -1,4 +1,4 @@
-export interface HeroData {
+export interface Hero {
     title: string
     subtitle: string
     dateLabel: string

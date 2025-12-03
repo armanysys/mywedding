@@ -13,7 +13,7 @@ export interface TransferDetails {
     holder: string
 }
 
-export interface GiftRegistryData {
+export interface GiftRegistry {
     title: string
     intro: string
     note: string

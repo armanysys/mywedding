@@ -1,6 +1,6 @@
-import type { EventDetailsData } from "@/lib/interfaces/EventDetailsData"
+import type { EventDetails } from "@/lib/interfaces/EventDetail"
 
-export const eventDetailsData: EventDetailsData = {
+export const eventDetailsData: EventDetails = {
   id: "details",
   title: "Únete a Nosotros",
   intro:

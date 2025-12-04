@@ -2,14 +2,61 @@
 
 import { ChevronDown } from "lucide-react"
 import { Countdown } from "../countdown/countdown"
-import heroData from "@/lib/data/hero-data"
+import { useEffect, useState } from "react"
+import type { Hero as HeroType } from "@/lib/interfaces/Hero"
+import { getHeroDataClient } from "@/lib/services/hero.service"
 
 export function Hero() {
+  const [heroData, setHeroData] = useState<HeroType | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function loadHeroData() {
+      try {
+        const data = await getHeroDataClient()
+        setHeroData(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to load hero data")
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadHeroData()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-muted">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="mt-4 text-muted-foreground">Cargando...</p>
+        </div>
+      </section>
+    )
+  }
+
+  if (error || !heroData) {
+    return (
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-muted">
+        <div className="text-center text-destructive">
+          <p>Error al cargar la información</p>
+          <p className="text-sm mt-2">{error}</p>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img src="/romantic-wedding-photo-.jpg" alt="Julia y Armando" className="w-full h-full object-cover" />
+        <img
+          src={heroData.imageSrc || "/placeholder.svg"}
+          alt={heroData.imageAlt}
+          className="w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-black/20" />
       </div>
 
@@ -27,7 +74,7 @@ export function Hero() {
       {/* Scroll Indicator */}
       <button
         onClick={() => {
-          document.getElementById("details")?.scrollIntoView({ behavior: "smooth" })
+          document.getElementById(heroData.detailsId)?.scrollIntoView({ behavior: "smooth" })
         }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white animate-bounce"
         aria-label="Scroll down"

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { heroData } from "./data/hero-data"
+import { heroData } from "../data/hero-data"
 
 /**
  * GET /api/hero

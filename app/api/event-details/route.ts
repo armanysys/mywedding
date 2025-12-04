@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { eventDetailsData } from "./data/event-details-data"
+import { eventDetailsData } from "../data/event-details-data"
 
 /**
  * GET /api/event-details

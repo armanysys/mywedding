@@ -1,5 +1,10 @@
 import type { EventDetails } from "@/lib/interfaces/EventDetail"
 
+/**
+ * Event Details section data source
+ * Contains all information needed for the event details section including
+ * date, time, location, and introductory text
+ */
 export const eventDetailsData: EventDetails = {
   id: "details",
   title: "Únete a Nosotros",

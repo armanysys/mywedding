@@ -1,20 +1,71 @@
-import { scheduleItem } from "@/lib/data/schedule-item-data"
-import { itineraryProps } from "@/lib/data/itinerary-props-data"
+"use client"
+
+import { useEffect, useState } from "react"
+import { getItineraryDataClient } from "@/lib/services/itinerary.service"
+import type { ItineraryProps } from "@/lib/interfaces/ItineraryProps"
 import { iconMap } from "@/lib/data/icon-map"
+import { Loader2 } from "lucide-react"
 
 export function Itinerary() {
+  const [itineraryData, setItineraryData] = useState<ItineraryProps | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function fetchItineraryData() {
+      try {
+        const data = await getItineraryDataClient()
+        setItineraryData(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to load itinerary data")
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchItineraryData()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <section className="py-20 md:py-32 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <Loader2 className="w-8 h-8 animate-spin text-sage" />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (error) {
+    return (
+      <section className="py-20 md:py-32 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <p className="text-destructive text-center">Error: {error}</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (!itineraryData) {
+    return null
+  }
+
   return (
     <section className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl mb-6">{itineraryProps.Title}</h2>
+            <h2 className="font-serif text-4xl md:text-5xl mb-6">{itineraryData.Title}</h2>
             <div className="w-24 h-px bg-sage mx-auto mb-6" />
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">{itineraryProps.Description}</p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">{itineraryData.Description}</p>
           </div>
 
           <div className="space-y-8">
-            {scheduleItem.map((item, index) => {
+            {itineraryData.ScheduleItem.map((item, index) => {
               const Icon = iconMap[item.icon as keyof typeof iconMap]
               return (
                 <div key={index} className="flex gap-6 items-start group hover:translate-x-2 transition-transform">

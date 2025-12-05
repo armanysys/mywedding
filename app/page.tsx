@@ -1,7 +1,7 @@
 import { Hero } from "@/components/sections/hero"
 import { EventDetails } from "@/components/sections/event-details"
 import { Itinerary } from "@/components/sections/itinerary"
-import { PhotoGallery } from "@/components/sections/photo-gallery"
+import { PhotoGallery } from "@/components/sections/photo-section/photo-gallery"
 import { GiftRegistry } from "@/components/sections/gift-registry"
 import { Logistics } from "@/components/sections/logistics"
 import { SpotifyPlaylist } from "@/components/sections/spotify-playlist"

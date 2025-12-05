@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react"
-import { photosItems } from "@/lib/data/photo-Item-data"
+import { photoDescriptio } from "@/lib/data/photo-description-data"
 import { useState, useEffect, useRef, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 
@@ -14,7 +14,7 @@ function PhotoTile({
   photo,
   onClick,
 }: {
-  photo: (typeof photosItems)[number]
+  photo: (typeof photoDescriptio.photoItems)[number]
   onClick: () => void
 }) {
   return (
@@ -47,8 +47,8 @@ function Lightbox({
   onTouchMove: (e: React.TouchEvent) => void
   onTouchEnd: () => void
 }) {
-  const currentPhoto = photosItems[selectedIndex]
-  const photoCounter = `${selectedIndex + 1} / ${photosItems.length}`
+  const currentPhoto = photoDescriptio.photoItems[selectedIndex]
+  const photoCounter = `${selectedIndex + 1} / ${photoDescriptio.photoItems.length}`
 
   return (
     <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center" onClick={onClose}>
@@ -117,7 +117,7 @@ function Lightbox({
           className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide w-full"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {photosItems.map((photo, index) => (
+          {photoDescriptio.photoItems.map((photo, index) => (
             <div
               key={photo.id}
               className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center snap-center px-4"
@@ -128,7 +128,7 @@ function Lightbox({
                 className="max-w-full max-h-[70vh] object-contain rounded-lg"
               />
               <p className="text-white text-center mt-4">
-                {index + 1} / {photosItems.length}
+                {index + 1} / {photoDescriptio.photoItems.length}
               </p>
               {index === selectedIndex && <p className="text-white/70 text-sm mt-2">Desliza para ver más →</p>}
             </div>
@@ -150,14 +150,14 @@ export function PhotoGallery() {
   const handlePrevious = useCallback(() => {
     setSelectedIndex((prev) => {
       if (prev === null) return null
-      return (prev - 1 + photosItems.length) % photosItems.length
+      return (prev - 1 + photoDescriptio.photoItems.length) % photoDescriptio.photoItems.length
     })
   }, [])
 
   const handleNext = useCallback(() => {
     setSelectedIndex((prev) => {
       if (prev === null) return null
-      return (prev + 1) % photosItems.length
+      return (prev + 1) % photoDescriptio.photoItems.length
     })
   }, [])
 
@@ -213,7 +213,7 @@ export function PhotoGallery() {
   useEffect(() => {
     if (selectedIndex !== null && carouselRef.current) {
       const carousel = carouselRef.current
-      const itemWidth = carousel.scrollWidth / photosItems.length
+      const itemWidth = carousel.scrollWidth / photoDescriptio.photoItems.length
       carousel.scrollTo({
         left: itemWidth * selectedIndex,
         behavior: "smooth",
@@ -241,7 +241,7 @@ export function PhotoGallery() {
 
           {/* Photo Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {photosItems.map((photo, index) => (
+            {photoDescriptio.photoItems.map((photo, index) => (
               <PhotoTile key={photo.id} photo={photo} onClick={() => setSelectedIndex(index)} />
             ))}
           </div>

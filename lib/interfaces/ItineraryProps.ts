@@ -10,4 +10,3 @@ export interface ScheduleItem {
     description: string
     icon: string
 }
-

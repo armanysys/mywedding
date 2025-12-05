@@ -1,6 +1,11 @@
 import type { ItineraryProps } from "@/lib/interfaces/ItineraryProps"
 
-export const itineraryProps: ItineraryProps = {
+/**
+ * Itinerary section data source
+ * Contains all schedule information for the wedding day including
+ * ceremony, reception, and celebration timeline
+ */
+export const itineraryData: ItineraryProps = {
   Title: "Itinerario del Día",
   Description: "Un día lleno de amor, alegría y celebración",
   ScheduleItem: [
@@ -40,5 +45,7 @@ export const itineraryProps: ItineraryProps = {
       description: "Corte del pastel y brindis",
       icon: "Cake",
     },
-  ]
+  ],
 }
+
+export default itineraryData

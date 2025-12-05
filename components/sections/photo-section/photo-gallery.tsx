@@ -1,20 +1,18 @@
 "use client"
 
 import type React from "react"
+import { useState, useEffect } from "react"
 import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react"
-import { photosItems } from "@/lib/data/photo-Item-data"
-import { useState, useEffect, useRef, useCallback } from "react"
-import { Button } from "@/components/ui/button"
-
-const getImageUrl = (src: string, size: { width: number; height: number }) => {
-  return `${src}?height=${size.height}&width=${size.width}`
-}
+import { getPhotoGalleryDataClient } from "@/lib/services/photo-gallery.service"
+import type { PhotoDescriptio } from "@/lib/interfaces/PhotoDescription"
+import { Button as UiButton } from "@/components/ui/button"
+import { getImageUrl, usePhotoGallery } from "./photo-gallery.logic"
 
 function PhotoTile({
   photo,
   onClick,
 }: {
-  photo: (typeof photosItems)[number]
+  photo: PhotoDescriptio["photoItems"][number]
   onClick: () => void
 }) {
   return (
@@ -37,6 +35,7 @@ function Lightbox({
   onTouchStart,
   onTouchMove,
   onTouchEnd,
+  photoData,
 }: {
   selectedIndex: number
   onClose: () => void
@@ -46,14 +45,15 @@ function Lightbox({
   onTouchStart: (e: React.TouchEvent) => void
   onTouchMove: (e: React.TouchEvent) => void
   onTouchEnd: () => void
+  photoData: PhotoDescriptio
 }) {
-  const currentPhoto = photosItems[selectedIndex]
-  const photoCounter = `${selectedIndex + 1} / ${photosItems.length}`
+  const currentPhoto = photoData.photoItems[selectedIndex]
+  const photoCounter = `${selectedIndex + 1} / ${photoData.photoItems.length}`
 
   return (
     <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center" onClick={onClose}>
       {/* Close Button */}
-      <Button
+      <UiButton
         variant="ghost"
         size="icon"
         className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
@@ -61,12 +61,12 @@ function Lightbox({
         aria-label="Cerrar galería"
       >
         <X className="w-6 h-6" />
-      </Button>
+      </UiButton>
 
       {/* Desktop: Single Image with Navigation Arrows */}
       <div className="hidden md:flex items-center justify-center w-full h-full px-20">
         {/* Previous Arrow */}
-        <Button
+        <UiButton
           variant="ghost"
           size="icon"
           className="absolute left-4 text-white hover:bg-white/20 h-12 w-12"
@@ -77,7 +77,7 @@ function Lightbox({
           aria-label="Foto anterior"
         >
           <ChevronLeft className="w-8 h-8" />
-        </Button>
+        </UiButton>
 
         {/* Image */}
         <div className="relative max-w-5xl max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
@@ -90,7 +90,7 @@ function Lightbox({
         </div>
 
         {/* Next Arrow */}
-        <Button
+        <UiButton
           variant="ghost"
           size="icon"
           className="absolute right-4 text-white hover:bg-white/20 h-12 w-12"
@@ -101,7 +101,7 @@ function Lightbox({
           aria-label="Foto siguiente"
         >
           <ChevronRight className="w-8 h-8" />
-        </Button>
+        </UiButton>
       </div>
 
       {/* Mobile: Horizontal Carousel with Swipe */}
@@ -117,7 +117,7 @@ function Lightbox({
           className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide w-full"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {photosItems.map((photo, index) => (
+          {photoData.photoItems.map((photo, index) => (
             <div
               key={photo.id}
               className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center snap-center px-4"
@@ -128,7 +128,7 @@ function Lightbox({
                 className="max-w-full max-h-[70vh] object-contain rounded-lg"
               />
               <p className="text-white text-center mt-4">
-                {index + 1} / {photosItems.length}
+                {index + 1} / {photoData.photoItems.length}
               </p>
               {index === selectedIndex && <p className="text-white/70 text-sm mt-2">Desliza para ver más →</p>}
             </div>
@@ -140,119 +140,97 @@ function Lightbox({
 }
 
 export function PhotoGallery() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-  const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = useState<number | null>(null)
-  const carouselRef = useRef<HTMLDivElement>(null)
-
-  const minSwipeDistance = 50
-
-  const handlePrevious = useCallback(() => {
-    setSelectedIndex((prev) => {
-      if (prev === null) return null
-      return (prev - 1 + photosItems.length) % photosItems.length
-    })
-  }, [])
-
-  const handleNext = useCallback(() => {
-    setSelectedIndex((prev) => {
-      if (prev === null) return null
-      return (prev + 1) % photosItems.length
-    })
-  }, [])
-
-  const onTouchStart = useCallback((e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
-  }, [])
-
-  const onTouchMove = useCallback((e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }, [])
-
-  const onTouchEnd = useCallback(() => {
-    if (!touchStart || !touchEnd) return
-
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
-
-    if (isLeftSwipe) {
-      handleNext()
-    } else if (isRightSwipe) {
-      handlePrevious()
-    }
-  }, [touchStart, touchEnd, handleNext, handlePrevious])
+  const [photoData, setPhotoData] = useState<PhotoDescriptio | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (selectedIndex === null) return
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
-        handlePrevious()
-      } else if (e.key === "ArrowRight") {
-        handleNext()
-      } else if (e.key === "Escape") {
-        setSelectedIndex(null)
+    async function fetchData() {
+      try {
+        setLoading(true)
+        const data = await getPhotoGalleryDataClient()
+        setPhotoData(data)
+        setError(null)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to load photo gallery")
+        console.error("[v0] Error fetching photo gallery data:", err)
+      } finally {
+        setLoading(false)
       }
     }
 
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [selectedIndex, handlePrevious, handleNext])
+    fetchData()
+  }, [])
 
-  useEffect(() => {
-    if (selectedIndex !== null) {
-      document.body.style.overflow = "hidden"
-      return () => {
-        document.body.style.overflow = "unset"
-      }
-    }
-  }, [selectedIndex])
+  const {
+    selectedIndex,
+    setSelectedIndex,
+    carouselRef,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+    handleNext,
+    handlePrevious,
+  } = usePhotoGallery(photoData || { title: "", hastag: "", description: "", photoItems: [] })
 
-  useEffect(() => {
-    if (selectedIndex !== null && carouselRef.current) {
-      const carousel = carouselRef.current
-      const itemWidth = carousel.scrollWidth / photosItems.length
-      carousel.scrollTo({
-        left: itemWidth * selectedIndex,
-        behavior: "smooth",
-      })
-    }
-  }, [selectedIndex])
+  if (loading) {
+    return (
+      <section className="py-20 md:py-32 bg-cream">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="text-muted-foreground">Cargando galería...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (error || !photoData) {
+    return (
+      <section className="py-20 md:py-32 bg-cream">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="text-destructive">{error || "Error al cargar la galería"}</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="py-20 md:py-32 bg-cream">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl mb-6">Galería de Fotos</h2>
+            <h2 className="font-serif text-4xl md:text-5xl mb-6">{photoData.title}</h2>
             <div className="w-24 h-px bg-sage mx-auto mb-8" />
 
             {/* Hashtag */}
             <div className="inline-flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm mb-8">
-              <span className="font-medium text-lg">#JuliaYArmando2025</span>
+              <span className="font-medium text-lg">{photoData.hastag}</span>
             </div>
 
-            <p className="text-muted-foreground mb-8 text-pretty">Comparte tus fotos usando nuestro hashtag oficial</p>
+            <p className="text-muted-foreground mb-8 text-pretty">{photoData.description}</p>
 
             <p className="text-sm text-muted-foreground md:hidden">👆 Toca una foto y desliza para ver más</p>
           </div>
 
           {/* Photo Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {photosItems.map((photo, index) => (
+            {photoData.photoItems.map((photo, index) => (
               <PhotoTile key={photo.id} photo={photo} onClick={() => setSelectedIndex(index)} />
             ))}
           </div>
 
           {/* Photographer Credit */}
-          <div className="text-center mt-12">
-            <div className="inline-flex items-center gap-2 text-muted-foreground">
-              <Camera className="w-5 h-5" />
-              <span>Fotografía profesional por Studio Moments</span>
+          {photoData.photographer && (
+            <div className="text-center mt-12">
+              <div className="inline-flex items-center gap-2 text-muted-foreground">
+                <Camera className="w-5 h-5" />
+                <span>{photoData.photographer}</span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -266,6 +244,7 @@ export function PhotoGallery() {
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
+          photoData={photoData}
         />
       )}
     </section>

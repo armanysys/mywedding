@@ -1,6 +1,6 @@
-import type { GiftRegistry, RegistryItem, TransferDetails } from "../interfaces/Gift"
+import type { GiftDescription, GiftRegistry, TransferAccount } from "../interfaces/Gift"
 
-export const mesasRegalos: RegistryItem[] = [
+export const giftsRegistry: GiftRegistry[] = [
   {
     id: "001",
     codigo: "CODIGO",
@@ -17,7 +17,7 @@ export const mesasRegalos: RegistryItem[] = [
   },
 ]
 
-export const transferDetails: TransferDetails[] = [
+export const transferAccounts: TransferAccount[] = [
   {
     bank: "BBVA",
     account: "0123456789",
@@ -26,10 +26,10 @@ export const transferDetails: TransferDetails[] = [
   },
 ]
 
-export const giftRegistryData: GiftRegistry = {
+export const giftDescription: GiftDescription = {
   title: "Mesa de Regalos",
   intro: "Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo, estas son nuestras opciones",
   note: "Los regalos físicos pueden ser entregados el día del evento. Habrá un buzón especial para sobres y tarjetas.",
 }
 
-export default giftRegistryData
+export default giftDescription

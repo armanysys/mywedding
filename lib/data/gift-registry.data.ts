@@ -17,12 +17,14 @@ export const mesasRegalos: RegistryItem[] = [
   },
 ]
 
-export const transferDetails: TransferDetails = {
-  bank: "BBVA",
-  account: "0123456789",
-  clabe: "012345678901234567",
-  holder: "Julia García",
-}
+export const transferDetails: TransferDetails[] = [
+  {
+    bank: "BBVA",
+    account: "0123456789",
+    clabe: "012345678901234567",
+    holder: "Julia García",
+  },
+]
 
 export const giftRegistryData: GiftRegistry = {
   title: "Mesa de Regalos",

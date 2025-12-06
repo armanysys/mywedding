@@ -2,7 +2,6 @@ import { Gift, CreditCard, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import giftRegistryData, { mesasRegalos, transferDetails } from "@/lib/data/gift-registry.data"
-import { it } from "node:test"
 
 export function GiftRegistry() {
   const { title, intro, note } = giftRegistryData
@@ -41,30 +40,32 @@ export function GiftRegistry() {
                 </CardContent>
               </Card>
             ))}
-            {/* Cash Gift */}
-            <Card className="border-2 hover:border-sage transition-colors">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-4">
-                  <CreditCard className="w-8 h-8 text-sage" />
-                </div>
-                <h3 className="font-serif text-2xl mb-3">Transferencia</h3>
-                <p className="text-muted-foreground mb-6">Si prefieres hacer una transferencia bancaria</p>
-                <div className="bg-muted p-4 rounded-lg space-y-2 text-sm">
-                  <div>
-                    <span className="font-medium">Banco:</span> {transferDetails.bank}
+            {/* Cash Gift - Now iterates over transferDetails array to support multiple bank accounts */}
+            {transferDetails.map((transfer, index) => (
+              <Card key={index} className="border-2 hover:border-sage transition-colors">
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-4">
+                    <CreditCard className="w-8 h-8 text-sage" />
                   </div>
-                  <div>
-                    <span className="font-medium">Cuenta:</span> {transferDetails.account}
+                  <h3 className="font-serif text-2xl mb-3">Transferencia</h3>
+                  <p className="text-muted-foreground mb-6">Si prefieres hacer una transferencia bancaria</p>
+                  <div className="bg-muted p-4 rounded-lg space-y-2 text-sm">
+                    <div>
+                      <span className="font-medium">Banco:</span> {transfer.bank}
+                    </div>
+                    <div>
+                      <span className="font-medium">Cuenta:</span> {transfer.account}
+                    </div>
+                    <div>
+                      <span className="font-medium">CLABE:</span> {transfer.clabe}
+                    </div>
+                    <div>
+                      <span className="font-medium">Titular:</span> {transfer.holder}
+                    </div>
                   </div>
-                  <div>
-                    <span className="font-medium">CLABE:</span> {transferDetails.clabe}
-                  </div>
-                  <div>
-                    <span className="font-medium">Titular:</span> {transferDetails.holder}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
           {/* Note */}

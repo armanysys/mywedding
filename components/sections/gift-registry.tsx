@@ -1,7 +1,7 @@
 import { Gift, CreditCard, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import giftDescription, { giftsRegistry, transferAccounts } from "@/lib/data/gift-registry.data"
+import giftDescription from "@/lib/data/gift-registry.data"
 
 export function GiftRegistrySection() {
   const { title, intro, note } = giftDescription
@@ -18,7 +18,7 @@ export function GiftRegistrySection() {
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             {/* Store Registry */}
-            {giftsRegistry.map((item) => (
+            {giftDescription.giftRegistry.map((item) => (
               <Card key={item.id} className="border-2 hover:border-sage transition-colors">
                 <CardContent className="p-8 text-center">
                   <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-4">
@@ -41,7 +41,7 @@ export function GiftRegistrySection() {
               </Card>
             ))}
             {/* Cash Gift - Now iterates over transferAccounts array to support multiple bank accounts */}
-            {transferAccounts.map((transfer, index) => (
+            {giftDescription.transferAccounts.map((transfer, index) => (
               <Card key={index} className="border-2 hover:border-sage transition-colors">
                 <CardContent className="p-8 text-center">
                   <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-4">

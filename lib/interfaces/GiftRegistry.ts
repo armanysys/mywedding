@@ -17,4 +17,6 @@ export interface GiftDescription {
     title: string
     intro: string
     note: string
+    giftRegistry: GiftRegistry[]
+    transferAccounts: TransferAccount[]
 }

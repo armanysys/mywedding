@@ -4,15 +4,23 @@
 
 The Hero API provides data for the hero section of the wedding website, including couple names, wedding date, countdown timer information, and background image details.
 
+---
+
 ## Endpoint
 
-\`\`\`
-GET /api/hero
-\`\`\`
+### GET `/api/hero`
 
-## Response Format
+Retrieves hero section data for displaying the main banner with couple names, wedding date, and background image.
 
-### Success Response (200 OK)
+#### Request
+- **Method:** `GET`
+- **URL:** `/api/hero`
+- **Headers:** None required
+- **Body:** None
+
+#### Response
+
+**Success Response (200 OK)**
 
 \`\`\`json
 {
@@ -26,38 +34,45 @@ GET /api/hero
 }
 \`\`\`
 
-### Error Response (500 Internal Server Error)
+**Error Response (500 Internal Server Error)**
 
 \`\`\`json
 {
   "error": "Failed to fetch hero data",
-  "details": "Error message"
+  "details": "Specific error message"
 }
 \`\`\`
 
-## Schema Definition
+---
+
+## Data Schema
+
+### Hero
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `title` | string | Yes | Couple names (e.g., "Julia & Armando") |
-| `subtitle` | string | Yes | Subtitle text displayed below the title |
-| `dateLabel` | string | Yes | Human-readable wedding date |
-| `targetDateISO` | string | Yes | ISO 8601 date string for countdown timer |
-| `imageSrc` | string | Yes | Path to hero background image |
-| `imageAlt` | string | Yes | Alt text for accessibility |
-| `detailsId` | string | No | HTML ID for smooth scroll navigation |
+| `title` | `string` | Yes | Couple names (e.g., "Julia & Armando") |
+| `subtitle` | `string` | Yes | Subtitle text displayed below the title |
+| `dateLabel` | `string` | Yes | Human-readable wedding date |
+| `targetDateISO` | `string` | Yes | ISO 8601 date string for countdown timer |
+| `imageSrc` | `string` | Yes | Path to hero background image |
+| `imageAlt` | `string` | Yes | Alt text for accessibility |
+| `detailsId` | `string` | No | HTML ID for smooth scroll navigation |
 
-## Usage Examples
+---
 
-### Client-side Fetch (React/Next.js)
+## Usage Example
+
+### Client-Side (React/Next.js)
 
 \`\`\`typescript
 import { apiService } from '@/lib/services/api.service'
+import type { Hero } from '@/lib/interfaces/Hero'
 
-async function loadHeroData() {
+async function fetchHeroData() {
   try {
-    const heroData = await apiService.getHero()
-    console.log(heroData.title) // "Julia & Armando"
+    const data: Hero = await apiService.getHero()
+    console.log(data.title) // "Julia & Armando"
   } catch (error) {
     console.error('Failed to load hero data:', error)
   }
@@ -71,47 +86,59 @@ const response = await fetch('/api/hero')
 const data = await response.json()
 \`\`\`
 
-## Caching Strategy
+---
 
-- **Cache-Control**: `public, s-maxage=3600, stale-while-revalidate=86400`
-- Content is cached for 1 hour (3600 seconds)
+## Caching
+
+- **Cache-Control:** `public, s-maxage=3600, stale-while-revalidate=86400`
+- Data is cached for 1 hour (3600 seconds)
 - Stale content can be served for up to 24 hours while revalidating
 
-## Service Layer Architecture
+---
 
-The Hero API follows a three-layer architecture:
+## Architecture
 
-1. **Data Layer** (`app/api/data/hero-data.ts`): Contains the static hero data
-2. **Service Layer** (`app/api/hero-services/hero.service.ts`): Business logic and validation
-3. **API Layer** (`app/api/hero/route.ts`): HTTP endpoint and error handling
+### Layered Structure
 
-## TypeScript Interface
-
-\`\`\`typescript
-interface Hero {
-  title: string
-  subtitle: string
-  dateLabel: string
-  targetDateISO: string
-  imageSrc: string
-  imageAlt: string
-  detailsId?: string
-}
+\`\`\`
+app/api/hero/
+├── route.ts                    # API endpoint handler
+├── hero-services/
+│   └── hero.service.ts        # Business logic layer
+└── data/
+    └── hero-data.ts           # Data source
 \`\`\`
 
-## Error Handling
+### Service Layer
+The service layer (`HeroService`) provides:
+- Data retrieval methods
+- Validation logic
+- Business rules enforcement
+- Future scalability for database integration
 
-The API implements comprehensive error handling:
-- Validates data structure before returning
-- Logs errors server-side with `[API] Hero Error:` prefix
-- Returns structured error responses with details
-- Includes HTTP status codes (200, 500)
+### Client Service
+Centralized API calls in `lib/services/api.service.ts`:
+- Consistent error handling
+- Response parsing
+- Type safety
+- Easy maintenance
+
+---
 
 ## Future Enhancements
 
-Potential improvements for scalability:
-- Database integration for dynamic content
-- Multi-language support
-- Image optimization metadata
-- Real-time updates via WebSocket
-- A/B testing variants
+1. **Database Integration**: Replace static data with database queries
+2. **Multi-language Support**: Add i18n for different locales
+3. **Image Optimization**: Include responsive image metadata
+4. **Real-time Updates**: WebSocket support for live countdown
+5. **A/B Testing**: Support multiple hero variants
+6. **Authentication**: Protected routes for editing hero content
+
+---
+
+## Related Endpoints
+
+- `GET /api/gift-registry` - Gift registry data
+- `GET /api/event-details` - Event details data
+- `GET /api/itinerary` - Event itinerary data
+- `GET /api/photo-gallery` - Photo gallery data

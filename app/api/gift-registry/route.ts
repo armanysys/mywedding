@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { GiftRegistryService } from "../gift-registry-services/gift-registry.service"
+import { giftRegistryData } from "../data/gift-registry-data"
 
 /**
  * GET /api/gift-registry
@@ -47,14 +47,7 @@ import { GiftRegistryService } from "../gift-registry-services/gift-registry.ser
  */
 export async function GET() {
   try {
-    const data = await GiftRegistryService.getGiftRegistryData()
-
-    // Validate data before returning
-    if (!GiftRegistryService.validateGiftRegistryData(data)) {
-      throw new Error("Invalid gift registry data structure")
-    }
-
-    return NextResponse.json(data, {
+    return NextResponse.json(giftRegistryData, {
       status: 200,
       headers: {
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

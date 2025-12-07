@@ -4,24 +4,25 @@ import { Gift, CreditCard, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useEffect, useState } from "react"
-import { apiService } from "@/lib/services/api.service"
-import type { GiftDescription } from "@/lib/interfaces/GiftRegistry"
+import { getGiftDescriptionDataClient } from "@/lib/services/gift-registry.service"
+import type { GiftDescription as GiftDescriptionType } from "@/lib/interfaces/GiftRegistry"
 
 export function GiftRegistrySection() {
-  const [giftData, setGiftData] = useState<GiftDescription | null>(null)
+  const [giftData, setGiftData] = useState<GiftDescriptionType | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchGiftRegistry = async () => {
       try {
-        setLoading(true)
-        const data = await apiService.getGiftRegistry()
+        const data = await getGiftDescriptionDataClient()
         setGiftData(data)
-        setError(null)
       } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "No se pudo cargar la información de regalos. Por favor, intenta de nuevo más tarde.")
         console.error("[Gift Registry] Failed to load data:", err)
-        setError("No se pudo cargar la información de regalos. Por favor, intenta de nuevo más tarde.")
       } finally {
         setLoading(false)
       }

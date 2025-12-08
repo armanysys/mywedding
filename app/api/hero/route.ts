@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { HeroService } from "../hero-services/hero.service"
+import { heroData } from "../data/hero-data"
 
 /**
  * GET /api/hero
@@ -40,14 +40,7 @@ import { HeroService } from "../hero-services/hero.service"
  */
 export async function GET() {
   try {
-    const data = await HeroService.getHeroData()
-
-    // Validate data before returning
-    if (!HeroService.validateHeroData(data)) {
-      throw new Error("Invalid hero data structure")
-    }
-
-    return NextResponse.json(data, {
+    return NextResponse.json(heroData, {
       status: 200,
       headers: {
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

@@ -1,4 +1,4 @@
-export interface RegistryItem {
+export interface GiftRegistry {
     id: string
     codigo: string
     name: string
@@ -6,15 +6,17 @@ export interface RegistryItem {
     description?: string
 }
 
-export interface TransferDetails {
+export interface TransferAccount {
     bank: string
     account: string
     clabe: string
     holder: string
 }
 
-export interface GiftRegistry {
+export interface GiftDescription {
     title: string
     intro: string
     note: string
+    giftRegistry: GiftRegistry[]
+    transferAccounts: TransferAccount[]
 }

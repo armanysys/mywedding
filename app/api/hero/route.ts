@@ -18,6 +18,25 @@ import { heroData } from "../data/hero-data"
  *   imageAlt: string        - Alt text for hero image
  *   detailsId: string       - HTML ID for scroll target
  * }
+ *
+ * @example
+ * // Success Response (200)
+ * {
+ *   "title": "Julia & Armando",
+ *   "subtitle": "Celebra con nosotros",
+ *   "dateLabel": "19 de Abril, 2026",
+ *   "targetDateISO": "2026-04-19T00:00:00",
+ *   "imageSrc": "/romantic-wedding-photo.jpg",
+ *   "imageAlt": "Julia y Armando",
+ *   "detailsId": "details"
+ * }
+ *
+ * @example
+ * // Error Response (500)
+ * {
+ *   "error": "Failed to fetch hero data",
+ *   "details": "Error message"
+ * }
  */
 export async function GET() {
   try {
@@ -28,6 +47,13 @@ export async function GET() {
       },
     })
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch hero data" }, { status: 500 })
+    console.error("[API] Hero Error:", error)
+    return NextResponse.json(
+      {
+        error: "Failed to fetch hero data",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 },
+    )
   }
 }

@@ -1,11 +1,76 @@
+"use client"
+
 import { Gift, CreditCard, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import giftRegistryData, { mesasRegalos, transferDetails } from "@/lib/data/gift-registry.data"
-import { it } from "node:test"
+import { useEffect, useState } from "react"
+import { getGiftDescriptionDataClient } from "@/lib/services/gift-registry.service"
+import type { GiftDescription as GiftDescriptionType } from "@/lib/interfaces/GiftRegistry"
 
-export function GiftRegistry() {
-  const { title, intro, note } = giftRegistryData
+export function GiftRegistrySection() {
+  const [giftData, setGiftData] = useState<GiftDescriptionType | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchGiftRegistry = async () => {
+      try {
+        const data = await getGiftDescriptionDataClient()
+        setGiftData(data)
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "No se pudo cargar la información de regalos. Por favor, intenta de nuevo más tarde.")
+        console.error("[Gift Registry] Failed to load data:", err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchGiftRegistry()
+  }, [])
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="py-20 md:py-32 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="animate-pulse">
+              <div className="h-12 bg-muted rounded-lg w-64 mx-auto mb-6" />
+              <div className="h-4 bg-muted rounded w-96 mx-auto mb-12" />
+              <div className="grid md:grid-cols-2 gap-8">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="h-64 bg-muted rounded-lg" />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // Error state
+  if (error || !giftData) {
+    return (
+      <section className="py-20 md:py-32 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-8">
+              <p className="text-destructive font-medium">{error || "Error al cargar los datos"}</p>
+              <Button onClick={() => window.location.reload()} variant="outline" className="mt-4">
+                Reintentar
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  const { title, intro, note, giftRegistry, transferAccounts } = giftData
 
   return (
     <section className="py-20 md:py-32 bg-background">
@@ -19,7 +84,7 @@ export function GiftRegistry() {
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             {/* Store Registry */}
-            {mesasRegalos.map((item) => (
+            {giftRegistry.map((item) => (
               <Card key={item.id} className="border-2 hover:border-sage transition-colors">
                 <CardContent className="p-8 text-center">
                   <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-4">
@@ -41,30 +106,33 @@ export function GiftRegistry() {
                 </CardContent>
               </Card>
             ))}
-            {/* Cash Gift */}
-            <Card className="border-2 hover:border-sage transition-colors">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-4">
-                  <CreditCard className="w-8 h-8 text-sage" />
-                </div>
-                <h3 className="font-serif text-2xl mb-3">Transferencia</h3>
-                <p className="text-muted-foreground mb-6">Si prefieres hacer una transferencia bancaria</p>
-                <div className="bg-muted p-4 rounded-lg space-y-2 text-sm">
-                  <div>
-                    <span className="font-medium">Banco:</span> {transferDetails.bank}
+
+            {/* Bank Transfer Accounts - Supports multiple accounts */}
+            {transferAccounts.map((transfer, index) => (
+              <Card key={index} className="border-2 hover:border-sage transition-colors">
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mx-auto mb-4">
+                    <CreditCard className="w-8 h-8 text-sage" />
                   </div>
-                  <div>
-                    <span className="font-medium">Cuenta:</span> {transferDetails.account}
+                  <h3 className="font-serif text-2xl mb-3">Transferencia - {transfer.bank}</h3>
+                  <p className="text-muted-foreground mb-6">Si prefieres hacer una transferencia bancaria</p>
+                  <div className="bg-muted p-4 rounded-lg space-y-2 text-sm">
+                    <div>
+                      <span className="font-medium">Banco:</span> {transfer.bank}
+                    </div>
+                    <div>
+                      <span className="font-medium">Cuenta:</span> {transfer.account}
+                    </div>
+                    <div>
+                      <span className="font-medium">CLABE:</span> {transfer.clabe}
+                    </div>
+                    <div>
+                      <span className="font-medium">Titular:</span> {transfer.holder}
+                    </div>
                   </div>
-                  <div>
-                    <span className="font-medium">CLABE:</span> {transferDetails.clabe}
-                  </div>
-                  <div>
-                    <span className="font-medium">Titular:</span> {transferDetails.holder}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
           {/* Note */}

@@ -6,4 +6,9 @@ export interface Hero {
     imageSrc: string
     imageAlt: string
     detailsId: string
+    hashtag: string
+    facebookUrl: string
+    instagramUrl: string
+    email: string
+    endLine: string
 }

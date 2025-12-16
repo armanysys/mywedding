@@ -30,7 +30,7 @@ export async function getGiftDescriptionData(): Promise<GiftDescription> {
  */
 export async function getGiftDescriptionDataClient(): Promise<GiftDescription> {
     const response = await fetch("/api/gift-registry", {
-        cache: "force-cache",
+        cache: "no-store",
     })
 
     if (!response.ok) {

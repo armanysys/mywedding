@@ -30,7 +30,7 @@ export async function getPhotoGalleryData(): Promise<PhotoDescriptio> {
  */
 export async function getPhotoGalleryDataClient(): Promise<PhotoDescriptio> {
   const response = await fetch("/api/photo-gallery", {
-    cache: "force-cache",
+    cache: "no-store",
   })
 
   if (!response.ok) {

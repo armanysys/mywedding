@@ -30,7 +30,7 @@ export async function getEventDetailsData(): Promise<EventDetails> {
  */
 export async function getEventDetailsDataClient(): Promise<EventDetails> {
   const response = await fetch("/api/event-details", {
-    cache: "force-cache",
+    cache: "no-store",
   })
 
   if (!response.ok) {

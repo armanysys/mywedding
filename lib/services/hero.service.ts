@@ -30,7 +30,7 @@ export async function getHeroData(): Promise<Hero> {
  */
 export async function getHeroDataClient(): Promise<Hero> {
   const response = await fetch("/api/hero", {
-    cache: "force-cache",
+    cache: "no-store",
   })
 
   if (!response.ok) {

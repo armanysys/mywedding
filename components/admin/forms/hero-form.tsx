@@ -52,29 +52,35 @@ export function HeroForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="title">Título</Label>
-          <Input
-            id="title"
-            value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="subtitle">Subtítulo</Label>
-          <Input
-            id="subtitle"
-            value={formData.subtitle}
-            onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
-          />
+    <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Información principal */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium">Información Principal</h3>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="title">Título</Label>
+            <Input
+              id="title"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="subtitle">Subtítulo</Label>
+            <Input
+              id="subtitle"
+              value={formData.subtitle}
+              onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
+            />
+          </div>
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      {/* Fecha del evento */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium">Fecha del Evento</h3>
         <div className="space-y-2">
-          <Label htmlFor="dateEvent">Fecha de evento</Label>
+          <Label htmlFor="dateEvent">Fecha y hora</Label>
           <Input
             id="dateEvent"
             type="datetime-local"
@@ -84,54 +90,70 @@ export function HeroForm() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      {/* Redes sociales y contacto */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium">Redes Sociales y Contacto</h3>
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="space-y-2">
+            <Label htmlFor="facebookUrl">Facebook</Label>
+            <Input
+              id="facebookUrl"
+              type="url"
+              placeholder="https://facebook.com/..."
+              value={formData.facebookUrl}
+              onChange={(e) => setFormData({ ...formData, facebookUrl: e.target.value })}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="instagramUrl">Instagram</Label>
+            <Input
+              id="instagramUrl"
+              type="url"
+              placeholder="https://instagram.com/..."
+              value={formData.instagramUrl}
+              onChange={(e) => setFormData({ ...formData, instagramUrl: e.target.value })}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="email">Correo electrónico</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="contacto@ejemplo.com"
+              value={formData.email || ""}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Hashtag */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium">Hashtag del Evento</h3>
         <div className="space-y-2">
           <Label htmlFor="hashtag">Hashtag</Label>
           <Input
             id="hashtag"
+            placeholder="#MiBoda2026"
             value={formData.hashtag}
             onChange={(e) => setFormData({ ...formData, hashtag: e.target.value })}
           />
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      {/* Línea final */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium">Mensaje Final</h3>
         <div className="space-y-2">
-          <Label htmlFor="facebookUrl">URL de Facebook</Label>
-          <Input
-            id="facebookUrl"
-            type="url"
-            value={formData.facebookUrl}
-            onChange={(e) => setFormData({ ...formData, facebookUrl: e.target.value })}
+          <Label htmlFor="endLine">Línea final</Label>
+          <Textarea
+            id="endLine"
+            rows={3}
+            placeholder="Un mensaje especial para tus invitados..."
+            value={formData.endLine}
+            onChange={(e) => setFormData({ ...formData, endLine: e.target.value })}
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="instagramUrl">URL de Instagram</Label>
-          <Input
-            id="instagramUrl"
-            type="url"
-            value={formData.instagramUrl}
-            onChange={(e) => setFormData({ ...formData, instagramUrl: e.target.value })}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="email">Correo electrónico</Label>
-          <Input
-            id="email"
-            type="email"
-            value={formData.email || ""}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="endLine">Línea final</Label>
-        <Textarea
-          id="endLine"
-          value={formData.endLine}
-          onChange={(e) => setFormData({ ...formData, endLine: e.target.value })}
-        />
       </div>
 
       <Button type="submit" disabled={saving}>

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
 
-export function useCountdown(targetDateISO: string) {
-    const getTargetTime = () => new Date(targetDateISO).getTime()
+export function useCountdown(dateEvent: string) {
+    const getTargetTime = () => new Date(dateEvent).getTime()
 
     // Basic validation: warn if provided date is invalid
     useEffect(() => {
-        const t = new Date(targetDateISO)
+        const t = new Date(dateEvent)
         if (isNaN(t.getTime())) {
             // eslint-disable-next-line no-console
-            console.warn(`Countdown: targetDateISO is not a valid date string: ${targetDateISO}`)
+            console.warn(`Countdown: dateEvent is not a valid date string: ${dateEvent}`)
         }
-    }, [targetDateISO])
+    }, [dateEvent])
 
     const [timeLeft, setTimeLeft] = useState(() => {
         const diff = getTargetTime() - Date.now()
@@ -24,7 +24,7 @@ export function useCountdown(targetDateISO: string) {
         }, 1000)
 
         return () => clearInterval(timer)
-    }, [targetDateISO])
+    }, [dateEvent])
 
     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
     const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24)

@@ -65,10 +65,10 @@ export function Hero() {
         <p className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-light">{heroData.subtitle}</p>
         <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 text-balance">{heroData.title}</h1>
         <div className="w-16 h-px bg-white/60 mx-auto mb-6" />
-        <p className="text-xl md:text-2xl font-light tracking-wide">{heroData.dateLabel}</p>
+        <p className="text-xl md:text-2xl font-light tracking-wide">{heroData.dateEvent}</p>
 
         {/* Countdown */}
-        <Countdown targetDateISO={heroData.targetDateISO} />
+        <Countdown dateEvent={heroData.dateEvent} />
       </div>
 
       {/* Scroll Indicator */}

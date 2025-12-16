@@ -74,20 +74,12 @@ export function HeroForm() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="dateLabel">Etiqueta de fecha</Label>
+          <Label htmlFor="dateEvent">Fecha objetivo (ISO)</Label>
           <Input
-            id="dateLabel"
-            value={formData.dateLabel}
-            onChange={(e) => setFormData({ ...formData, dateLabel: e.target.value })}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="targetDateISO">Fecha objetivo (ISO)</Label>
-          <Input
-            id="targetDateISO"
+            id="dateEvent"
             type="datetime-local"
-            value={formData.targetDateISO.slice(0, 16)}
-            onChange={(e) => setFormData({ ...formData, targetDateISO: new Date(e.target.value).toISOString() })}
+            value={formData.dateEvent.slice(0, 16)}
+            onChange={(e) => setFormData({ ...formData, dateEvent: new Date(e.target.value).toISOString() })}
           />
         </div>
       </div>

@@ -1,8 +1,7 @@
 export interface Hero {
     title: string
     subtitle: string
-    dateLabel: string
-    targetDateISO: string
+    dateEvent: string
     imageSrc: string
     imageAlt: string
     detailsId: string

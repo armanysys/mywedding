@@ -6,10 +6,9 @@ import type { Hero } from "@/lib/interfaces/Hero"
  * couple names, wedding date, and background image
  */
 export const heroData: Hero = {
-  title: "Julia & Armando",
+  title: "Julia Judith Lopez Reina & Armando Antonio del Angel",
   subtitle: "Celebra con nosotros",
-  dateLabel: "19 de Abril, 2026",
-  targetDateISO: "2026-04-19T00:00:00",
+  dateEvent: "2026-04-19T00:00:00",
   imageSrc: "/romantic-wedding-photo-.jpg",
   imageAlt: "Julia y Armando",
   detailsId: "details",

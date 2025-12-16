@@ -55,47 +55,117 @@ export function HeroForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="groomName">Nombre del novio</Label>
+          <Label htmlFor="title">Título</Label>
           <Input
-            id="groomName"
-            value={formData.groomName}
-            onChange={(e) => setFormData({ ...formData, groomName: e.target.value })}
+            id="title"
+            value={formData.title}
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="brideName">Nombre de la novia</Label>
+          <Label htmlFor="subtitle">Subtítulo</Label>
           <Input
-            id="brideName"
-            value={formData.brideName}
-            onChange={(e) => setFormData({ ...formData, brideName: e.target.value })}
+            id="subtitle"
+            value={formData.subtitle}
+            onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="dateLabel">Etiqueta de fecha</Label>
+          <Input
+            id="dateLabel"
+            value={formData.dateLabel}
+            onChange={(e) => setFormData({ ...formData, dateLabel: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="targetDateISO">Fecha objetivo (ISO)</Label>
+          <Input
+            id="targetDateISO"
+            type="datetime-local"
+            value={formData.targetDateISO.slice(0, 16)}
+            onChange={(e) => setFormData({ ...formData, targetDateISO: new Date(e.target.value).toISOString() })}
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="imageSrc">URL de la imagen</Label>
+          <Input
+            id="imageSrc"
+            value={formData.imageSrc}
+            onChange={(e) => setFormData({ ...formData, imageSrc: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="imageAlt">Texto alternativo de imagen</Label>
+          <Input
+            id="imageAlt"
+            value={formData.imageAlt}
+            onChange={(e) => setFormData({ ...formData, imageAlt: e.target.value })}
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="detailsId">ID de detalles</Label>
+          <Input
+            id="detailsId"
+            value={formData.detailsId}
+            onChange={(e) => setFormData({ ...formData, detailsId: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="hashtag">Hashtag</Label>
+          <Input
+            id="hashtag"
+            value={formData.hashtag}
+            onChange={(e) => setFormData({ ...formData, hashtag: e.target.value })}
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="space-y-2">
+          <Label htmlFor="facebookUrl">URL de Facebook</Label>
+          <Input
+            id="facebookUrl"
+            type="url"
+            value={formData.facebookUrl}
+            onChange={(e) => setFormData({ ...formData, facebookUrl: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="instagramUrl">URL de Instagram</Label>
+          <Input
+            id="instagramUrl"
+            type="url"
+            value={formData.instagramUrl}
+            onChange={(e) => setFormData({ ...formData, instagramUrl: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="email">Correo electrónico</Label>
+          <Input
+            id="email"
+            type="email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="weddingDate">Fecha de la boda</Label>
-        <Input
-          id="weddingDate"
-          value={formData.weddingDate}
-          onChange={(e) => setFormData({ ...formData, weddingDate: e.target.value })}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="tagline">Frase</Label>
+        <Label htmlFor="endLine">Línea final</Label>
         <Textarea
-          id="tagline"
-          value={formData.tagline}
-          onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="backgroundImage">URL de la imagen de fondo</Label>
-        <Input
-          id="backgroundImage"
-          value={formData.backgroundImage}
-          onChange={(e) => setFormData({ ...formData, backgroundImage: e.target.value })}
+          id="endLine"
+          value={formData.endLine}
+          onChange={(e) => setFormData({ ...formData, endLine: e.target.value })}
         />
       </div>
 

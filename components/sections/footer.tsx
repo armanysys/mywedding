@@ -51,7 +51,7 @@ export function Footer() {
           <div className="w-16 h-px bg-background/40 mx-auto mb-6" />
 
           {/* Date */}
-          <p className="text-lg mb-8 opacity-90">{footerData.dateLabel}</p>
+          <p className="text-lg mb-8 opacity-90">{footerData.dateEvent}</p>
 
           {/* Social Links */}
           <div className="flex justify-center gap-6 mb-8">
@@ -73,9 +73,15 @@ export function Footer() {
             >
               <Facebook className="w-6 h-6" />
             </a>
-            <a href={footerData.email} className="hover:text-sage transition-colors" aria-label="Email">
-              <Mail className="w-6 h-6" />
-            </a>
+            {footerData.email?.trim() ? (
+              <a
+                href={`mailto:${footerData.email.trim()}`}
+                className="hover:text-sage transition-colors"
+                aria-label="Email"
+              >
+                <Mail className="w-6 h-6" />
+              </a>
+            ) : null}
           </div>
 
           {/* Hashtag */}

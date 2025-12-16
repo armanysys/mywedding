@@ -15,7 +15,7 @@ export const heroData: Hero = {
   hashtag: "#JuliaYArmando2026",
   facebookUrl: "https://facebook.com/juliayarmando",
   instagramUrl: "https://instagram.com/juliayarmando",
-  email: "",
+  email: "arm@sys.com",
   endLine: "Hecho con para nuestro día especial",
 }
 

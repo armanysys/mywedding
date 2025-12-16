@@ -74,7 +74,7 @@ export function HeroForm() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="dateEvent">Fecha objetivo (ISO)</Label>
+          <Label htmlFor="dateEvent">Fecha de evento</Label>
           <Input
             id="dateEvent"
             type="datetime-local"
@@ -85,33 +85,6 @@ export function HeroForm() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="imageSrc">URL de la imagen</Label>
-          <Input
-            id="imageSrc"
-            value={formData.imageSrc}
-            onChange={(e) => setFormData({ ...formData, imageSrc: e.target.value })}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="imageAlt">Texto alternativo de imagen</Label>
-          <Input
-            id="imageAlt"
-            value={formData.imageAlt}
-            onChange={(e) => setFormData({ ...formData, imageAlt: e.target.value })}
-          />
-        </div>
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="detailsId">ID de detalles</Label>
-          <Input
-            id="detailsId"
-            value={formData.detailsId}
-            onChange={(e) => setFormData({ ...formData, detailsId: e.target.value })}
-          />
-        </div>
         <div className="space-y-2">
           <Label htmlFor="hashtag">Hashtag</Label>
           <Input
@@ -146,7 +119,7 @@ export function HeroForm() {
           <Input
             id="email"
             type="email"
-            value={formData.email}
+            value={formData.email || ""}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
         </div>

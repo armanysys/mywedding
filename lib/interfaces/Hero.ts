@@ -8,6 +8,6 @@ export interface Hero {
     hashtag: string
     facebookUrl: string
     instagramUrl: string
-    email: string
+    email?: string | null
     endLine: string
 }

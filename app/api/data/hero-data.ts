@@ -8,15 +8,14 @@ import type { Hero } from "@/lib/interfaces/Hero"
 export const heroData: Hero = {
   title: "Julia & Armando",
   subtitle: "Celebra con nosotros",
-  dateLabel: "19 de Abril, 2026",
-  targetDateISO: "2026-04-19T00:00:00",
+  dateEvent: "2026-04-19T00:00:00",
   imageSrc: "/romantic-wedding-photo-.jpg",
   imageAlt: "Julia y Armando",
   detailsId: "details",
   hashtag: "#JuliaYArmando2026",
   facebookUrl: "https://facebook.com/juliayarmando",
   instagramUrl: "https://instagram.com/juliayarmando",
-  email: "",
+  email: "arm@sys.com",
   endLine: "Hecho con para nuestro día especial",
 }
 

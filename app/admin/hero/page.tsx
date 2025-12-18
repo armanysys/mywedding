@@ -1,5 +1,8 @@
+"use client"
+
+import type React from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { HeroForm } from "@/components/admin/forms/hero-form"
+import { HeroForm } from "@/app/admin/hero/hero-form"
 
 export default function HeroAdminPage() {
   return (

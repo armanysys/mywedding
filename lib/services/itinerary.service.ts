@@ -30,7 +30,7 @@ export async function getItineraryData(): Promise<ItineraryProps> {
  */
 export async function getItineraryDataClient(): Promise<ItineraryProps> {
   const response = await fetch("/api/itinerary", {
-    cache: "force-cache",
+    cache: "no-store",
   })
 
   if (!response.ok) {

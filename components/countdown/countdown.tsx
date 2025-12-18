@@ -2,8 +2,8 @@
 
 import { useCountdown } from "./useCountdown"
 
-export function Countdown({ targetDateISO }: { targetDateISO: string }) {
-    const { days, hours, minutes, seconds, pad } = useCountdown(targetDateISO)
+export function Countdown({ dateEvent }: { dateEvent: string }) {
+    const { days, hours, minutes, seconds, pad } = useCountdown(dateEvent)
 
     return (
         <div className="w-full flex justify-center mt-6">

@@ -30,7 +30,7 @@ export async function getConfirmacionAsistenciaDataFromAPI(): Promise<Confirmaci
  */
 export async function getConfirmacionAsistenciaDataClient(): Promise<ConfirmacionAsistencia> {
   const response = await fetch("/api/confirmacion-asistencia", {
-    cache: "force-cache",
+    cache: "no-store",
   })
 
   if (!response.ok) {

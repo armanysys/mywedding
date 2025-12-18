@@ -1,14 +1,13 @@
 export interface Hero {
     title: string
     subtitle: string
-    dateLabel: string
-    targetDateISO: string
+    dateEvent: string
     imageSrc: string
     imageAlt: string
     detailsId: string
     hashtag: string
     facebookUrl: string
     instagramUrl: string
-    email: string
+    email?: string | null
     endLine: string
 }

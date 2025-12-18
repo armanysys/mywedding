@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { getItineraryDataClient } from "@/lib/services/itinerary.service"
-import type { ItineraryProps } from "@/lib/interfaces/ItineraryProps"
+import type { ItineraryProps } from "@/Domain/ItineraryProps"
 import { Loader2, Plus, Trash2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 

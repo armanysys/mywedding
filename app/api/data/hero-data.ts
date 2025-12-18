@@ -1,4 +1,4 @@
-import type { Hero } from "@/lib/interfaces/Hero"
+import type { Hero } from "@/Domain/Hero"
 
 /**
  * Hero section data source

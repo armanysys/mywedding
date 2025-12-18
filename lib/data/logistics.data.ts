@@ -1,4 +1,4 @@
-import type { Logistics } from "../interfaces/Logistic"
+import type { Logistics } from "../../Domain/Logistic"
 
 export const logisticsData: Logistics = {
   title: "Información Práctica",

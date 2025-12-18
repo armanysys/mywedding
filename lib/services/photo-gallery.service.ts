@@ -1,4 +1,4 @@
-import type { PhotoDescriptio } from "@/lib/interfaces/PhotoDescription"
+import type { PhotoDescriptio } from "@/Domain/PhotoDescription"
 
 /**
  * Photo Gallery Service

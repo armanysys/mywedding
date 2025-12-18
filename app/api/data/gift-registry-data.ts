@@ -1,4 +1,4 @@
-import type { GiftDescription } from "@/lib/interfaces/GiftRegistry"
+import type { GiftDescription } from "@/Domain/GiftRegistry"
 
 /**
  * Gift Registry section data source

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Heart, Instagram, Facebook, Mail } from "lucide-react"
 import { getHeroDataClient } from "@/lib/services/hero.service"
 import type { Hero } from "@/lib/interfaces/Hero"
+import { formatDateSpanish } from "@/lib/utils"
 
 export function Footer() {
   const [footerData, setFooterData] = useState<Hero | null>(null)
@@ -51,7 +52,7 @@ export function Footer() {
           <div className="w-16 h-px bg-background/40 mx-auto mb-6" />
 
           {/* Date */}
-          <p className="text-lg mb-8 opacity-90">{footerData.dateEvent}</p>
+          <p className="text-lg mb-8 opacity-90">{formatDateSpanish(footerData.dateEvent)}</p>
 
           {/* Social Links */}
           <div className="flex justify-center gap-6 mb-8">

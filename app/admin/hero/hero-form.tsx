@@ -16,6 +16,27 @@ export function HeroForm() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
+  // Convierte un ISO (UTC) a valor para `input[type=datetime-local]` (representación local)
+  const isoToLocalInput = (iso?: string | null) => {
+    if (!iso) return ""
+    const d = new Date(iso)
+    if (isNaN(d.getTime())) return ""
+    const pad = (n: number) => String(n).padStart(2, "0")
+    const yyyy = d.getFullYear()
+    const mm = pad(d.getMonth() + 1)
+    const dd = pad(d.getDate())
+    const hh = pad(d.getHours())
+    const min = pad(d.getMinutes())
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}`
+  }
+
+  // Convierte valor de `input[type=datetime-local]` (local) a ISO UTC para almacenar
+  const localInputToIso = (local: string) => {
+    // `new Date(local)` interpreta la cadena como hora local
+    const d = new Date(local)
+    return isNaN(d.getTime()) ? local : d.toISOString()
+  }
+
   useEffect(() => {
     async function loadData() {
       try {
@@ -55,7 +76,6 @@ export function HeroForm() {
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* Información principal */}
       <div className="space-y-4">
-        <h3 className="text-lg font-medium">Información Principal</h3>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="title">Título</Label>
@@ -78,21 +98,21 @@ export function HeroForm() {
 
       {/* Fecha del evento */}
       <div className="space-y-4">
-        <h3 className="text-lg font-medium">Fecha del Evento</h3>
         <div className="space-y-2">
           <Label htmlFor="dateEvent">Fecha y hora</Label>
           <Input
             id="dateEvent"
             type="datetime-local"
-            value={formData.dateEvent.slice(0, 16)}
-            onChange={(e) => setFormData({ ...formData, dateEvent: new Date(e.target.value).toISOString() })}
+            value={isoToLocalInput(formData.dateEvent)}
+            onChange={(e) =>
+              setFormData({ ...formData, dateEvent: localInputToIso(e.target.value) })
+            }
           />
         </div>
       </div>
 
       {/* Redes sociales y contacto */}
       <div className="space-y-4">
-        <h3 className="text-lg font-medium">Redes Sociales y Contacto</h3>
         <div className="grid gap-4 md:grid-cols-3">
           <div className="space-y-2">
             <Label htmlFor="facebookUrl">Facebook</Label>
@@ -129,7 +149,6 @@ export function HeroForm() {
 
       {/* Hashtag */}
       <div className="space-y-4">
-        <h3 className="text-lg font-medium">Hashtag del Evento</h3>
         <div className="space-y-2">
           <Label htmlFor="hashtag">Hashtag</Label>
           <Input
@@ -143,9 +162,8 @@ export function HeroForm() {
 
       {/* Línea final */}
       <div className="space-y-4">
-        <h3 className="text-lg font-medium">Mensaje Final</h3>
         <div className="space-y-2">
-          <Label htmlFor="endLine">Línea final</Label>
+          <Label htmlFor="endLine">Mensaje final</Label>
           <Textarea
             id="endLine"
             rows={3}

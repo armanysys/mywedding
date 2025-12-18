@@ -5,23 +5,7 @@ import { Countdown } from "../countdown/countdown"
 import { useEffect, useState } from "react"
 import type { Hero as HeroType } from "@/lib/interfaces/Hero"
 import { getHeroDataClient } from "@/lib/services/hero.service"
-
-// Formatea una fecha ISO a español.
-// Opciones de estilo:
-// - "conDe" (por defecto): "19 de Abril, 2026"
-// - "del": "19 Abril del 2026"
-function formatDateSpanish(iso: string) {
-  if (!iso) return ""
-  const d = new Date(iso)
-  if (isNaN(d.getTime())) return iso
-
-  const day = d.getDate()
-  const month = d.toLocaleString("es-ES", { month: "long" })
-  const monthCap = month.charAt(0).toUpperCase() + month.slice(1)
-  const year = d.getFullYear()
-
-  return `${day} de ${monthCap}, ${year}`
-}
+import { formatDateSpanish } from "@/lib/utils"
 
 export function Hero() {
   const [heroData, setHeroData] = useState<HeroType | null>(null)

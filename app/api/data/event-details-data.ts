@@ -1,4 +1,4 @@
-import type { EventDetails } from "@/lib/interfaces/EventDetail"
+import type { EventDetails } from "@/Domain/EventDetail"
 
 /**
  * Event Details section data source

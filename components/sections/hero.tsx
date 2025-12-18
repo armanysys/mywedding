@@ -3,7 +3,7 @@
 import { ChevronDown } from "lucide-react"
 import { Countdown } from "../countdown/countdown"
 import { useEffect, useState } from "react"
-import type { Hero as HeroType } from "@/lib/interfaces/Hero"
+import type { Hero as HeroType } from "@/Domain/Hero"
 import { getHeroDataClient } from "@/lib/services/hero.service"
 import { formatDateSpanish } from "@/lib/utils"
 

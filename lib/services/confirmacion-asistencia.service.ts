@@ -1,4 +1,4 @@
-import type { ConfirmacionAsistencia } from "@/lib/interfaces/ConfirmacionAsistencia"
+import type { ConfirmacionAsistencia } from "@/Domain/ConfirmacionAsistencia"
 
 /**
  * Confirmación de Asistencia Service

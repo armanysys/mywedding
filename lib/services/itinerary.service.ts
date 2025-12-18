@@ -1,4 +1,4 @@
-import type { ItineraryProps } from "@/lib/interfaces/ItineraryProps"
+import type { ItineraryProps } from "@/Domain/ItineraryProps"
 
 /**
  * Itinerary Service

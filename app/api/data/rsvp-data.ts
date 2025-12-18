@@ -1,4 +1,4 @@
-import { ConfirmacionAsistencia } from "@/lib/interfaces/ConfirmacionAsistencia";
+import { ConfirmacionAsistencia } from "@/Domain/ConfirmacionAsistencia";
 
 export const confirmacionDataDefault: ConfirmacionAsistencia = {
   title: "Confirmación de Asistencia",

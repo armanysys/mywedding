@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { getItineraryDataClient } from "@/lib/services/itinerary.service"
-import type { ItineraryProps } from "@/lib/interfaces/ItineraryProps"
+import type { ItineraryProps } from "@/Domain/ItineraryProps"
 import { iconMap } from "@/lib/data/icon-map"
 import { Loader2 } from "lucide-react"
 

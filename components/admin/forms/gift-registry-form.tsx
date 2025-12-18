@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { getGiftDescriptionDataClient } from "@/lib/services/gift-registry.service"
-import type { GiftRegistry } from "@/lib/interfaces/GiftRegistry"
+import type { GiftRegistry } from "@/Domain/GiftRegistry"
 import { Loader2 } from "lucide-react"
 
 export function GiftRegistryForm() {

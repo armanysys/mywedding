@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Heart, Instagram, Facebook, Mail } from "lucide-react"
 import { getHeroDataClient } from "@/lib/services/hero.service"
-import type { Hero } from "@/lib/interfaces/Hero"
+import type { Hero } from "@/Domain/Hero"
 import { formatDateSpanish } from "@/lib/utils"
 
 export function Footer() {

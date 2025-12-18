@@ -4,7 +4,7 @@ import { Calendar, Clock, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
-import type { EventDetails as EventDetailsType } from "@/lib/interfaces/EventDetail"
+import type { EventDetails as EventDetailsType } from "@/Domain/EventDetail"
 
 export function EventDetails() {
   const [eventDetails, setEventDetails] = useState<EventDetailsType | null>(null)

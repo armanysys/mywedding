@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import type React from "react"
-import type { PhotoDescriptio } from "@/lib/interfaces/PhotoDescription"
+import type { PhotoDescriptio } from "@/Domain/PhotoDescription"
 
 export const getImageUrl = (src: string, size: { width: number; height: number }) => {
   return `${src}?height=${size.height}&width=${size.width}`

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ItineraryForm } from "@/components/admin/forms/itinerary-form"
+import { ItineraryForm } from "@/app/admin/itinerary/itinerary-form"
 
 export default function ItineraryAdminPage() {
   return (

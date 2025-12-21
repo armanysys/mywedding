@@ -8,11 +8,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { getGiftDescriptionDataClient } from "@/lib/services/gift-registry.service"
-import type { GiftRegistry } from "@/Domain/GiftRegistry"
+import type { GiftDescription } from "@/Domain/GiftRegistry"
 import { Loader2 } from "lucide-react"
 
 export function GiftRegistryForm() {
-  const [formData, setFormData] = useState<GiftRegistry | null>(null)
+  const [formData, setFormData] = useState<GiftDescription | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
@@ -63,20 +63,20 @@ export function GiftRegistryForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="description">Descripción</Label>
+        <Label htmlFor="intro">Introducción</Label>
         <Textarea
-          id="description"
-          value={formData.description}
-          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          id="intro"
+          value={formData.intro}
+          onChange={(e) => setFormData({ ...formData, intro: e.target.value })}
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="bankInfo">Información bancaria</Label>
+        <Label htmlFor="note">Nota</Label>
         <Textarea
-          id="bankInfo"
-          value={formData.bankInfo}
-          onChange={(e) => setFormData({ ...formData, bankInfo: e.target.value })}
+          id="note"
+          value={formData.note}
+          onChange={(e) => setFormData({ ...formData, note: e.target.value })}
         />
       </div>
 

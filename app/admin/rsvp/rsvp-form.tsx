@@ -54,47 +54,29 @@ export function RsvpForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="titulo">Título de la sección</Label>
+        <Label htmlFor="title">Título de la sección</Label>
         <Input
-          id="titulo"
-          value={formData.titulo}
-          onChange={(e) => setFormData({ ...formData, titulo: e.target.value })}
+          id="title"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="descripcion">Descripción</Label>
+        <Label htmlFor="subtitle">Subtítulo / Descripción</Label>
         <Textarea
-          id="descripcion"
-          value={formData.descripcion}
-          onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
+          id="subtitle"
+          value={formData.subtitle}
+          onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="labelNombre">Etiqueta del campo nombre</Label>
+        <Label htmlFor="fechaLimite">Fecha límite</Label>
         <Input
-          id="labelNombre"
-          value={formData.labelNombre}
-          onChange={(e) => setFormData({ ...formData, labelNombre: e.target.value })}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="labelAsistencia">Etiqueta del campo asistencia</Label>
-        <Input
-          id="labelAsistencia"
-          value={formData.labelAsistencia}
-          onChange={(e) => setFormData({ ...formData, labelAsistencia: e.target.value })}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="textoBoton">Texto del botón</Label>
-        <Input
-          id="textoBoton"
-          value={formData.textoBoton}
-          onChange={(e) => setFormData({ ...formData, textoBoton: e.target.value })}
+          id="fechaLimite"
+          value={formData.fechaLimite}
+          onChange={(e) => setFormData({ ...formData, fechaLimite: e.target.value })}
         />
       </div>
 

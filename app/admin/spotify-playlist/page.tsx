@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { SpotifyPlaylistForm } from "@/components/admin/forms/spotify-playlist-form"
+import { SpotifyPlaylistForm } from "@/app/admin/spotify-playlist/spotify-playlist-form"
 
 export default function SpotifyPlaylistAdminPage() {
   return (

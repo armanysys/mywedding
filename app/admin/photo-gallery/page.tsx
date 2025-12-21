@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { PhotoGalleryForm } from "@/components/admin/forms/photo-gallery-form"
+import { PhotoGalleryForm } from "@/app/admin/photo-gallery/photo-gallery-form"
 
 export default function PhotoGalleryAdminPage() {
   return (

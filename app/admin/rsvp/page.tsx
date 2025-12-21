@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { RsvpForm } from "@/components/admin/forms/rsvp-form"
+import { RsvpForm } from "@/app/admin/rsvp/rsvp-form"
 
 export default function RsvpAdminPage() {
   return (

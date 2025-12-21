@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { LogisticsForm } from "@/components/admin/forms/logistics-form"
+import { LogisticsForm } from "@/app/admin/logistics/logistics-form"
 
 export default function LogisticsAdminPage() {
   return (

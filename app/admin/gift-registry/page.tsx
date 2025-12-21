@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { GiftRegistryForm } from "@/components/admin/forms/gift-registry-form"
+import { GiftRegistryForm } from "@/app/admin/gift-registry/gift-registry-form"
 
 export default function GiftRegistryAdminPage() {
   return (

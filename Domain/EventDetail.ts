@@ -1,5 +1,5 @@
 export interface EventBlock {
-  icon?: string
+  icon: string
   heading: string
   subheading?: string
   value: string

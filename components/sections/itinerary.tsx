@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { getItineraryDataClient } from "@/lib/services/itinerary.service"
 import type { ItineraryProps } from "@/Domain/ItineraryProps"
-import { iconMap } from "@/lib/data/icon-map"
+import { iconMapping } from "@/Domain/IconMaping"
 import { Loader2 } from "lucide-react"
 
 export function Itinerary() {
@@ -66,7 +66,7 @@ export function Itinerary() {
 
           <div className="space-y-8">
             {itineraryData.ScheduleItem.map((item, index) => {
-              const Icon = iconMap[item.icon as keyof typeof iconMap]
+              const Icon = iconMapping[item.icon as keyof typeof iconMapping]
               return (
                 <div key={index} className="flex gap-6 items-start group hover:translate-x-2 transition-transform">
                   <div className="flex-shrink-0">

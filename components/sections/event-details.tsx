@@ -5,20 +5,7 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
 import type { EventDetails as EventDetailsType } from "@/Domain/EventDetail"
-
-const getIconComponent = (heading: string) => {
-  const headingLower = heading.toLowerCase()
-  if (headingLower.includes("fecha") || headingLower.includes("date")) {
-    return Calendar
-  }
-  if (headingLower.includes("hora") || headingLower.includes("time")) {
-    return Clock
-  }
-  if (headingLower.includes("lugar") || headingLower.includes("location") || headingLower.includes("place")) {
-    return MapPin
-  }
-  return Calendar // Default fallback
-}
+import { iconMapping } from "@/Domain/IconMaping"
 
 const isValidUrl = (url: string | undefined | null): boolean => {
   if (!url) return false
@@ -102,7 +89,7 @@ export function EventDetails() {
               className={`grid gap-8 md:gap-12 ${Information.length === 3 ? "md:grid-cols-3" : Information.length === 2 ? "md:grid-cols-2" : Information.length === 4 ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3"}`}
             >
               {Information.map((block, index) => {
-                const IconComponent = getIconComponent(block.heading)
+                const IconComponent = iconMapping[block.icon as keyof typeof iconMapping]
                 const hasValidMapUrl = isValidUrl(block.mapUrl)
                 const hasValidInstagramUrl = isValidUrl(block.InstagraUrl)
 

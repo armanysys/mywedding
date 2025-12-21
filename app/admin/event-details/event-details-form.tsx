@@ -43,6 +43,7 @@ export function EventDetailsForm() {
     if (!formData) return
 
     const newBlock: EventBlock = {
+      icon: "",
       heading: "",
       value: "",
       subheading: "",

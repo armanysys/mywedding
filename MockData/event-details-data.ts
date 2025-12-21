@@ -12,18 +12,21 @@ export const eventDetailsData: EventDetails = {
     "Después de años de amor y risas, estamos listos para dar el siguiente paso. Nos encantaría que nos acompañes en este día tan especial.",
   Information: [
     {
+      icon: "Calendar",
       heading: "Fecha",
       subheading: "Domingo",
       value: "19 de Abril, 2026",
       mapUrl: "https://maps.google.com/?q=Jard%C3%ADn+Bot%C3%A1nico+Ciudad+de+M%C3%A9xico",
     },
     {
+      icon: "Clock",
       heading: "Hora",
       subheading: "Ceremonia",
       value: "5:00 PM",
       InstagraUrl: "https://www.instagram.com/jardinbotanicocdmx/",
     },
     {
+      icon: "MapPin",
       heading: "Lugar",
       subheading: "Jardín Botánico",
       value: "Ciudad de México",

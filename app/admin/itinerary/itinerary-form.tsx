@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { getItineraryDataClient } from "@/lib/services/itinerary.service"
 import type { ItineraryProps, ScheduleItem } from "@/Domain/ItineraryProps"
+import { iconMapping } from "@/Domain/IconMaping"
 import { Loader2, Plus, Trash2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -119,7 +121,22 @@ export function ItineraryForm() {
                     <Trash2 className="h-4 w-4 text-destructive" />
                   </Button>
                 </div>
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div className="space-y-2">
+                    <Label>Ícono</Label>
+                    <Select value={item.icon} onValueChange={(value) => updateItem(index, "icon", value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccionar ícono" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.keys(iconMapping).map((iconName) => (
+                          <SelectItem key={iconName} value={iconName}>
+                            {iconName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                   <div className="space-y-2">
                     <Label>Hora</Label>
                     <Input
@@ -143,14 +160,6 @@ export function ItineraryForm() {
                     value={item.description}
                     onChange={(e) => updateItem(index, "description", e.target.value)}
                     placeholder="Intercambio de votos en el jardín principal"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Ícono</Label>
-                  <Input
-                    value={item.icon}
-                    onChange={(e) => updateItem(index, "icon", e.target.value)}
-                    placeholder="Church, Utensils, Music, Cake, etc."
                   />
                 </div>
               </div>

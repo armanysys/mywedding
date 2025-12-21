@@ -105,9 +105,9 @@ export function EventDetailsForm() {
         />
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <Label className="text-lg font-semibold">Información del Evento</Label>
+          <Label className="text-base font-semibold">Información del Evento</Label>
           <Button type="button" onClick={handleAddBlock} variant="outline" size="sm">
             <Plus className="mr-2 h-4 w-4" />
             Agregar más información
@@ -115,102 +115,122 @@ export function EventDetailsForm() {
         </div>
 
         {formData.Information && formData.Information.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {formData.Information.map((block, index) => (
               <Card key={index}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 pt-3">
                   <CardTitle className="text-sm font-medium">Bloque {index + 1}</CardTitle>
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
                     onClick={() => handleRemoveBlock(index)}
-                    className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                    className="h-7 w-7 p-0 text-destructive hover:text-destructive"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor={`icon-${index}`}>Icono</Label>
-                    <Select value={block.icon} onValueChange={(value) => handleUpdateBlock(index, "icon", value)}>
-                      <SelectTrigger id={`icon-${index}`}>
-                        <SelectValue placeholder="Selecciona un icono">
-                          {block.icon && (
-                            <div className="flex items-center gap-2">
-                              {(() => {
-                                const IconComponent = iconMapping[block.icon as keyof typeof iconMapping]
-                                return IconComponent ? <IconComponent className="h-4 w-4" /> : null
-                              })()}
-                              <span>{block.icon}</span>
-                            </div>
-                          )}
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Object.keys(iconMapping).map((iconName) => {
-                          const IconComponent = iconMapping[iconName as keyof typeof iconMapping]
-                          return (
-                            <SelectItem key={iconName} value={iconName}>
+                <CardContent className="space-y-3 pb-4">
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <Label htmlFor={`icon-${index}`} className="text-xs">
+                        Icono
+                      </Label>
+                      <Select value={block.icon} onValueChange={(value) => handleUpdateBlock(index, "icon", value)}>
+                        <SelectTrigger id={`icon-${index}`} className="h-9">
+                          <SelectValue placeholder="Selecciona un icono">
+                            {block.icon && (
                               <div className="flex items-center gap-2">
-                                <IconComponent className="h-4 w-4" />
-                                <span>{iconName}</span>
+                                {(() => {
+                                  const IconComponent = iconMapping[block.icon as keyof typeof iconMapping]
+                                  return IconComponent ? <IconComponent className="h-4 w-4" /> : null
+                                })()}
+                                <span className="text-sm">{block.icon}</span>
                               </div>
-                            </SelectItem>
-                          )
-                        })}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                            )}
+                          </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.keys(iconMapping).map((iconName) => {
+                            const IconComponent = iconMapping[iconName as keyof typeof iconMapping]
+                            return (
+                              <SelectItem key={iconName} value={iconName}>
+                                <div className="flex items-center gap-2">
+                                  <IconComponent className="h-4 w-4" />
+                                  <span>{iconName}</span>
+                                </div>
+                              </SelectItem>
+                            )
+                          })}
+                        </SelectContent>
+                      </Select>
+                    </div>
 
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2">
-                      <Label htmlFor={`heading-${index}`}>Encabezado</Label>
+                    <div className="space-y-1.5">
+                      <Label htmlFor={`heading-${index}`} className="text-xs">
+                        Encabezado
+                      </Label>
                       <Input
                         id={`heading-${index}`}
                         value={block.heading}
                         onChange={(e) => handleUpdateBlock(index, "heading", e.target.value)}
                         placeholder="Ej: Fecha, Hora, Ubicación"
+                        className="h-9"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor={`subheading-${index}`}>Subencabezado (opcional)</Label>
+                  </div>
+
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <Label htmlFor={`value-${index}`} className="text-xs">
+                        Valor
+                      </Label>
+                      <Input
+                        id={`value-${index}`}
+                        value={block.value}
+                        onChange={(e) => handleUpdateBlock(index, "value", e.target.value)}
+                        placeholder="Contenido principal"
+                        className="h-9"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label htmlFor={`subheading-${index}`} className="text-xs">
+                        Subencabezado (opcional)
+                      </Label>
                       <Input
                         id={`subheading-${index}`}
                         value={block.subheading || ""}
                         onChange={(e) => handleUpdateBlock(index, "subheading", e.target.value)}
                         placeholder="Información adicional"
+                        className="h-9"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor={`value-${index}`}>Valor</Label>
-                    <Input
-                      id={`value-${index}`}
-                      value={block.value}
-                      onChange={(e) => handleUpdateBlock(index, "value", e.target.value)}
-                      placeholder="Contenido principal del bloque"
-                    />
-                  </div>
-
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2">
-                      <Label htmlFor={`mapUrl-${index}`}>URL del Mapa (opcional)</Label>
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <Label htmlFor={`mapUrl-${index}`} className="text-xs">
+                        URL del Mapa (opcional)
+                      </Label>
                       <Input
                         id={`mapUrl-${index}`}
                         value={block.mapUrl || ""}
                         onChange={(e) => handleUpdateBlock(index, "mapUrl", e.target.value)}
                         placeholder="https://maps.google.com/..."
+                        className="h-9"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor={`instagraUrl-${index}`}>URL de Instagram (opcional)</Label>
+                    <div className="space-y-1.5">
+                      <Label htmlFor={`instagraUrl-${index}`} className="text-xs">
+                        URL de Instagram (opcional)
+                      </Label>
                       <Input
                         id={`instagraUrl-${index}`}
                         value={block.InstagraUrl || ""}
                         onChange={(e) => handleUpdateBlock(index, "InstagraUrl", e.target.value)}
                         placeholder="https://instagram.com/..."
+                        className="h-9"
                       />
                     </div>
                   </div>
@@ -220,7 +240,7 @@ export function EventDetailsForm() {
           </div>
         ) : (
           <Card>
-            <CardContent className="py-8 text-center text-muted-foreground">
+            <CardContent className="py-6 text-center text-sm text-muted-foreground">
               No hay bloques de información. Haz clic en "Agregar más información" para crear uno.
             </CardContent>
           </Card>

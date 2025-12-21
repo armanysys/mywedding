@@ -13,7 +13,7 @@ export const eventDetailsData: EventDetails = {
   dateBlock: {
     heading: "Fecha",
     subheading: "Domingo",
-    value: "15 de Junio, 2025",
+    value: "19 de Abril, 2026",
   },
   timeBlock: {
     heading: "Hora",

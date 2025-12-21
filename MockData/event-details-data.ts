@@ -8,24 +8,34 @@ import type { EventDetails } from "@/Domain/EventDetail"
 export const eventDetailsData: EventDetails = {
   id: "details",
   title: "Únete a Nosotros",
-  intro:
+  subTitle:
     "Después de años de amor y risas, estamos listos para dar el siguiente paso. Nos encantaría que nos acompañes en este día tan especial.",
-  dateBlock: {
-    heading: "Fecha",
-    subheading: "Domingo",
-    value: "19 de Abril, 2026",
-  },
-  timeBlock: {
-    heading: "Hora",
-    subheading: "Ceremonia",
-    value: "5:00 PM",
-  },
-  locationBlock: {
-    heading: "Lugar",
-    subheading: "Jardín Botánico",
-    value: "Ciudad de México",
-    mapUrl: "https://maps.google.com/?q=Jard%C3%ADn+Bot%C3%A1nico+Ciudad+de+M%C3%A9xico",
-  },
+  Information: [
+    {
+      heading: "Fecha",
+      subheading: "Domingo",
+      value: "19 de Abril, 2026",
+    },
+    {
+      heading: "Hora",
+      subheading: "Ceremonia",
+      value: "5:00 PM",
+    },
+    {
+      heading: "Lugar",
+      subheading: "Jardín Botánico",
+      value: "Ciudad de México",
+      mapUrl: "https://maps.google.com/?q=Jard%C3%ADn+Bot%C3%A1nico+Ciudad+de+M%C3%A9xico",
+      InstagraUrl: "https://www.instagram.com/jardinbotanicocdmx/",
+    },
+    {
+      heading: "Lugar",
+      subheading: "Jardín Botánico",
+      value: "Ciudad de México",
+      mapUrl: "https://maps.google.com/?q=Jard%C3%ADn+Bot%C3%A1nico+Ciudad+de+M%C3%A9xico",
+      InstagraUrl: "https://www.instagram.com/jardinbotanicocdmx/",
+    },
+  ]
 }
 
 export default eventDetailsData

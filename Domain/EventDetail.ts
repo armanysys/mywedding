@@ -10,9 +10,6 @@ export interface EventBlock {
 export interface EventDetails {
     id: string
     title: string
-    intro?: string
-    dateBlock: EventBlock
-    timeBlock: EventBlock
-    locationBlock: EventBlock
-    moreInfo?: EventBlock[] | null
+    subTitle: string
+    Information?: EventBlock[] | null
 }

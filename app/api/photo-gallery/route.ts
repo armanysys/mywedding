@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { photoGalleryData } from "../data/photo-gallery-data"
+import { photoGalleryData } from "../../../MockData/photo-gallery-data"
 
 /**
  * GET /api/photo-gallery

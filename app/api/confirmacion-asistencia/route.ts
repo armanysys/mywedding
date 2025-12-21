@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { confirmacionDataDefault } from "../data/rsvp-data"
+import { confirmacionDataDefault } from "../../../MockData/rsvp-data"
 
 /**
  * GET /api/confirmacion-asistencia

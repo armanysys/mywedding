@@ -4,27 +4,35 @@ import { ChevronDown } from "lucide-react"
 import { Countdown } from "../countdown/countdown"
 import { useEffect, useState } from "react"
 import type { Hero as HeroType } from "@/Domain/Hero"
+import type { Couple as CoupleType } from "@/Domain/CoupleInfo"
 import { getHeroDataClient } from "@/lib/services/hero.service"
+import { getCoupleInfoClient } from "@/lib/services/couple-info.service"
 import { formatDateSpanish } from "@/lib/utils"
 
-export function Hero() {
-  const [heroData, setHeroData] = useState<HeroType | null>(null)
+export function InitialSection() {
+  const [initialData, setInitialData] = useState<HeroType | null>(null)
+  const [coupleInfo, setCoupleInfo] = useState<CoupleType | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    async function loadHeroData() {
+    async function loadInitialData() {
       try {
-        const data = await getHeroDataClient()
-        setHeroData(data)
+        const [heroData, coupleData] = await Promise.all([
+          getHeroDataClient(),
+          getCoupleInfoClient(),
+        ])
+
+        setInitialData(heroData)
+        setCoupleInfo(coupleData)
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load hero data")
+        setError(err instanceof Error ? err.message : "Failed to load initial data")
       } finally {
         setIsLoading(false)
       }
     }
 
-    loadHeroData()
+    loadInitialData()
   }, [])
 
   if (isLoading) {
@@ -38,7 +46,7 @@ export function Hero() {
     )
   }
 
-  if (error || !heroData) {
+  if (error || !initialData || !coupleInfo) {
     return (
       <section className="relative h-screen flex items-center justify-center overflow-hidden bg-muted">
         <div className="text-center text-destructive">
@@ -54,8 +62,8 @@ export function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src={heroData.imageSrc || "/placeholder.svg"}
-          alt={heroData.imageAlt}
+          src={initialData.imageSrc || "/placeholder.svg"}
+          alt={initialData.imageAlt}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/20" />
@@ -63,19 +71,22 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center text-white px-4">
-        <p className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-light">{heroData.subtitle}</p>
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 text-balance">{heroData.title}</h1>
+        <p className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-light">{coupleInfo.titleInitSection}</p>
+
+        {coupleInfo && (
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 text-balance">{coupleInfo.GroomName} & {coupleInfo.BrideName}</h1>
+        )}
         <div className="w-16 h-px bg-white/60 mx-auto mb-6" />
-        <p className="text-xl md:text-2xl font-light tracking-wide">{formatDateSpanish(heroData.dateEvent)}</p>
+        <p className="text-xl md:text-2xl font-light tracking-wide">{formatDateSpanish(initialData.dateEvent)}</p>
 
         {/* Countdown */}
-        <Countdown dateEvent={heroData.dateEvent} />
+        <Countdown dateEvent={initialData.dateEvent} />
       </div>
 
       {/* Scroll Indicator */}
       <button
         onClick={() => {
-          document.getElementById(heroData.detailsId)?.scrollIntoView({ behavior: "smooth" })
+          document.getElementById(initialData.detailsId)?.scrollIntoView({ behavior: "smooth" })
         }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white animate-bounce"
         aria-label="Scroll down"

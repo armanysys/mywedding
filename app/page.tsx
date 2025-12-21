@@ -1,4 +1,4 @@
-import { Hero } from "@/components/sections/hero"
+import { InitialSection } from "@/components/sections/intial-section"
 import { EventDetails } from "@/components/sections/event-details"
 import { Itinerary } from "@/components/sections/itinerary"
 import { PhotoGallery } from "@/components/sections/photo-section/photo-gallery"
@@ -11,7 +11,7 @@ import { Footer } from "@/components/sections/footer"
 export default function WeddingPage() {
   return (
     <main className="min-h-screen">
-      <Hero />
+      <InitialSection />
       <EventDetails />
       <Itinerary />
       <PhotoGallery />

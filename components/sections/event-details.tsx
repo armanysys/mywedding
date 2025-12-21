@@ -1,10 +1,17 @@
 "use client"
 
-import { Calendar, Clock, MapPin } from "lucide-react"
+import { Calendar, Clock, MapPin, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
 import type { EventDetails as EventDetailsType } from "@/Domain/EventDetail"
+import { iconMapping } from "@/Domain/IconMaping"
+
+const isValidUrl = (url: string | undefined | null): boolean => {
+  if (!url) return false
+  const trimmed = url.trim()
+  return trimmed.length > 0
+}
 
 export function EventDetails() {
   const [eventDetails, setEventDetails] = useState<EventDetailsType | null>(null)
@@ -64,7 +71,7 @@ export function EventDetails() {
     )
   }
 
-  const { id, title, intro, dateBlock, timeBlock, locationBlock } = eventDetails
+  const { id, title, subTitle, Information } = eventDetails
 
   return (
     <section id={id} className="py-20 md:py-32 bg-cream">
@@ -74,50 +81,60 @@ export function EventDetails() {
           <div className="w-24 h-px bg-sage mx-auto mb-12" />
 
           <p className="text-lg md:text-xl text-muted-foreground mb-16 leading-relaxed max-w-2xl mx-auto text-pretty">
-            {intro}
+            {subTitle}
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-            {/* Date */}
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mb-4">
-                <Calendar className="w-8 h-8 text-sage" />
-              </div>
-              <h3 className="font-serif text-xl mb-2">{dateBlock.heading}</h3>
-              <p className="text-muted-foreground">{dateBlock.subheading}</p>
-              <p className="text-lg font-medium">{dateBlock.value}</p>
-            </div>
+          {Information && Information.length > 0 && (
+            <div
+              className={`grid gap-8 md:gap-12 ${Information.length === 3 ? "md:grid-cols-3" : Information.length === 2 ? "md:grid-cols-2" : Information.length === 4 ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3"}`}
+            >
+              {Information.map((block, index) => {
+                const IconComponent = iconMapping[block.icon as keyof typeof iconMapping]
+                const hasValidMapUrl = isValidUrl(block.mapUrl)
+                const hasValidInstagramUrl = isValidUrl(block.InstagraUrl)
 
-            {/* Time */}
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mb-4">
-                <Clock className="w-8 h-8 text-sage" />
-              </div>
-              <h3 className="font-serif text-xl mb-2">{timeBlock.heading}</h3>
-              <p className="text-muted-foreground">{timeBlock.subheading}</p>
-              <p className="text-lg font-medium">{timeBlock.value}</p>
-            </div>
+                return (
+                  <div key={`${block.heading}-${index}`} className="flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mb-4">
+                      <IconComponent className="w-8 h-8 text-sage" />
+                    </div>
+                    <h3 className="font-serif text-xl mb-2">{block.heading}</h3>
+                    {block.subheading && <p className="text-muted-foreground">{block.subheading}</p>}
+                    <p className="text-lg font-medium mb-3">{block.value}</p>
 
-            {/* Location */}
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-sage/10 flex items-center justify-center mb-4">
-                <MapPin className="w-8 h-8 text-sage" />
-              </div>
-              <h3 className="font-serif text-xl mb-2">{locationBlock.heading}</h3>
-              <p className="text-muted-foreground">{locationBlock.subheading}</p>
-              <p className="text-lg font-medium mb-3">{locationBlock.value}</p>
-              <Button variant="outline" size="sm" asChild>
-                <a
-                  href={locationBlock.mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sage border-sage hover:bg-sage hover:text-white"
-                >
-                  Ver en Mapa
-                </a>
-              </Button>
+                    <div className="flex gap-2">
+                      {hasValidMapUrl && (
+                        <Button variant="outline" size="sm" asChild>
+                          <a
+                            href={block.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sage border-sage hover:bg-sage hover:text-white"
+                          >
+                            Ver en Mapa
+                          </a>
+                        </Button>
+                      )}
+
+                      {hasValidInstagramUrl && (
+                        <Button variant="outline" size="sm" asChild>
+                          <a
+                            href={block.InstagraUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sage border-sage hover:bg-sage hover:text-white"
+                            aria-label="Ver en Instagram"
+                          >
+                            <Instagram className="w-4 h-4" />
+                          </a>
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

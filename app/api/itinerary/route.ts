@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { itineraryData } from "../data/itinerary-data"
+import { itineraryData } from "../../../MockData/itinerary-data"
 
 /**
  * GET /api/itinerary

@@ -1,10 +1,57 @@
+"use client"
+
 import { Car, Hotel, Shirt, Navigation } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import logisticsData from "@/lib/data/logistics.data"
+import { useEffect, useState } from "react"
+import { getLogisticsDataClient } from "@/lib/services/logistics.service"
+import type { Logistics } from "@/Domain/Logistic"
 
 export function Logistics() {
-  const { title, intro, venue, transport, hotels, dressCode } = logisticsData
+  const [data, setData] = useState<Logistics | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const logisticsData = await getLogisticsDataClient()
+        setData(logisticsData)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to load logistics data")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (loading) {
+    return (
+      <section className="py-20 md:py-32 bg-cream">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <p className="text-muted-foreground">Cargando información...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (error || !data) {
+    return (
+      <section className="py-20 md:py-32 bg-cream">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <p className="text-red-500">{error || "Error al cargar los datos"}</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  const { title, intro, venue, transport, hotels, dressCode } = data
 
   return (
     <section className="py-20 md:py-32 bg-cream">
@@ -64,7 +111,9 @@ export function Logistics() {
                     <h3 className="font-serif text-2xl mb-2">Transporte</h3>
                     <ul className="text-muted-foreground space-y-2">
                       {transport.map((t, i) => (
-                        <li key={i}>• {t.mode}: {t.details}</li>
+                        <li key={i}>
+                          • {t.mode}: {t.details}
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -89,7 +138,9 @@ export function Logistics() {
                           <p className="text-muted-foreground">{h.details}</p>
                         </div>
                       ))}
-                      <p className="text-xs text-muted-foreground italic mt-4">Menciona "Boda Julia & Armando" para obtener la tarifa especial</p>
+                      <p className="text-xs text-muted-foreground italic mt-4">
+                        Menciona "Boda Julia & Armando" para obtener la tarifa especial
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -112,7 +163,12 @@ export function Logistics() {
                         <p className="font-medium mb-2">Paleta de colores sugerida:</p>
                         <div className="flex gap-2">
                           {dressCode.colors.map((c) => (
-                            <div key={c.name} className={`w-10 h-10 rounded-full ${c.hex ? '' : ''}`} title={c.name} style={c.hex ? { backgroundColor: c.hex } : undefined} />
+                            <div
+                              key={c.name}
+                              className={`w-10 h-10 rounded-full ${c.hex ? "" : ""}`}
+                              title={c.name}
+                              style={c.hex ? { backgroundColor: c.hex } : undefined}
+                            />
                           ))}
                         </div>
                         <p className="text-xs text-muted-foreground mt-2">Por favor evita el blanco</p>

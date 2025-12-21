@@ -3,7 +3,8 @@ export interface EventBlock {
     heading: string
     subheading?: string
     value: string
-    extra?: string
+    mapUrl?: string | null
+    InstagraUrl?: string | null
 }
 
 export interface EventDetails {
@@ -12,5 +13,6 @@ export interface EventDetails {
     intro?: string
     dateBlock: EventBlock
     timeBlock: EventBlock
-    locationBlock: EventBlock & { mapUrl?: string }
+    locationBlock: EventBlock
+    moreInfo?: EventBlock[] | null
 }

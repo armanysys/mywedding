@@ -1,4 +1,5 @@
 export interface Couple {
+    titleInitSection: string
     GroomName: string
     BrideName: string
     CoupleHistory: string | null

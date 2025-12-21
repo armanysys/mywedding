@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { coupleInfo } from "../data/couple-info-data";
+import { coupleInfo } from "../../../MockData/couple-info-data";
 
 /**
  * GET /api/couple-info

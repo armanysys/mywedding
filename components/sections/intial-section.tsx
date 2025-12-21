@@ -46,7 +46,7 @@ export function InitialSection() {
     )
   }
 
-  if (error || !initialData) {
+  if (error || !initialData || !coupleInfo) {
     return (
       <section className="relative h-screen flex items-center justify-center overflow-hidden bg-muted">
         <div className="text-center text-destructive">
@@ -71,7 +71,7 @@ export function InitialSection() {
 
       {/* Content */}
       <div className="relative z-10 text-center text-white px-4">
-        <p className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-light">{initialData.subtitle}</p>
+        <p className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 font-light">{coupleInfo.titleInitSection}</p>
 
         {coupleInfo && (
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 text-balance">{coupleInfo.GroomName} & {coupleInfo.BrideName}</h1>

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { EventDetailsForm } from "@/components/admin/forms/event-details-form"
+import { EventDetailsForm } from "@/app/admin/event-details/event-details-form"
 
 export default function EventDetailsAdminPage() {
   return (

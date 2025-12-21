@@ -24,7 +24,6 @@ export const eventDetailsData: EventDetails = {
     heading: "Lugar",
     subheading: "Jardín Botánico",
     value: "Ciudad de México",
-    extra: "",
     mapUrl: "https://maps.google.com/?q=Jard%C3%ADn+Bot%C3%A1nico+Ciudad+de+M%C3%A9xico",
   },
 }

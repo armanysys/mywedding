@@ -1,6 +1,7 @@
 import { Couple } from "@/Domain/CoupleInfo";
 
 export const coupleInfo: Couple = {
+    titleInitSection: "Celebra con nosotros",
     GroomName: "Armando",
     BrideName: "Julia",
     CoupleHistory: "We met during our college years and have been inseparable ever since. Our shared love for adventure and travel has taken us to many beautiful places together.",

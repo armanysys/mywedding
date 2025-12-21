@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { getItineraryDataClient } from "@/lib/services/itinerary.service"
-import type { ItineraryProps } from "@/Domain/ItineraryProps"
+import type { ItineraryProps, ScheduleItem } from "@/Domain/ItineraryProps"
 import { Loader2, Plus, Trash2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -42,9 +42,15 @@ export function ItineraryForm() {
 
   const addItem = () => {
     if (!formData) return
+    const newScheduleItem: ScheduleItem = {
+      time: "",
+      title: "",
+      description: "",
+      icon: "",
+    }
     setFormData({
       ...formData,
-      items: [...formData.items, { time: "", title: "", description: "", icon: "" }],
+      ScheduleItem: [...formData.ScheduleItem, newScheduleItem],
     })
   }
 
@@ -52,15 +58,15 @@ export function ItineraryForm() {
     if (!formData) return
     setFormData({
       ...formData,
-      items: formData.items.filter((_, i) => i !== index),
+      ScheduleItem: formData.ScheduleItem.filter((_, i) => i !== index),
     })
   }
 
-  const updateItem = (index: number, field: string, value: string) => {
+  const updateItem = (index: number, field: keyof ScheduleItem, value: string) => {
     if (!formData) return
-    const newItems = [...formData.items]
-    newItems[index] = { ...newItems[index], [field]: value }
-    setFormData({ ...formData, items: newItems })
+    const newScheduleItems = [...formData.ScheduleItem]
+    newScheduleItems[index] = { ...newScheduleItems[index], [field]: value }
+    setFormData({ ...formData, ScheduleItem: newScheduleItems })
   }
 
   if (loading) {
@@ -81,8 +87,17 @@ export function ItineraryForm() {
         <Label htmlFor="title">Título de la sección</Label>
         <Input
           id="title"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          value={formData.Title}
+          onChange={(e) => setFormData({ ...formData, Title: e.target.value })}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="description">Descripción de la sección</Label>
+        <Textarea
+          id="description"
+          value={formData.Description}
+          onChange={(e) => setFormData({ ...formData, Description: e.target.value })}
         />
       </div>
 
@@ -95,7 +110,7 @@ export function ItineraryForm() {
           </Button>
         </div>
 
-        {formData.items.map((item, index) => (
+        {formData.ScheduleItem.map((item, index) => (
           <Card key={index}>
             <CardContent className="pt-4">
               <div className="space-y-4">
@@ -107,11 +122,19 @@ export function ItineraryForm() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
                     <Label>Hora</Label>
-                    <Input value={item.time} onChange={(e) => updateItem(index, "time", e.target.value)} />
+                    <Input
+                      value={item.time}
+                      onChange={(e) => updateItem(index, "time", e.target.value)}
+                      placeholder="5:00 PM"
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label>Título</Label>
-                    <Input value={item.title} onChange={(e) => updateItem(index, "title", e.target.value)} />
+                    <Input
+                      value={item.title}
+                      onChange={(e) => updateItem(index, "title", e.target.value)}
+                      placeholder="Ceremonia"
+                    />
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -119,6 +142,15 @@ export function ItineraryForm() {
                   <Textarea
                     value={item.description}
                     onChange={(e) => updateItem(index, "description", e.target.value)}
+                    placeholder="Intercambio de votos en el jardín principal"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Ícono</Label>
+                  <Input
+                    value={item.icon}
+                    onChange={(e) => updateItem(index, "icon", e.target.value)}
+                    placeholder="Church, Utensils, Music, Cake, etc."
                   />
                 </div>
               </div>

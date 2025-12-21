@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
 import type { EventDetails, EventBlock } from "@/Domain/EventDetail"
 import { Loader2, Plus, Trash2 } from "lucide-react"
+import { iconMapping } from "@/Domain/IconMaping"
 
 export function EventDetailsForm() {
   const [formData, setFormData] = useState<EventDetails | null>(null)
@@ -129,6 +131,38 @@ export function EventDetailsForm() {
                   </Button>
                 </CardHeader>
                 <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor={`icon-${index}`}>Icono</Label>
+                    <Select value={block.icon} onValueChange={(value) => handleUpdateBlock(index, "icon", value)}>
+                      <SelectTrigger id={`icon-${index}`}>
+                        <SelectValue placeholder="Selecciona un icono">
+                          {block.icon && (
+                            <div className="flex items-center gap-2">
+                              {(() => {
+                                const IconComponent = iconMapping[block.icon as keyof typeof iconMapping]
+                                return IconComponent ? <IconComponent className="h-4 w-4" /> : null
+                              })()}
+                              <span>{block.icon}</span>
+                            </div>
+                          )}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.keys(iconMapping).map((iconName) => {
+                          const IconComponent = iconMapping[iconName as keyof typeof iconMapping]
+                          return (
+                            <SelectItem key={iconName} value={iconName}>
+                              <div className="flex items-center gap-2">
+                                <IconComponent className="h-4 w-4" />
+                                <span>{iconName}</span>
+                              </div>
+                            </SelectItem>
+                          )
+                        })}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
                       <Label htmlFor={`heading-${index}`}>Encabezado</Label>

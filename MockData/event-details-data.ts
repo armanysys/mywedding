@@ -15,17 +15,12 @@ export const eventDetailsData: EventDetails = {
       heading: "Fecha",
       subheading: "Domingo",
       value: "19 de Abril, 2026",
+      mapUrl: "https://maps.google.com/?q=Jard%C3%ADn+Bot%C3%A1nico+Ciudad+de+M%C3%A9xico",
     },
     {
       heading: "Hora",
       subheading: "Ceremonia",
       value: "5:00 PM",
-    },
-    {
-      heading: "Lugar",
-      subheading: "Jardín Botánico",
-      value: "Ciudad de México",
-      mapUrl: "https://maps.google.com/?q=Jard%C3%ADn+Bot%C3%A1nico+Ciudad+de+M%C3%A9xico",
       InstagraUrl: "https://www.instagram.com/jardinbotanicocdmx/",
     },
     {

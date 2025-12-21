@@ -117,7 +117,7 @@ export function EventDetailsForm() {
         {formData.Information && formData.Information.length > 0 ? (
           <div className="space-y-3">
             {formData.Information.map((block, index) => (
-              <Card key={index}>
+              <Card key={index} className="py-2 gap-1">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1.5 pt-2.5">
                   <CardTitle className="text-sm font-medium">Bloque {index + 1}</CardTitle>
                   <Button

@@ -179,7 +179,7 @@ export function ItineraryForm() {
                     />
                   </div>
                   <div className="md:col-span-1 flex">
-                    <div className="w-full flex items-start pt-1.5">
+                    <div className="w-full flex items-center pt-1.5">
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>

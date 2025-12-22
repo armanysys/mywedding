@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, Clock, MapPin, Instagram } from "lucide-react"
+import { Calendar, Clock, MapPin, Instagram, MapIcon, MapPinCheck, MapPinCheckInside, MapPinIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
@@ -112,7 +112,9 @@ export function EventDetails() {
                             className="text-sage border-sage hover:bg-sage hover:text-white"
                           >
                             Ver en Mapa
+                            <MapPinIcon className="w-4 h-4" />
                           </a>
+
                         </Button>
                       )}
 

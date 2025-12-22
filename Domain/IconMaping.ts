@@ -1,4 +1,4 @@
-import { Church, Music, Utensils, Cake, Calendar, Clock, MapPin } from "lucide-react"
+import { Church, Music, Utensils, Cake, Calendar, Clock, MapPin, Wine, Martini, Gavel, Scale } from "lucide-react"
 
 export const iconMapping = {
     Church,
@@ -7,5 +7,9 @@ export const iconMapping = {
     Cake,
     Calendar,
     Clock,
-    MapPin
+    MapPin,
+    Wine,
+    Martini,
+    Gavel,
+    Scale
 }

@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation"
 
 const sectionNames: Record<string, string> = {
   admin: "Dashboard",
-  hero: "Hero",
+  "initial-page": "Información de los novios",
   "event-details": "Detalles del Evento",
   itinerary: "Itinerario",
   "photo-gallery": "Galería de Fotos",

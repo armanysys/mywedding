@@ -177,9 +177,9 @@ export function EventDetailsForm() {
                               variant="ghost"
                               size="sm"
                               onClick={() => handleRemoveBlock(index)}
-                              className="h-9 w-9 p-0 text-destructive hover:text-destructive"
+                              className="w-full h-9"
                             >
-                              <Trash2 className="h-4 w-4" />
+                              <Trash2 className="h-4 w-4 text-destructive" />
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent>Eliminar</TooltipContent>

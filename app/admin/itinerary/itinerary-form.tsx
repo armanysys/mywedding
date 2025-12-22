@@ -115,11 +115,11 @@ export function ItineraryForm() {
 
         {formData.ScheduleItem.map((item, index) => (
           <Card key={index}>
-            <CardContent className="pt-4">
-              <div className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-3">
-                  <div className="space-y-2">
-                    <Label>Ícono</Label>
+            <CardContent className="pt-3 px-3">
+              <div className="space-y-3">
+                <div className="grid gap-3 md:grid-cols-3">
+                  <div className="space-y-1.5">
+                    <Label className="text-sm">Ícono</Label>
                     <Select value={item.icon} onValueChange={(value) => updateItem(index, "icon", value)}>
                       <SelectTrigger id={`icon-${index}`} className="h-9">
                         <SelectValue placeholder="Selecciona un icono">
@@ -149,34 +149,37 @@ export function ItineraryForm() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="space-y-2">
-                    <Label>Hora</Label>
+                  <div className="space-y-1.5">
+                    <Label className="text-sm">Hora</Label>
                     <Input
                       value={item.time}
                       onChange={(e) => updateItem(index, "time", e.target.value)}
                       placeholder="5:00 PM"
+                      className="h-9"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label>Título</Label>
+                  <div className="space-y-1.5">
+                    <Label className="text-sm">Título</Label>
                     <Input
                       value={item.title}
                       onChange={(e) => updateItem(index, "title", e.target.value)}
                       placeholder="Ceremonia"
+                      className="h-9"
                     />
                   </div>
                 </div>
-                <div className="grid gap-4 md:grid-cols-4">
-                  <div className="space-y-4 md:col-span-3">
-                    <Label>Descripción</Label>
+                <div className="grid gap-3 md:grid-cols-4">
+                  <div className="space-y-1.5 md:col-span-3">
+                    <Label className="text-sm">Descripción</Label>
                     <Textarea
                       value={item.description}
                       onChange={(e) => updateItem(index, "description", e.target.value)}
                       placeholder="Intercambio de votos en el jardín principal"
+                      className="min-h-20"
                     />
                   </div>
                   <div className="md:col-span-1 flex">
-                    <div className="w-full flex items-stretch">
+                    <div className="w-full flex items-start pt-1.5">
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
@@ -185,7 +188,7 @@ export function ItineraryForm() {
                               variant="ghost"
                               size="sm"
                               onClick={() => removeItem(index)}
-                              className="w-full h-full"
+                              className="w-full h-9"
                             >
                               <Trash2 className="h-4 w-4 text-destructive" />
                             </Button>

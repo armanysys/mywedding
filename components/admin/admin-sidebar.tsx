@@ -37,8 +37,8 @@ const menuItems = [
     icon: LayoutDashboard,
   },
   {
-    title: "Hero",
-    href: "/admin/hero",
+    title: "Información de los novios",
+    href: "/admin/initial-page",
     icon: Heart,
   },
   {

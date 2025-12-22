@@ -11,7 +11,7 @@ import { getHeroDataClient } from "@/lib/services/hero.service"
 import type { Hero } from "@/Domain/Hero"
 import { Loader2 } from "lucide-react"
 
-export function HeroForm() {
+export function InitialForm() {
   const [formData, setFormData] = useState<Hero | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)

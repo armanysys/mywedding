@@ -114,8 +114,8 @@ export function ItineraryForm() {
         </div>
 
         {formData.ScheduleItem.map((item, index) => (
-          <Card key={index}>
-            <CardContent className="pt-3 px-3">
+          <Card key={index} className="py-3">
+            <CardContent className="pt-2 px-3">
               <div className="space-y-3">
                 <div className="grid gap-3 md:grid-cols-3">
                   <div className="space-y-1.5">

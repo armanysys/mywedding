@@ -228,12 +228,12 @@ export function EventDetailsForm() {
                         <TooltipTrigger asChild>
                           <Button
                             type="button"
-                            variant="ghost"
+                            variant="destructive"
                             size="sm"
                             onClick={() => handleRemoveBlock(index)}
                             className="h-9"
                           >
-                            <Trash2 className="h-4 w-4 text-destructive" />
+                            <Trash2 className="h-4 w-4" />
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>Eliminar</TooltipContent>

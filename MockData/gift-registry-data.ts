@@ -14,10 +14,10 @@ export const giftRegistryData: GiftDescription = {
   giftRegistry: [
     {
       id: "001",
-      codigo: "CODIGO",
+      codigo: "No. 51890416",
       name: "Liverpool",
-      url: "https://liverpool.com.mx",
-      description: "Encuentra nuestra lista en Liverpool",
+      url: "https://mesaderegalos.liverpool.com.mx/milistaderegalos/51890416",
+      description: "Encuentra nuestra lista de regalos en Liverpool",
     },
     {
       id: "002",

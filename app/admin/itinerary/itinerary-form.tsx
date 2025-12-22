@@ -185,12 +185,12 @@ export function ItineraryForm() {
                           <TooltipTrigger asChild>
                             <Button
                               type="button"
-                              variant="ghost"
+                              variant="destructive"
                               size="sm"
                               onClick={() => removeItem(index)}
                               className="w-full h-9"
                             >
-                              <Trash2 className="h-4 w-4 text-destructive" />
+                              <Trash2 className="h-4 w-4" />
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent>

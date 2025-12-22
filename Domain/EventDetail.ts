@@ -11,5 +11,5 @@ export interface EventDetails {
   id: string
   title: string
   subTitle: string
-  Information?: EventBlock[] | null
+  Information?: EventBlock[]
 }

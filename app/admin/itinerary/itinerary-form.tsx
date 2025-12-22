@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { getItineraryDataClient } from "@/lib/services/itinerary.service"
 import type { ItineraryProps, ScheduleItem } from "@/Domain/ItineraryProps"
 import { iconMapping } from "@/Domain/IconMaping"
@@ -116,24 +117,35 @@ export function ItineraryForm() {
           <Card key={index}>
             <CardContent className="pt-4">
               <div className="space-y-4">
-                <div className="flex justify-end">
-                  <Button type="button" variant="ghost" size="sm" onClick={() => removeItem(index)}>
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                  </Button>
-                </div>
                 <div className="grid gap-4 md:grid-cols-3">
                   <div className="space-y-2">
                     <Label>Ícono</Label>
                     <Select value={item.icon} onValueChange={(value) => updateItem(index, "icon", value)}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar ícono" />
+                      <SelectTrigger id={`icon-${index}`} className="h-9">
+                        <SelectValue placeholder="Selecciona un icono">
+                          {item.icon && (
+                            <div className="flex items-center gap-2">
+                              {(() => {
+                                const IconComponent = iconMapping[item.icon as keyof typeof iconMapping]
+                                return IconComponent ? <IconComponent className="h-4 w-4" /> : null
+                              })()}
+                              <span className="text-sm">{item.icon}</span>
+                            </div>
+                          )}
+                        </SelectValue>
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.keys(iconMapping).map((iconName) => (
-                          <SelectItem key={iconName} value={iconName}>
-                            {iconName}
-                          </SelectItem>
-                        ))}
+                        {Object.keys(iconMapping).map((iconName) => {
+                          const IconComponent = iconMapping[iconName as keyof typeof iconMapping]
+                          return (
+                            <SelectItem key={iconName} value={iconName}>
+                              <div className="flex items-center gap-2">
+                                <IconComponent className="h-4 w-4" />
+                                <span>{iconName}</span>
+                              </div>
+                            </SelectItem>
+                          )
+                        })}
                       </SelectContent>
                     </Select>
                   </div>
@@ -154,13 +166,37 @@ export function ItineraryForm() {
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Label>Descripción</Label>
-                  <Textarea
-                    value={item.description}
-                    onChange={(e) => updateItem(index, "description", e.target.value)}
-                    placeholder="Intercambio de votos en el jardín principal"
-                  />
+                <div className="grid gap-4 md:grid-cols-4">
+                  <div className="space-y-4 md:col-span-3">
+                    <Label>Descripción</Label>
+                    <Textarea
+                      value={item.description}
+                      onChange={(e) => updateItem(index, "description", e.target.value)}
+                      placeholder="Intercambio de votos en el jardín principal"
+                    />
+                  </div>
+                  <div className="md:col-span-1 flex">
+                    <div className="w-full flex items-stretch">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeItem(index)}
+                              className="w-full h-full"
+                            >
+                              <Trash2 className="h-4 w-4 text-destructive" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Eliminar este bloque de horario</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                  </div>
                 </div>
               </div>
             </CardContent>

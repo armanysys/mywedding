@@ -156,7 +156,7 @@ export function EventDetailsForm() {
                         </Select>
                       </div>
 
-                      <div className="space-y-1.5 md:col-span-2">
+                      <div className="space-y-1.5">
                         <Label htmlFor={`heading-${index}`} className="text-xs">
                           Encabezado
                         </Label>
@@ -165,38 +165,6 @@ export function EventDetailsForm() {
                           value={block.heading}
                           onChange={(e) => handleUpdateBlock(index, "heading", e.target.value)}
                           placeholder="Ej: Fecha, Hora, Ubicación"
-                          className="h-9"
-                        />
-                      </div>
-
-                      <div className="flex items-end h-full">
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleRemoveBlock(index)}
-                              className="w-full h-9"
-                            >
-                              <Trash2 className="h-4 w-4 text-destructive" />
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>Eliminar</TooltipContent>
-                        </Tooltip>
-                      </div>
-                    </div>
-
-                    <div className="grid gap-3 md:grid-cols-2">
-                      <div className="space-y-1.5">
-                        <Label htmlFor={`value-${index}`} className="text-xs">
-                          Valor
-                        </Label>
-                        <Input
-                          id={`value-${index}`}
-                          value={block.value}
-                          onChange={(e) => handleUpdateBlock(index, "value", e.target.value)}
-                          placeholder="Contenido principal"
                           className="h-9"
                         />
                       </div>
@@ -213,6 +181,19 @@ export function EventDetailsForm() {
                           className="h-9"
                         />
                       </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label htmlFor={`value-${index}`} className="text-xs">
+                        Valor
+                      </Label>
+                      <Input
+                        id={`value-${index}`}
+                        value={block.value}
+                        onChange={(e) => handleUpdateBlock(index, "value", e.target.value)}
+                        placeholder="Contenido principal"
+                        className="h-9"
+                      />
                     </div>
 
                     <div className="grid gap-3 md:grid-cols-2">
@@ -240,6 +221,23 @@ export function EventDetailsForm() {
                           className="h-9"
                         />
                       </div>
+                    </div>
+
+                    <div className="flex justify-end">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleRemoveBlock(index)}
+                            className="h-9"
+                          >
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Eliminar</TooltipContent>
+                      </Tooltip>
                     </div>
                   </CardContent>
                 </Card>

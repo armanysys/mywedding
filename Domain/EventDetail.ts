@@ -16,5 +16,6 @@ export interface EventDetails {
   CoupleHistory?: string
   hashtag: string[]
   countDownDateEvent: string
+  isVisibleInformation: boolean
   Information?: EventBlock[]
 }

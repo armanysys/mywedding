@@ -5,6 +5,7 @@ export const coupleInfo: Couple = {
     GroomName: "Armando",
     BrideName: "Julia",
     CoupleHistory: "We met during our college years and have been inseparable ever since. Our shared love for adventure and travel has taken us to many beautiful places together.",
+    isVisibleFamilyInfo: true,
     GroomFamily: {
         FaherName: "Carlos Antonio",
         MotherName: "Maria Gonzalez",

@@ -15,6 +15,7 @@ import type { EventDetails, EventBlock } from "@/Domain/EventDetail"
 import type { SocialMedia } from "@/Domain/SocialMedia"
 import { Loader2, Plus, Trash2, X } from "lucide-react"
 import { iconMapping } from "@/Domain/IconMaping"
+import { Textarea } from "@/components/ui/textarea"
 
 export function EventDetailsForm() {
   const [formData, setFormData] = useState<EventDetails | null>(null)
@@ -163,7 +164,7 @@ export function EventDetailsForm() {
 
         <div className="space-y-2">
           <Label htmlFor="subTitle">Nuestra Historia</Label>
-          <Input
+          <Textarea
             id="subTitle"
             value={formData.CoupleHistory}
             onChange={(e) => setFormData({ ...formData, CoupleHistory: e.target.value })}

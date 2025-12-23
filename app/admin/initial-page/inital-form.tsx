@@ -85,6 +85,88 @@ export function InitialForm() {
             />
           </div>
         </div>
+
+        {/* URL de foto de la novia */}
+        <div className="space-y-2">
+          <Label htmlFor="photoSrcBride">URL de foto de la novia</Label>
+          <Input
+            id="photoSrcBride"
+            type="url"
+            value={formData.PhotoSrcBride}
+            onChange={(e) => setFormData({ ...formData, PhotoSrcBride: e.target.value })}
+            placeholder="https://example.com/julia.jpg"
+          />
+        </div>
+      </div>
+
+      {/* Redes sociales de la novia */}
+      <div className="space-y-4 border-t border-border pt-4">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <h3 className="text-base font-semibold">Redes sociales de la novia</h3>
+            <p className="text-sm text-muted-foreground">Gestiona las redes sociales de la novia</p>
+          </div>
+          <Switch
+            checked={formData.isVisibleSocialMediaBride}
+            onCheckedChange={(checked) => setFormData({ ...formData, isVisibleSocialMediaBride: checked })}
+          />
+        </div>
+
+        {formData.isVisibleSocialMediaBride && (
+          <div className="grid gap-4 md:grid-cols-2">
+            {formData.SocialMediaBride.map((social, index) => (
+              <div key={index} className="space-y-2">
+                <Label htmlFor={`bride-social-${index}`}>{social.platform}</Label>
+                <Input
+                  id={`bride-social-${index}`}
+                  type="url"
+                  value={social.url}
+                  onChange={(e) => {
+                    const newSocialMedia = [...formData.SocialMediaBride]
+                    newSocialMedia[index].url = e.target.value
+                    setFormData({ ...formData, SocialMediaBride: newSocialMedia })
+                  }}
+                  placeholder={`https://${social.platform.toLowerCase()}.com`}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Redes sociales del novio */}
+      <div className="space-y-4 border-t border-border pt-4">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <h3 className="text-base font-semibold">Redes sociales del novio</h3>
+            <p className="text-sm text-muted-foreground">Gestiona las redes sociales del novio</p>
+          </div>
+          <Switch
+            checked={formData.isVisibleSocialMediaGroom}
+            onCheckedChange={(checked) => setFormData({ ...formData, isVisibleSocialMediaGroom: checked })}
+          />
+        </div>
+
+        {formData.isVisibleSocialMediaGroom && (
+          <div className="grid gap-4 md:grid-cols-2">
+            {formData.SocialMediaGroom.map((social, index) => (
+              <div key={index} className="space-y-2">
+                <Label htmlFor={`groom-social-${index}`}>{social.platform}</Label>
+                <Input
+                  id={`groom-social-${index}`}
+                  type="url"
+                  value={social.url}
+                  onChange={(e) => {
+                    const newSocialMedia = [...formData.SocialMediaGroom]
+                    newSocialMedia[index].url = e.target.value
+                    setFormData({ ...formData, SocialMediaGroom: newSocialMedia })
+                  }}
+                  placeholder={`https://${social.platform.toLowerCase()}.com`}
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Switch para mostrar información de los padres */}

@@ -1,10 +1,12 @@
+import { SocialMedia } from "./SocialMedia"
+
 export interface EventBlock {
   icon: string
   heading: string
   subheading?: string
   Information: string
-  mapUrl?: string
-  InstagraUrl?: string
+  isVisibleMediaUrl?: boolean
+  MediaUrl?: SocialMedia[]
 }
 
 export interface EventDetails {

@@ -19,22 +19,39 @@ export const eventDetailsData: EventDetails = {
       heading: "Fecha",
       subheading: "Domingo",
       Information: "19 de Abril, 2026",
+      isVisibleMediaUrl: false,
+      MediaUrl: [],
     },
     {
       icon: "Church",
       heading: "Ceremonia",
       subheading: "Parroquia del Sagrado Corazón de Jesús",
       Information: "4:00 PM",
-      mapUrl: "https://maps.app.goo.gl/PCLQawwioYFfkeEJ6",
+      isVisibleMediaUrl: true,
+      MediaUrl: [
+        {
+          platform: "Map",
+          url: "https://maps.app.goo.gl/PCLQawwioYFfkeEJ6"
+        }
+      ],
     },
     {
       icon: "Wine",
       heading: "Celebración",
       subheading: "Monarca Eventos",
       Information: "6:00 PM",
-      mapUrl: "https://maps.app.goo.gl/sJQ24JYVdJNT2bYW9",
-      InstagraUrl: "https://www.instagram.com/monarcaeventossalonyjardin/",
-    },
+      isVisibleMediaUrl: true,
+      MediaUrl: [
+        {
+          platform: "Map",
+          url: "https://maps.app.goo.gl/sJQ24JYVdJNT2bYW9"
+        },
+        {
+          platform: "Instagram",
+          url: "https://www.instagram.com/monarcaeventossalonyjardin/"
+        }
+      ]
+    }
   ]
 }
 

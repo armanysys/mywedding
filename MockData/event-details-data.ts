@@ -8,31 +8,50 @@ import type { EventDetails } from "@/Domain/EventDetail"
 export const eventDetailsData: EventDetails = {
   id: "details",
   title: "Únete a Nosotros",
-  subTitle:
+  isCoupleHistoryVisible: true,
+  CoupleHistory:
     "Después de años de amor y risas, estamos listos para dar el siguiente paso. Nos encantaría que nos acompañes en este día tan especial.",
+  hashtag: ["#JuliaYArmando2026"],
+  countDownDateEvent: "2026-04-19T00:00:00",
   Information: [
     {
       icon: "Calendar",
       heading: "Fecha",
       subheading: "Domingo",
-      value: "19 de Abril, 2026",
-      mapUrl: "https://maps.google.com/?q=Jard%C3%ADn+Bot%C3%A1nico+Ciudad+de+M%C3%A9xico",
+      Information: "19 de Abril, 2026",
+      isVisibleMediaUrl: false,
+      MediaUrl: [],
     },
     {
-      icon: "Clock",
-      heading: "Hora",
-      subheading: "Ceremonia",
-      value: "5:00 PM",
-      InstagraUrl: "https://www.instagram.com/jardinbotanicocdmx/",
+      icon: "Church",
+      heading: "Ceremonia",
+      subheading: "Parroquia del Sagrado Corazón de Jesús",
+      Information: "4:00 PM",
+      isVisibleMediaUrl: true,
+      MediaUrl: [
+        {
+          platform: "Map",
+          url: "https://maps.app.goo.gl/PCLQawwioYFfkeEJ6"
+        }
+      ],
     },
     {
-      icon: "MapPin",
-      heading: "Lugar",
-      subheading: "Jardín Botánico",
-      value: "Ciudad de México",
-      mapUrl: "https://maps.google.com/?q=Jard%C3%ADn+Bot%C3%A1nico+Ciudad+de+M%C3%A9xico",
-      InstagraUrl: "https://www.instagram.com/jardinbotanicocdmx/",
-    },
+      icon: "Wine",
+      heading: "Celebración",
+      subheading: "Monarca Eventos",
+      Information: "6:00 PM",
+      isVisibleMediaUrl: true,
+      MediaUrl: [
+        {
+          platform: "Map",
+          url: "https://maps.app.goo.gl/sJQ24JYVdJNT2bYW9"
+        },
+        {
+          platform: "Instagram",
+          url: "https://www.instagram.com/monarcaeventossalonyjardin/"
+        }
+      ]
+    }
   ]
 }
 

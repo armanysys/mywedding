@@ -4,9 +4,9 @@ import Link from "next/link"
 
 const sections = [
   {
-    title: "Hero",
+    title: "Información de los novios",
     description: "Información principal de los novios",
-    href: "/admin/hero",
+    href: "/admin/initial-page",
     icon: Heart,
   },
   {

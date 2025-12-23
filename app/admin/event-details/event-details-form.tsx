@@ -6,8 +6,9 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
 import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
 import type { EventDetails, EventBlock } from "@/Domain/EventDetail"
 import { Loader2, Plus, Trash2 } from "lucide-react"
@@ -47,10 +48,9 @@ export function EventDetailsForm() {
     const newBlock: EventBlock = {
       icon: "",
       heading: "",
-      value: "",
+      Information: "",
       subheading: "",
-      mapUrl: "",
-      InstagraUrl: "",
+      MediaUrl: [],
     }
 
     const updatedInformation = [...(formData.Information || []), newBlock]
@@ -86,171 +86,149 @@ export function EventDetailsForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="title">Título de la sección</Label>
-        <Input
-          id="title"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="subTitle">Subtítulo</Label>
-        <Input
-          id="subTitle"
-          value={formData.subTitle}
-          onChange={(e) => setFormData({ ...formData, subTitle: e.target.value })}
-        />
-      </div>
-
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <Label className="text-base font-semibold">Información del Evento</Label>
-          <Button type="button" onClick={handleAddBlock} variant="outline" size="sm">
-            <Plus className="mr-2 h-4 w-4" />
-            Agregar más información
-          </Button>
+    <TooltipProvider>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-2">
+          <Label htmlFor="title">Título de la sección</Label>
+          <Input
+            id="title"
+            value={formData.title}
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          />
         </div>
 
-        {formData.Information && formData.Information.length > 0 ? (
-          <div className="space-y-3">
-            {formData.Information.map((block, index) => (
-              <Card key={index} className="py-2 gap-1">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1.5 pt-2.5">
-                  <CardTitle className="text-sm font-medium">Bloque {index + 1}</CardTitle>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleRemoveBlock(index)}
-                    className="h-7 w-7 p-0 text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </CardHeader>
-                <CardContent className="space-y-3 pb-4">
-                  <div className="grid gap-3 md:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <Label htmlFor={`icon-${index}`} className="text-xs">
-                        Icono
-                      </Label>
-                      <Select value={block.icon} onValueChange={(value) => handleUpdateBlock(index, "icon", value)}>
-                        <SelectTrigger id={`icon-${index}`} className="h-9">
-                          <SelectValue placeholder="Selecciona un icono">
-                            {block.icon && (
-                              <div className="flex items-center gap-2">
-                                {(() => {
-                                  const IconComponent = iconMapping[block.icon as keyof typeof iconMapping]
-                                  return IconComponent ? <IconComponent className="h-4 w-4" /> : null
-                                })()}
-                                <span className="text-sm">{block.icon}</span>
-                              </div>
-                            )}
-                          </SelectValue>
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Object.keys(iconMapping).map((iconName) => {
-                            const IconComponent = iconMapping[iconName as keyof typeof iconMapping]
-                            return (
-                              <SelectItem key={iconName} value={iconName}>
+        <div className="space-y-2">
+          <Label htmlFor="subTitle">Nuestra Historia</Label>
+          <Input
+            id="subTitle"
+            value={formData.CoupleHistory}
+            onChange={(e) => setFormData({ ...formData, CoupleHistory: e.target.value })}
+          />
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <Label className="text-base font-semibold">Información del Evento</Label>
+            <Button type="button" onClick={handleAddBlock} variant="outline" size="sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Agregar más información
+            </Button>
+          </div>
+
+          {formData.Information && formData.Information.length > 0 ? (
+            <div className="space-y-3">
+              {formData.Information.map((block, index) => (
+                <Card key={index} className="py-2 gap-1">
+                  <CardContent className="space-y-3 pb-4 pt-4">
+                    <div className="grid gap-3 md:grid-cols-4 items-start">
+                      <div className="space-y-1.5">
+                        <Label htmlFor={`icon-${index}`} className="text-xs">
+                          Icono
+                        </Label>
+                        <Select value={block.icon} onValueChange={(value) => handleUpdateBlock(index, "icon", value)}>
+                          <SelectTrigger id={`icon-${index}`} className="h-9">
+                            <SelectValue placeholder="Selecciona un icono">
+                              {block.icon && (
                                 <div className="flex items-center gap-2">
-                                  <IconComponent className="h-4 w-4" />
-                                  <span>{iconName}</span>
+                                  {(() => {
+                                    const IconComponent = iconMapping[block.icon as keyof typeof iconMapping]
+                                    return IconComponent ? <IconComponent className="h-4 w-4" /> : null
+                                  })()}
+                                  <span className="text-sm">{block.icon}</span>
                                 </div>
-                              </SelectItem>
-                            )
-                          })}
-                        </SelectContent>
-                      </Select>
+                              )}
+                            </SelectValue>
+                          </SelectTrigger>
+                          <SelectContent>
+                            {Object.keys(iconMapping).map((iconName) => {
+                              const IconComponent = iconMapping[iconName as keyof typeof iconMapping]
+                              return (
+                                <SelectItem key={iconName} value={iconName}>
+                                  <div className="flex items-center gap-2">
+                                    <IconComponent className="h-4 w-4" />
+                                    <span>{iconName}</span>
+                                  </div>
+                                </SelectItem>
+                              )
+                            })}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <Label htmlFor={`heading-${index}`} className="text-xs">
+                          Encabezado
+                        </Label>
+                        <Input
+                          id={`heading-${index}`}
+                          value={block.heading}
+                          onChange={(e) => handleUpdateBlock(index, "heading", e.target.value)}
+                          placeholder="Ej: Fecha, Hora, Ubicación"
+                          className="h-9"
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <Label htmlFor={`subheading-${index}`} className="text-xs">
+                          Subencabezado (opcional)
+                        </Label>
+                        <Input
+                          id={`subheading-${index}`}
+                          value={block.subheading || ""}
+                          onChange={(e) => handleUpdateBlock(index, "subheading", e.target.value)}
+                          placeholder="Información adicional"
+                          className="h-9"
+                        />
+                      </div>
                     </div>
 
                     <div className="space-y-1.5">
-                      <Label htmlFor={`heading-${index}`} className="text-xs">
-                        Encabezado
-                      </Label>
-                      <Input
-                        id={`heading-${index}`}
-                        value={block.heading}
-                        onChange={(e) => handleUpdateBlock(index, "heading", e.target.value)}
-                        placeholder="Ej: Fecha, Hora, Ubicación"
-                        className="h-9"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid gap-3 md:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <Label htmlFor={`value-${index}`} className="text-xs">
+                      <Label htmlFor={`Information-${index}`} className="text-xs">
                         Valor
                       </Label>
                       <Input
-                        id={`value-${index}`}
-                        value={block.value}
-                        onChange={(e) => handleUpdateBlock(index, "value", e.target.value)}
+                        id={`Information-${index}`}
+                        value={block.Information}
+                        onChange={(e) => handleUpdateBlock(index, "Information", e.target.value)}
                         placeholder="Contenido principal"
                         className="h-9"
                       />
                     </div>
 
-                    <div className="space-y-1.5">
-                      <Label htmlFor={`subheading-${index}`} className="text-xs">
-                        Subencabezado (opcional)
-                      </Label>
-                      <Input
-                        id={`subheading-${index}`}
-                        value={block.subheading || ""}
-                        onChange={(e) => handleUpdateBlock(index, "subheading", e.target.value)}
-                        placeholder="Información adicional"
-                        className="h-9"
-                      />
+                    <div className="flex justify-end">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleRemoveBlock(index)}
+                            className="h-9"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Eliminar</TooltipContent>
+                      </Tooltip>
                     </div>
-                  </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card>
+              <CardContent className="py-6 text-center text-sm text-muted-foreground">
+                No hay bloques de información. Haz clic en "Agregar más información" para crear uno.
+              </CardContent>
+            </Card>
+          )}
+        </div>
 
-                  <div className="grid gap-3 md:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <Label htmlFor={`mapUrl-${index}`} className="text-xs">
-                        URL del Mapa (opcional)
-                      </Label>
-                      <Input
-                        id={`mapUrl-${index}`}
-                        value={block.mapUrl || ""}
-                        onChange={(e) => handleUpdateBlock(index, "mapUrl", e.target.value)}
-                        placeholder="https://maps.google.com/..."
-                        className="h-9"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor={`instagraUrl-${index}`} className="text-xs">
-                        URL de Instagram (opcional)
-                      </Label>
-                      <Input
-                        id={`instagraUrl-${index}`}
-                        value={block.InstagraUrl || ""}
-                        onChange={(e) => handleUpdateBlock(index, "InstagraUrl", e.target.value)}
-                        placeholder="https://instagram.com/..."
-                        className="h-9"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <Card>
-            <CardContent className="py-6 text-center text-sm text-muted-foreground">
-              No hay bloques de información. Haz clic en "Agregar más información" para crear uno.
-            </CardContent>
-          </Card>
-        )}
-      </div>
-
-      <Button type="submit" disabled={saving}>
-        {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        Guardar cambios
-      </Button>
-    </form>
+        <Button type="submit" disabled={saving}>
+          {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Guardar cambios
+        </Button>
+      </form>
+    </TooltipProvider>
   )
 }

@@ -7,14 +7,10 @@ export default function ItineraryAdminPage() {
       <div className="mx-auto max-w-4xl space-y-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Itinerario</h1>
-          <p className="text-muted-foreground">Administra el programa del día de la boda</p>
+          <p className="text-muted-foreground">Edita las actividades y horarios del día de la boda</p>
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Programa del evento</CardTitle>
-            <CardDescription>Edita las actividades y horarios del día</CardDescription>
-          </CardHeader>
           <CardContent>
             <ItineraryForm />
           </CardContent>

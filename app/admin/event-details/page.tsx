@@ -7,14 +7,9 @@ export default function EventDetailsAdminPage() {
       <div className="mx-auto max-w-4xl space-y-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Detalles del Evento</h1>
-          <p className="text-muted-foreground">Administra la fecha, hora y lugar de la boda</p>
+          <p className="text-muted-foreground">Administra la fecha, hora y lugar de la ceremonia y recepción de la boda</p>
         </div>
-
         <Card>
-          <CardHeader>
-            <CardTitle>Información del evento</CardTitle>
-            <CardDescription>Edita los detalles de la ceremonia y recepción</CardDescription>
-          </CardHeader>
           <CardContent>
             <EventDetailsForm />
           </CardContent>

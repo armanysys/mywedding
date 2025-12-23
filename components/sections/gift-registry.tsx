@@ -91,6 +91,7 @@ export function GiftRegistrySection() {
                     <Gift className="w-8 h-8 text-sage" />
                   </div>
                   <h3 className="font-serif text-2xl mb-3">{item.name}</h3>
+                  <h3 className="font-serif text-2x2 mb-3">{item.codigo}</h3>
                   <p className="text-muted-foreground mb-6">{item.description}</p>
                   <div className="space-y-3">
                     <Button

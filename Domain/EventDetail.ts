@@ -1,15 +1,20 @@
+import { SocialMedia } from "./SocialMedia"
+
 export interface EventBlock {
   icon: string
   heading: string
   subheading?: string
-  value: string
-  mapUrl?: string
-  InstagraUrl?: string
+  Information: string
+  isVisibleMediaUrl?: boolean
+  MediaUrl?: SocialMedia[]
 }
 
 export interface EventDetails {
   id: string
   title: string
-  subTitle: string
-  Information?: EventBlock[] | null
+  isCoupleHistoryVisible: boolean
+  CoupleHistory?: string
+  hashtag: string[]
+  countDownDateEvent: string
+  Information?: EventBlock[]
 }

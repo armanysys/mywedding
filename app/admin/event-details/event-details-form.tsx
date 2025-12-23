@@ -334,14 +334,40 @@ export function EventDetailsForm() {
                                 <div key={mediaIndex} className="flex gap-2 items-end">
                                   <div className="flex-1 space-y-1">
                                     <Label className="text-xs">Plataforma</Label>
-                                    <Input
+                                    <Select
                                       value={media.platform}
-                                      onChange={(e) =>
-                                        handleUpdateMediaUrl(index, mediaIndex, "platform", e.target.value)
+                                      onValueChange={(value) =>
+                                        handleUpdateMediaUrl(index, mediaIndex, "platform", value)
                                       }
-                                      placeholder="Ej: Map, Instagram, Facebook"
-                                      className="h-8 text-xs"
-                                    />
+                                    >
+                                      <SelectTrigger className="h-8 text-xs">
+                                        <SelectValue placeholder="Selecciona plataforma">
+                                          {media.platform && (
+                                            <div className="flex items-center gap-2">
+                                              {(() => {
+                                                const IconComponent =
+                                                  iconMapping[media.platform as keyof typeof iconMapping]
+                                                return IconComponent ? <IconComponent className="h-3.5 w-3.5" /> : null
+                                              })()}
+                                              <span className="text-xs">{media.platform}</span>
+                                            </div>
+                                          )}
+                                        </SelectValue>
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        {["Map", "Instagram", "Facebook"].map((platform) => {
+                                          const IconComponent = iconMapping[platform as keyof typeof iconMapping]
+                                          return (
+                                            <SelectItem key={platform} value={platform}>
+                                              <div className="flex items-center gap-2">
+                                                {IconComponent && <IconComponent className="h-4 w-4" />}
+                                                <span>{platform}</span>
+                                              </div>
+                                            </SelectItem>
+                                          )
+                                        })}
+                                      </SelectContent>
+                                    </Select>
                                   </div>
                                   <div className="flex-1 space-y-1">
                                     <Label className="text-xs">URL</Label>

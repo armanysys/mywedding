@@ -31,8 +31,8 @@ export const eventDetailsData: EventDetails = {
       MediaUrl: [
         {
           platform: "Map",
-          url: "https://maps.app.goo.gl/PCLQawwioYFfkeEJ6"
-        }
+          url: "https://maps.app.goo.gl/PCLQawwioYFfkeEJ6",
+        },
       ],
     },
     {
@@ -44,15 +44,15 @@ export const eventDetailsData: EventDetails = {
       MediaUrl: [
         {
           platform: "Map",
-          url: "https://maps.app.goo.gl/sJQ24JYVdJNT2bYW9"
+          url: "https://maps.app.goo.gl/sJQ24JYVdJNT2bYW9",
         },
         {
           platform: "Instagram",
-          url: "https://www.instagram.com/monarcaeventossalonyjardin/"
-        }
-      ]
-    }
-  ]
+          url: "https://www.instagram.com/monarcaeventossalonyjardin/",
+        },
+      ],
+    },
+  ],
 }
 
 export default eventDetailsData

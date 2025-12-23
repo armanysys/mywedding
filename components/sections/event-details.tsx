@@ -1,6 +1,4 @@
 "use client"
-
-import { Calendar, Clock, MapPin, Instagram, MapIcon, MapPinCheck, MapPinCheckInside, MapPinIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
@@ -90,8 +88,6 @@ export function EventDetails() {
             >
               {Information.map((block, index) => {
                 const IconComponent = iconMapping[block.icon as keyof typeof iconMapping]
-                const hasValidMapUrl = isValidUrl(block.mapUrl)
-                const hasValidInstagramUrl = isValidUrl(block.InstagraUrl)
 
                 return (
                   <div key={`${block.heading}-${index}`} className="flex flex-col items-center">
@@ -102,36 +98,28 @@ export function EventDetails() {
                     {block.subheading && <p className="text-muted-foreground">{block.subheading}</p>}
                     <p className="text-lg font-medium mb-3">{block.Information}</p>
 
-                    <div className="flex gap-2">
-                      {hasValidMapUrl && (
-                        <Button variant="outline" size="sm" asChild>
-                          <a
-                            href={block.mapUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sage border-sage hover:bg-sage hover:text-white"
-                          >
-                            Ver en Mapa
-                            <MapPinIcon className="w-4 h-4" />
-                          </a>
+                    {block.isVisibleMediaUrl && block.MediaUrl && block.MediaUrl.length > 0 && (
+                      <div className="flex gap-2">
+                        {block.MediaUrl.map((media, mediaIndex) => {
+                          const SocialIcon = iconMapping[media.platform as keyof typeof iconMapping]
+                          if (!SocialIcon || !isValidUrl(media.url)) return null
 
-                        </Button>
-                      )}
-
-                      {hasValidInstagramUrl && (
-                        <Button variant="outline" size="sm" asChild>
-                          <a
-                            href={block.InstagraUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sage border-sage hover:bg-sage hover:text-white"
-                            aria-label="Ver en Instagram"
-                          >
-                            <Instagram className="w-4 h-4" />
-                          </a>
-                        </Button>
-                      )}
-                    </div>
+                          return (
+                            <Button key={`${media.platform}-${mediaIndex}`} variant="outline" size="sm" asChild>
+                              <a
+                                href={media.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sage border-sage hover:bg-sage hover:text-white"
+                                aria-label={`Ver en ${media.platform}`}
+                              >
+                                <SocialIcon className="w-4 h-4" />
+                              </a>
+                            </Button>
+                          )
+                        })}
+                      </div>
+                    )}
                   </div>
                 )
               })}

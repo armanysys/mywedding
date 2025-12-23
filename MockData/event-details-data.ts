@@ -11,8 +11,9 @@ export const eventDetailsData: EventDetails = {
   isCoupleHistoryVisible: true,
   CoupleHistory:
     "Después de años de amor y risas, estamos listos para dar el siguiente paso. Nos encantaría que nos acompañes en este día tan especial.",
-  hashtag: ["#JuliaYArmando2026"],
+  hashtag: ["#JuliaYArmando2026", "#JuntoaTiEsMejor"],
   countDownDateEvent: "2026-04-19T00:00:00",
+  isVisibleInformation: true,
   Information: [
     {
       icon: "Calendar",
@@ -31,8 +32,8 @@ export const eventDetailsData: EventDetails = {
       MediaUrl: [
         {
           platform: "Map",
-          url: "https://maps.app.goo.gl/PCLQawwioYFfkeEJ6"
-        }
+          url: "https://maps.app.goo.gl/PCLQawwioYFfkeEJ6",
+        },
       ],
     },
     {
@@ -44,15 +45,15 @@ export const eventDetailsData: EventDetails = {
       MediaUrl: [
         {
           platform: "Map",
-          url: "https://maps.app.goo.gl/sJQ24JYVdJNT2bYW9"
+          url: "https://maps.app.goo.gl/sJQ24JYVdJNT2bYW9",
         },
         {
           platform: "Instagram",
-          url: "https://www.instagram.com/monarcaeventossalonyjardin/"
-        }
-      ]
-    }
-  ]
+          url: "https://www.instagram.com/monarcaeventossalonyjardin/",
+        },
+      ],
+    },
+  ],
 }
 
 export default eventDetailsData

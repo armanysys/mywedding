@@ -169,47 +169,6 @@ export function EventDetailsForm() {
             onChange={(e) => setFormData({ ...formData, CoupleHistory: e.target.value })}
           />
         </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="hashtag">Hashtags</Label>
-          <div className="flex gap-2">
-            <Input
-              id="hashtag"
-              value={hashtagInput}
-              onChange={(e) => setHashtagInput(e.target.value)}
-              placeholder="Ingresa un hashtag (ej: #JuliaYArmando2026)"
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault()
-                  handleAddHashtag()
-                }
-              }}
-            />
-            <Button type="button" onClick={handleAddHashtag} variant="outline" size="sm">
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
-          {formData.hashtag.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
-              {formData.hashtag.map((tag, index) => (
-                <div
-                  key={index}
-                  className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm"
-                >
-                  <span>{tag}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveHashtag(index)}
-                    className="hover:opacity-70 transition-opacity"
-                  >
-                    <X className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
         <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="countDownDateEvent">Fecha y Hora de Conteo Regresivo</Label>
@@ -221,6 +180,48 @@ export function EventDetailsForm() {
             />
           </div>
 
+          <div className="space-y-2">
+            <Label htmlFor="hashtag">Hashtags</Label>
+            <div className="flex gap-2">
+              <Input
+                id="hashtag"
+                value={hashtagInput}
+                onChange={(e) => setHashtagInput(e.target.value)}
+                placeholder="Ingresa un hashtag (ej: #JuliaYArmando2026)"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    handleAddHashtag()
+                  }
+                }}
+              />
+              <Button type="button" onClick={handleAddHashtag} variant="outline" size="sm">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            {formData.hashtag.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {formData.hashtag.map((tag, index) => (
+                  <div
+                    key={index}
+                    className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm"
+                  >
+                    <span>{tag}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveHashtag(index)}
+                      className="hover:opacity-70 transition-opacity"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
           <div className="flex items-end gap-3">
             <div className="flex items-center gap-2">
               <Switch

@@ -50,8 +50,7 @@ export function EventDetailsForm() {
       heading: "",
       Information: "",
       subheading: "",
-      mapUrl: "",
-      InstagraUrl: "",
+      MediaUrl: [],
     }
 
     const updatedInformation = [...(formData.Information || []), newBlock]
@@ -194,33 +193,6 @@ export function EventDetailsForm() {
                         placeholder="Contenido principal"
                         className="h-9"
                       />
-                    </div>
-
-                    <div className="grid gap-3 md:grid-cols-2">
-                      <div className="space-y-1.5">
-                        <Label htmlFor={`mapUrl-${index}`} className="text-xs">
-                          URL del Mapa (opcional)
-                        </Label>
-                        <Input
-                          id={`mapUrl-${index}`}
-                          value={block.mapUrl || ""}
-                          onChange={(e) => handleUpdateBlock(index, "mapUrl", e.target.value)}
-                          placeholder="https://maps.google.com/..."
-                          className="h-9"
-                        />
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor={`instagraUrl-${index}`} className="text-xs">
-                          URL de Instagram (opcional)
-                        </Label>
-                        <Input
-                          id={`instagraUrl-${index}`}
-                          value={block.InstagraUrl || ""}
-                          onChange={(e) => handleUpdateBlock(index, "InstagraUrl", e.target.value)}
-                          placeholder="https://instagram.com/..."
-                          className="h-9"
-                        />
-                      </div>
                     </div>
 
                     <div className="flex justify-end">

@@ -11,7 +11,7 @@ export const eventDetailsData: EventDetails = {
   isCoupleHistoryVisible: true,
   CoupleHistory:
     "Después de años de amor y risas, estamos listos para dar el siguiente paso. Nos encantaría que nos acompañes en este día tan especial.",
-  hashtag: ["#JuliaYArmando2026"],
+  hashtag: ["#JuliaYArmando2026", "#JuntoaTiEsMejor"],
   countDownDateEvent: "2026-04-19T00:00:00",
   Information: [
     {

@@ -315,7 +315,6 @@ export function EventDetailsForm() {
                       {(block.isVisibleMediaUrl || (block.MediaUrl && block.MediaUrl.length > 0)) && (
                         <div className="bg-muted p-3 rounded-md space-y-2">
                           <div className="flex items-center justify-between">
-                            <Label className="text-xs font-semibold">URLs de Medios</Label>
                             <Button
                               type="button"
                               onClick={() => handleAddMediaUrl(index)}
@@ -333,7 +332,6 @@ export function EventDetailsForm() {
                               {block.MediaUrl.map((media, mediaIndex) => (
                                 <div key={mediaIndex} className="flex gap-2 items-end">
                                   <div className="flex-1 space-y-1">
-                                    <Label className="text-xs">Plataforma</Label>
                                     <Select
                                       value={media.platform}
                                       onValueChange={(value) =>
@@ -370,7 +368,6 @@ export function EventDetailsForm() {
                                     </Select>
                                   </div>
                                   <div className="flex-1 space-y-1">
-                                    <Label className="text-xs">URL</Label>
                                     <Input
                                       value={media.url}
                                       onChange={(e) => handleUpdateMediaUrl(index, mediaIndex, "url", e.target.value)}

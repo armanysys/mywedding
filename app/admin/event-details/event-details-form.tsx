@@ -11,13 +11,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
 import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
 import type { EventDetails, EventBlock } from "@/Domain/EventDetail"
-import { Loader2, Plus, Trash2 } from "lucide-react"
+import type { SocialMedia } from "@/Domain/SocialMedia"
+import { Loader2, Plus, Trash2, X } from "lucide-react"
 import { iconMapping } from "@/Domain/IconMaping"
 
 export function EventDetailsForm() {
   const [formData, setFormData] = useState<EventDetails | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [hashtagInput, setHashtagInput] = useState("")
 
   useEffect(() => {
     async function loadData() {
@@ -50,6 +52,7 @@ export function EventDetailsForm() {
       heading: "",
       Information: "",
       subheading: "",
+      isVisibleMediaUrl: false,
       MediaUrl: [],
     }
 
@@ -64,13 +67,73 @@ export function EventDetailsForm() {
     setFormData({ ...formData, Information: updatedInformation })
   }
 
-  const handleUpdateBlock = (index: number, field: keyof EventBlock, value: string) => {
+  const handleUpdateBlock = (index: number, field: keyof EventBlock, value: string | boolean) => {
     if (!formData || !formData.Information) return
 
     const updatedInformation = formData.Information.map((block, i) =>
       i === index ? { ...block, [field]: value } : block,
     )
     setFormData({ ...formData, Information: updatedInformation })
+  }
+
+  const handleAddMediaUrl = (blockIndex: number) => {
+    if (!formData || !formData.Information) return
+
+    const updatedInformation = formData.Information.map((block, i) => {
+      if (i === blockIndex) {
+        return {
+          ...block,
+          MediaUrl: [...(block.MediaUrl || []), { platform: "", url: "" }],
+        }
+      }
+      return block
+    })
+    setFormData({ ...formData, Information: updatedInformation })
+  }
+
+  const handleRemoveMediaUrl = (blockIndex: number, mediaIndex: number) => {
+    if (!formData || !formData.Information) return
+
+    const updatedInformation = formData.Information.map((block, i) => {
+      if (i === blockIndex) {
+        return {
+          ...block,
+          MediaUrl: (block.MediaUrl || []).filter((_, idx) => idx !== mediaIndex),
+        }
+      }
+      return block
+    })
+    setFormData({ ...formData, Information: updatedInformation })
+  }
+
+  const handleUpdateMediaUrl = (blockIndex: number, mediaIndex: number, field: keyof SocialMedia, value: string) => {
+    if (!formData || !formData.Information) return
+
+    const updatedInformation = formData.Information.map((block, i) => {
+      if (i === blockIndex) {
+        return {
+          ...block,
+          MediaUrl: (block.MediaUrl || []).map((media, idx) =>
+            idx === mediaIndex ? { ...media, [field]: value } : media,
+          ),
+        }
+      }
+      return block
+    })
+    setFormData({ ...formData, Information: updatedInformation })
+  }
+
+  const handleAddHashtag = () => {
+    if (!formData || !hashtagInput.trim()) return
+    const hashtag = hashtagInput.startsWith("#") ? hashtagInput : `#${hashtagInput}`
+    setFormData({ ...formData, hashtag: [...formData.hashtag, hashtag] })
+    setHashtagInput("")
+  }
+
+  const handleRemoveHashtag = (index: number) => {
+    if (!formData) return
+    const updatedHashtags = formData.hashtag.filter((_, i) => i !== index)
+    setFormData({ ...formData, hashtag: updatedHashtags })
   }
 
   if (loading) {
@@ -104,6 +167,46 @@ export function EventDetailsForm() {
             value={formData.CoupleHistory}
             onChange={(e) => setFormData({ ...formData, CoupleHistory: e.target.value })}
           />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="hashtag">Hashtags</Label>
+          <div className="flex gap-2">
+            <Input
+              id="hashtag"
+              value={hashtagInput}
+              onChange={(e) => setHashtagInput(e.target.value)}
+              placeholder="Ingresa un hashtag (ej: #JuliaYArmando2026)"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault()
+                  handleAddHashtag()
+                }
+              }}
+            />
+            <Button type="button" onClick={handleAddHashtag} variant="outline" size="sm">
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+          {formData.hashtag.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {formData.hashtag.map((tag, index) => (
+                <div
+                  key={index}
+                  className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm"
+                >
+                  <span>{tag}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveHashtag(index)}
+                    className="hover:opacity-70 transition-opacity"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="space-y-3">
@@ -193,6 +296,81 @@ export function EventDetailsForm() {
                         placeholder="Contenido principal"
                         className="h-9"
                       />
+                    </div>
+
+                    <div className="border-t pt-3 space-y-3">
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          id={`isVisibleMediaUrl-${index}`}
+                          checked={block.isVisibleMediaUrl || false}
+                          onChange={(e) => handleUpdateBlock(index, "isVisibleMediaUrl", e.target.checked)}
+                          className="rounded"
+                        />
+                        <Label htmlFor={`isVisibleMediaUrl-${index}`} className="text-xs font-medium cursor-pointer">
+                          Mostrar URLs de medios
+                        </Label>
+                      </div>
+
+                      {(block.isVisibleMediaUrl || (block.MediaUrl && block.MediaUrl.length > 0)) && (
+                        <div className="bg-muted p-3 rounded-md space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-xs font-semibold">URLs de Medios</Label>
+                            <Button
+                              type="button"
+                              onClick={() => handleAddMediaUrl(index)}
+                              variant="outline"
+                              size="sm"
+                              className="h-7 text-xs"
+                            >
+                              <Plus className="h-3 w-3 mr-1" />
+                              Agregar URL
+                            </Button>
+                          </div>
+
+                          {block.MediaUrl && block.MediaUrl.length > 0 ? (
+                            <div className="space-y-2">
+                              {block.MediaUrl.map((media, mediaIndex) => (
+                                <div key={mediaIndex} className="flex gap-2 items-end">
+                                  <div className="flex-1 space-y-1">
+                                    <Label className="text-xs">Plataforma</Label>
+                                    <Input
+                                      value={media.platform}
+                                      onChange={(e) =>
+                                        handleUpdateMediaUrl(index, mediaIndex, "platform", e.target.value)
+                                      }
+                                      placeholder="Ej: Map, Instagram, Facebook"
+                                      className="h-8 text-xs"
+                                    />
+                                  </div>
+                                  <div className="flex-1 space-y-1">
+                                    <Label className="text-xs">URL</Label>
+                                    <Input
+                                      value={media.url}
+                                      onChange={(e) => handleUpdateMediaUrl(index, mediaIndex, "url", e.target.value)}
+                                      placeholder="https://..."
+                                      className="h-8 text-xs"
+                                    />
+                                  </div>
+                                  <Button
+                                    type="button"
+                                    variant="destructive"
+                                    size="sm"
+                                    onClick={() => handleRemoveMediaUrl(index, mediaIndex)}
+                                    className="h-8 px-2"
+                                  >
+                                    <Trash2 className="h-3.5 w-3.5" />
+                                  </Button>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-xs text-muted-foreground italic">
+                              No hay URLs de medios. Haz clic en "Agregar URL" para crear una.
+                            </p>
+                          )}
+                        </div>
+                      )}
                     </div>
 
                     <div className="flex justify-end">

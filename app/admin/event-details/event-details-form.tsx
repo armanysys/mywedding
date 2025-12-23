@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Switch } from "@/components/ui/switch"
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
 import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
 import type { EventDetails, EventBlock } from "@/Domain/EventDetail"
@@ -209,6 +210,28 @@ export function EventDetailsForm() {
           )}
         </div>
 
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="countDownDateEvent">Fecha y Hora de Conteo Regresivo</Label>
+            <Input
+              id="countDownDateEvent"
+              type="datetime-local"
+              value={formData.countDownDateEvent}
+              onChange={(e) => setFormData({ ...formData, countDownDateEvent: e.target.value })}
+            />
+          </div>
+
+          <div className="flex items-end gap-3">
+            <div className="flex items-center gap-2">
+              <Switch
+                checked={formData.isVisibleInformation}
+                onCheckedChange={(checked) => setFormData({ ...formData, isVisibleInformation: checked })}
+              />
+              <Label className="font-medium cursor-pointer">Mostrar Información del Evento</Label>
+            </div>
+          </div>
+        </div>
+
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Label className="text-base font-semibold">Información del Evento</Label>
@@ -299,17 +322,12 @@ export function EventDetailsForm() {
                     </div>
 
                     <div className="border-t pt-3 space-y-3">
-                      <div className="flex items-center gap-3">
-                        <input
-                          type="checkbox"
-                          id={`isVisibleMediaUrl-${index}`}
+                      <div className="flex items-center gap-2">
+                        <Switch
                           checked={block.isVisibleMediaUrl || false}
-                          onChange={(e) => handleUpdateBlock(index, "isVisibleMediaUrl", e.target.checked)}
-                          className="rounded"
+                          onCheckedChange={(checked) => handleUpdateBlock(index, "isVisibleMediaUrl", checked)}
                         />
-                        <Label htmlFor={`isVisibleMediaUrl-${index}`} className="text-xs font-medium cursor-pointer">
-                          Mostrar URLs de medios
-                        </Label>
+                        <Label className="text-xs font-medium cursor-pointer">Mostrar URLs de medios</Label>
                       </div>
 
                       {(block.isVisibleMediaUrl || (block.MediaUrl && block.MediaUrl.length > 0)) && (

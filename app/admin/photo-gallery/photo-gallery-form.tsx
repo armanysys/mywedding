@@ -8,11 +8,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { getPhotoGalleryDataClient } from "@/lib/services/photo-gallery.service"
-import type { PhotoDescription } from "@/Domain/PhotoDescription"
+import type { PhotoDescriptio } from "@/Domain/PhotoDescription"
 import { Loader2 } from "lucide-react"
 
 export function PhotoGalleryForm() {
-  const [formData, setFormData] = useState<PhotoDescription | null>(null)
+  const [formData, setFormData] = useState<PhotoDescriptio | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 

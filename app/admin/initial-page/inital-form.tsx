@@ -85,17 +85,6 @@ export function InitialForm() {
             />
           </div>
         </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="coupleHistory">Historia de la pareja</Label>
-          <Textarea
-            id="coupleHistory"
-            rows={4}
-            placeholder="Cuéntanos cómo se conocieron..."
-            value={formData.CoupleHistory || ""}
-            onChange={(e) => setFormData({ ...formData, CoupleHistory: e.target.value })}
-          />
-        </div>
       </div>
 
       {/* Switch para mostrar información de los padres */}

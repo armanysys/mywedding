@@ -71,7 +71,7 @@ export function EventDetails() {
     )
   }
 
-  const { id, title, subTitle, Information } = eventDetails
+  const { id, title, CoupleHistory, Information } = eventDetails
 
   return (
     <section id={id} className="py-20 md:py-32 bg-cream">
@@ -81,7 +81,7 @@ export function EventDetails() {
           <div className="w-24 h-px bg-sage mx-auto mb-12" />
 
           <p className="text-lg md:text-xl text-muted-foreground mb-16 leading-relaxed max-w-2xl mx-auto text-pretty">
-            {subTitle}
+            {CoupleHistory}
           </p>
 
           {Information && Information.length > 0 && (
@@ -100,7 +100,7 @@ export function EventDetails() {
                     </div>
                     <h3 className="font-serif text-xl mb-2">{block.heading}</h3>
                     {block.subheading && <p className="text-muted-foreground">{block.subheading}</p>}
-                    <p className="text-lg font-medium mb-3">{block.value}</p>
+                    <p className="text-lg font-medium mb-3">{block.Information}</p>
 
                     <div className="flex gap-2">
                       {hasValidMapUrl && (

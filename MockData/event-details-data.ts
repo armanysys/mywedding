@@ -8,27 +8,30 @@ import type { EventDetails } from "@/Domain/EventDetail"
 export const eventDetailsData: EventDetails = {
   id: "details",
   title: "Únete a Nosotros",
-  subTitle:
+  isCoupleHistoryVisible: true,
+  CoupleHistory:
     "Después de años de amor y risas, estamos listos para dar el siguiente paso. Nos encantaría que nos acompañes en este día tan especial.",
+  hashtag: ["#JuliaYArmando2026"],
+  countDownDateEvent: "2026-04-19T00:00:00",
   Information: [
     {
       icon: "Calendar",
       heading: "Fecha",
       subheading: "Domingo",
-      value: "19 de Abril, 2026",
+      Information: "19 de Abril, 2026",
     },
     {
       icon: "Church",
       heading: "Ceremonia",
       subheading: "Parroquia del Sagrado Corazón de Jesús",
-      value: "4:00 PM",
+      Information: "4:00 PM",
       mapUrl: "https://maps.app.goo.gl/PCLQawwioYFfkeEJ6",
     },
     {
       icon: "Wine",
       heading: "Celebración",
       subheading: "Monarca Eventos",
-      value: "6:00 PM",
+      Information: "6:00 PM",
       mapUrl: "https://maps.app.goo.gl/sJQ24JYVdJNT2bYW9",
       InstagraUrl: "https://www.instagram.com/monarcaeventossalonyjardin/",
     },

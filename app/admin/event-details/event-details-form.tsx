@@ -48,7 +48,7 @@ export function EventDetailsForm() {
     const newBlock: EventBlock = {
       icon: "",
       heading: "",
-      value: "",
+      Information: "",
       subheading: "",
       mapUrl: "",
       InstagraUrl: "",
@@ -99,11 +99,11 @@ export function EventDetailsForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="subTitle">Subtítulo</Label>
+          <Label htmlFor="subTitle">Nuestra Historia</Label>
           <Input
             id="subTitle"
-            value={formData.subTitle}
-            onChange={(e) => setFormData({ ...formData, subTitle: e.target.value })}
+            value={formData.CoupleHistory}
+            onChange={(e) => setFormData({ ...formData, CoupleHistory: e.target.value })}
           />
         </div>
 
@@ -184,13 +184,13 @@ export function EventDetailsForm() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <Label htmlFor={`value-${index}`} className="text-xs">
+                      <Label htmlFor={`Information-${index}`} className="text-xs">
                         Valor
                       </Label>
                       <Input
-                        id={`value-${index}`}
-                        value={block.value}
-                        onChange={(e) => handleUpdateBlock(index, "value", e.target.value)}
+                        id={`Information-${index}`}
+                        value={block.Information}
+                        onChange={(e) => handleUpdateBlock(index, "Information", e.target.value)}
                         placeholder="Contenido principal"
                         className="h-9"
                       />

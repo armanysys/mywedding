@@ -1,24 +1,14 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { PhotoGalleryForm } from "@/app/admin/photo-gallery/photo-gallery-form"
 
 export default function PhotoGalleryAdminPage() {
   return (
     <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl space-y-6">
-        <div>
+        <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Galería de Fotos</h1>
           <p className="text-muted-foreground">Administra las imágenes de la pareja</p>
         </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Imágenes</CardTitle>
-            <CardDescription>Agrega, edita o elimina fotos de la galería</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <PhotoGalleryForm />
-          </CardContent>
-        </Card>
+        <PhotoGalleryForm />
       </div>
     </div>
   )

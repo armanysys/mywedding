@@ -12,21 +12,21 @@ Aplicación para gestionar eventos de boda con panel de administración protegid
 
 ### 1. Clonar e Instalar
 
-```bash
+\`\`\`bash
 # Clonar el repositorio
 git clone <tu-repo-url>
 cd mywedding
 
 # Instalar dependencias
 npm install
-```
+\`\`\`
 
 ### 2. Configurar Variables de Entorno
 
-```bash
+\`\`\`bash
 # Copiar el archivo de ejemplo
 cp .env.example .env.local
-```
+\`\`\`
 
 Edita \`.env.local\` con tus credenciales de Supabase:
 
@@ -44,18 +44,18 @@ Ejecuta los scripts SQL en el SQL Editor de Supabase en este orden:
 
 ### 4. Crear Usuario Super Admin
 
-```bash
+\`\`\`bash
 # Ejecutar script para crear super admin
 npx ts-node scripts/003_create_super_admin.ts
-```
+\`\`\`
 
 O puedes ir a \`/setup\` en la aplicación después de ejecutarla.
 
 ### 5. Ejecutar el Proyecto
 
-```bash
+\`\`\`bash
 npm run dev
-```
+\`\`\`
 
 Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
@@ -70,7 +70,7 @@ Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
 ## Estructura del Proyecto
 
-```
+\`\`\`
 ├── app/
 │   ├── admin/           # Panel de administración (protegido)
 │   ├── api/auth/        # API Routes de autenticación
@@ -80,7 +80,7 @@ Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 │   └── supabase/        # Clientes de Supabase (server, admin)
 ├── scripts/             # Scripts de base de datos
 └── middleware.ts        # Protección de rutas
-```
+\`\`\`
 
 ## Roles de Usuario
 
@@ -93,12 +93,12 @@ Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
 ## Scripts Disponibles
 
-```bash
+\`\`\`bash
 npm run dev      # Modo desarrollo
 npm run build    # Construir para producción
 npm run start    # Ejecutar build de producción
 npm run lint     # Ejecutar linter
-```
+\`\`\`
 
 ## Solución de Problemas
 

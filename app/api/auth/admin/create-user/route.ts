@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/admin"
 import { NextResponse } from "next/server"
 
 // Este endpoint solo debe usarse una vez para crear el super admin inicial
@@ -7,19 +7,16 @@ export async function POST(request: Request) {
   try {
     const { email, password, firstName, lastName, role } = await request.json()
 
-    // Crear cliente con service role para operaciones admin
-    const supabase = await createClient()
+    const supabaseAdmin = createAdminClient()
 
-    // Usar signUp para crear el usuario correctamente
-    const { data: authData, error: authError } = await supabase.auth.signUp({
+    // Crear usuario usando la API Admin (no requiere confirmación de email)
+    const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
       email,
       password,
-      options: {
-        data: {
-          first_name: firstName,
-          last_name: lastName,
-        },
-        emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || undefined,
+      email_confirm: true, // Auto-confirmar email
+      user_metadata: {
+        first_name: firstName,
+        last_name: lastName,
       },
     })
 
@@ -33,7 +30,7 @@ export async function POST(request: Request) {
     }
 
     // Actualizar el perfil con el rol
-    const { error: profileError } = await supabase
+    const { error: profileError } = await supabaseAdmin
       .from("profiles")
       .update({
         role: role || "super_admin",
@@ -59,7 +56,7 @@ export async function POST(request: Request) {
         id: authData.user.id,
         email: authData.user.email,
       },
-      message: "Usuario creado exitosamente. Revisa tu email para confirmar la cuenta.",
+      message: "Usuario super_admin creado exitosamente.",
     })
   } catch (error) {
     console.error("Error in create-user:", error)

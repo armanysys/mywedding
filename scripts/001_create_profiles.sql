@@ -18,6 +18,12 @@ CREATE INDEX IF NOT EXISTS idx_profiles_is_active ON profiles(is_active);
 -- Enable Row Level Security
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 
+-- Create SECURITY DEFINER function to get current user role (prevents infinite recursion)
+CREATE OR REPLACE FUNCTION get_my_role()
+RETURNS TEXT AS $$
+  SELECT role FROM profiles WHERE id = auth.uid();
+$$ LANGUAGE sql SECURITY DEFINER STABLE;
+
 -- Policy: Users can read their own profile
 CREATE POLICY "Users can read own profile"
   ON profiles FOR SELECT
@@ -26,35 +32,17 @@ CREATE POLICY "Users can read own profile"
 -- Policy: Super admins and novios can read all profiles
 CREATE POLICY "Admins can read all profiles"
   ON profiles FOR SELECT
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role IN ('super_admin', 'novio')
-    )
-  );
+  USING (get_my_role() IN ('super_admin', 'novio'));
 
 -- Policy: Super admins can update any profile
 CREATE POLICY "Super admins can update all profiles"
   ON profiles FOR UPDATE
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'super_admin'
-    )
-  );
+  USING (get_my_role() = 'super_admin');
 
 -- Policy: Novios can update profiles except super_admin roles
 CREATE POLICY "Novios can update non-admin profiles"
   ON profiles FOR UPDATE
-  USING (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'novio'
-    )
-  )
+  USING (get_my_role() = 'novio')
   WITH CHECK (role != 'super_admin');
 
 -- Policy: Users can update their own profile (except role)
@@ -66,25 +54,12 @@ CREATE POLICY "Users can update own profile"
 -- Policy: Super admins can insert profiles
 CREATE POLICY "Super admins can insert profiles"
   ON profiles FOR INSERT
-  WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'super_admin'
-    )
-  );
+  WITH CHECK (get_my_role() = 'super_admin');
 
 -- Policy: Novios can insert profiles (planeadora role only)
 CREATE POLICY "Novios can insert planeadora profiles"
   ON profiles FOR INSERT
-  WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE profiles.id = auth.uid()
-      AND profiles.role = 'novio'
-    )
-    AND role = 'planeadora'
-  );
+  WITH CHECK (get_my_role() = 'novio' AND role = 'planeadora');
 
 -- Function to automatically create profile on user signup
 CREATE OR REPLACE FUNCTION handle_new_user()

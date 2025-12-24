@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -24,14 +23,26 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      // TODO: Implementar lógica de autenticación
-      // Por ahora solo simula un delay
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const data = await response.json()
+
+      if (!data.success) {
+        setError(data.error || "Credenciales inválidas. Por favor, intenta de nuevo.")
+        return
+      }
 
       // Redirigir al admin después del login exitoso
       router.push("/admin")
+      router.refresh()
     } catch (err) {
-      setError("Credenciales inválidas. Por favor, intenta de nuevo.")
+      setError("Error de conexión. Por favor, intenta de nuevo.")
     } finally {
       setIsLoading(false)
     }

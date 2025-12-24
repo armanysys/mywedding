@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { confirmacionDataDefault } from "../../../MockData/rsvp-data"
+import { UseCaseFactory } from "@/lib/application/factories/use-case.factory"
 
 /**
  * GET /api/confirmacion-asistencia
@@ -24,7 +24,10 @@ import { confirmacionDataDefault } from "../../../MockData/rsvp-data"
  */
 export async function GET() {
   try {
-    return NextResponse.json(confirmacionDataDefault, {
+    const useCase = UseCaseFactory.createGetConfirmacionUseCase()
+    const confirmacion = await useCase.execute()
+
+    return NextResponse.json(confirmacion, {
       status: 200,
       headers: {
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

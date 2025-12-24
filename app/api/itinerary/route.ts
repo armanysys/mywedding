@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { itineraryData } from "../../../MockData/itinerary-data"
+import { UseCaseFactory } from "@/lib/application/factories/use-case.factory"
 
 /**
  * GET /api/itinerary
@@ -25,7 +25,10 @@ import { itineraryData } from "../../../MockData/itinerary-data"
  */
 export async function GET() {
   try {
-    return NextResponse.json(itineraryData, {
+    const useCase = UseCaseFactory.createGetItineraryUseCase()
+    const itinerary = await useCase.execute()
+
+    return NextResponse.json(itinerary, {
       status: 200,
       headers: {
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

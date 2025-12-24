@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { eventDetailsData } from "../../../MockData/event-details-data"
+import { UseCaseFactory } from "@/lib/application/factories/use-case.factory"
 
 /**
  * GET /api/event-details
@@ -36,7 +36,10 @@ import { eventDetailsData } from "../../../MockData/event-details-data"
  */
 export async function GET() {
   try {
-    return NextResponse.json(eventDetailsData, {
+    const useCase = UseCaseFactory.createGetEventDetailsUseCase()
+    const eventDetails = await useCase.execute()
+
+    return NextResponse.json(eventDetails, {
       status: 200,
       headers: {
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

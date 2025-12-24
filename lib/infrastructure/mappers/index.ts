@@ -1,3 +1,8 @@
 export { HeroMapper } from "./hero.mapper"
 export { CoupleInfoMapper } from "./couple-info.mapper"
 export { GiftRegistryMapper } from "./gift-registry.mapper"
+export { EventDetailsMapper } from "./event-details.mapper"
+export { ItineraryMapper } from "./itinerary.mapper"
+export { LogisticsMapper } from "./logistics.mapper"
+export { PhotoGalleryMapper } from "./photo-gallery.mapper"
+export { ConfirmacionAsistenciaMapper } from "./confirmacion-asistencia.mapper"

@@ -1,5 +1,5 @@
-import { GetCoupleInfoUseCase } from "@/lib/application/use-cases/couple-info/get-couple-info.use-case"
 import { NextResponse } from "next/server"
+import { UseCaseFactory } from "@/lib/application/factories/use-case.factory"
 
 /**
  * GET /api/couple-info
@@ -8,8 +8,8 @@ import { NextResponse } from "next/server"
  */
 export async function GET() {
   try {
-    const getCoupleInfoUseCase = new GetCoupleInfoUseCase()
-    const couple = await getCoupleInfoUseCase.execute()
+    const useCase = UseCaseFactory.createGetCoupleInfoUseCase()
+    const couple = await useCase.execute()
 
     return NextResponse.json(couple, {
       status: 200,

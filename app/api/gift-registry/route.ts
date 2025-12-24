@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { GetGiftRegistryUseCase } from "@/lib/application/use-cases/gift-registry/get-gift-registry.use-case"
+import { UseCaseFactory } from "@/lib/application/factories/use-case.factory"
 
 /**
  * GET /api/gift-registry
@@ -47,8 +47,8 @@ import { GetGiftRegistryUseCase } from "@/lib/application/use-cases/gift-registr
  */
 export async function GET() {
   try {
-    const getGiftRegistryUseCase = new GetGiftRegistryUseCase()
-    const giftRegistry = await getGiftRegistryUseCase.execute()
+    const useCase = UseCaseFactory.createGetGiftRegistryUseCase()
+    const giftRegistry = await useCase.execute()
 
     return NextResponse.json(giftRegistry, {
       status: 200,

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { logisticsData } from "../../../MockData//logistics.data"
+import { UseCaseFactory } from "@/lib/application/factories/use-case.factory"
 
 /**
  * GET /api/logistics
@@ -38,7 +38,10 @@ import { logisticsData } from "../../../MockData//logistics.data"
  */
 export async function GET() {
   try {
-    return NextResponse.json(logisticsData, {
+    const useCase = UseCaseFactory.createGetLogisticsUseCase()
+    const logistics = await useCase.execute()
+
+    return NextResponse.json(logistics, {
       status: 200,
       headers: {
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

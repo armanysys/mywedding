@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { photoGalleryData } from "../../../MockData/photo-gallery-data"
+import { UseCaseFactory } from "@/lib/application/factories/use-case.factory"
 
 /**
  * GET /api/photo-gallery
@@ -27,7 +27,10 @@ import { photoGalleryData } from "../../../MockData/photo-gallery-data"
  */
 export async function GET() {
   try {
-    return NextResponse.json(photoGalleryData, {
+    const useCase = UseCaseFactory.createGetPhotoGalleryUseCase()
+    const photoGallery = await useCase.execute()
+
+    return NextResponse.json(photoGallery, {
       status: 200,
       headers: {
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

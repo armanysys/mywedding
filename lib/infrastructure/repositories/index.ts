@@ -1,3 +1,8 @@
 export { HeroRepository } from "./hero.repository"
 export { CoupleInfoRepository } from "./couple-info.repository"
 export { GiftRegistryRepository } from "./gift-registry.repository"
+export { EventDetailsRepository } from "./event-details.repository"
+export { ItineraryRepository } from "./itinerary.repository"
+export { LogisticsRepository } from "./logistics.repository"
+export { PhotoGalleryRepository } from "./photo-gallery.repository"
+export { ConfirmacionAsistenciaRepository } from "./confirmacion-asistencia.repository"

@@ -1,5 +1,5 @@
-import { GetHeroUseCase } from "@/lib/application/use-cases/hero/get-hero.use-case"
 import { NextResponse } from "next/server"
+import { UseCaseFactory } from "@/lib/application/factories/use-case.factory"
 
 /**
  * GET /api/hero
@@ -11,9 +11,8 @@ import { NextResponse } from "next/server"
  */
 export async function GET() {
   try {
-    // Instanciar y ejecutar use-case
-    const getHeroUseCase = new GetHeroUseCase()
-    const hero = await getHeroUseCase.execute()
+    const useCase = UseCaseFactory.createGetHeroUseCase()
+    const hero = await useCase.execute()
 
     return NextResponse.json(hero, {
       status: 200,

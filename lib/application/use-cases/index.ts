@@ -1,3 +1,8 @@
 export { GetHeroUseCase } from "./hero/get-hero.use-case"
 export { GetCoupleInfoUseCase } from "./couple-info/get-couple-info.use-case"
 export { GetGiftRegistryUseCase } from "./gift-registry/get-gift-registry.use-case"
+export { GetEventDetailsUseCase } from "./event-details/get-event-details.use-case"
+export { GetItineraryUseCase } from "./itinerary/get-itinerary.use-case"
+export { GetLogisticsUseCase } from "./logistics/get-logistics.use-case"
+export { GetPhotoGalleryUseCase } from "./photo-gallery/get-photo-gallery.use-case"
+export { GetConfirmacionUseCase } from "./confirmacion-asistencia/get-confirmacion.use-case"

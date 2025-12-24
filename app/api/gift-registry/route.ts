@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { giftRegistryData } from "../../../MockData/gift-registry-data"
+import { GetGiftRegistryUseCase } from "@/lib/application/use-cases/gift-registry/get-gift-registry.use-case"
 
 /**
  * GET /api/gift-registry
@@ -47,7 +47,10 @@ import { giftRegistryData } from "../../../MockData/gift-registry-data"
  */
 export async function GET() {
   try {
-    return NextResponse.json(giftRegistryData, {
+    const getGiftRegistryUseCase = new GetGiftRegistryUseCase()
+    const giftRegistry = await getGiftRegistryUseCase.execute()
+
+    return NextResponse.json(giftRegistry, {
       status: 200,
       headers: {
         "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

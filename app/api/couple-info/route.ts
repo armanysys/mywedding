@@ -1,31 +1,30 @@
-import { NextResponse } from "next/server";
-import { coupleInfo } from "../../../MockData/couple-info-data";
+import { GetCoupleInfoUseCase } from "@/lib/application/use-cases/couple-info/get-couple-info.use-case"
+import { NextResponse } from "next/server"
 
 /**
  * GET /api/couple-info
  *
- * Returns couple information section data for the wedding website
- *
- * @returns {Couple} Couple information
- *
- * Response Schema:
- * {
- *   GroomName: string,
- *   BrideName: string,
- *   CoupleHistory?: string,
- *   GroomFamily: { FaherName?: string, MotherName?: string, FamilyHistory?: string },
- *   BrideFamily: { FaherName?: string, MotherName?: string, FamilyHistory?: string }
- * }
+ * Refactorizado para usar Architecture por capas
  */
 export async function GET() {
-    try {
-        return NextResponse.json(coupleInfo, {
-            status: 200,
-            headers: {
-                "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
-            },
-        });
-    } catch (error) {
-        return NextResponse.json({ error: "Failed to fetch couple info data" }, { status: 500 });
-    }
+  try {
+    const getCoupleInfoUseCase = new GetCoupleInfoUseCase()
+    const couple = await getCoupleInfoUseCase.execute()
+
+    return NextResponse.json(couple, {
+      status: 200,
+      headers: {
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    })
+  } catch (error) {
+    console.error("[API] Couple Info Error:", error)
+    return NextResponse.json(
+      {
+        error: "Failed to fetch couple info data",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 },
+    )
+  }
 }

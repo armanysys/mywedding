@@ -4,7 +4,7 @@ export const coupleInfo: Couple = {
     titleInitSection: "Celebra con nosotros",
     GroomName: "Armando",
     BrideName: "Julia",
-    PhotoSrcBride: "/romantic-wedding-photo-.jpg",
+    PhotoSrcBride: "/001.jpg",
     isVisibleSocialMediaBride: false,
     SocialMediaBride: [
         { platform: "Instagram", url: "https://instagram.com" },

@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { Couple } from "@/Domain/CoupleInfo";
 
 export const coupleInfo: Couple = {

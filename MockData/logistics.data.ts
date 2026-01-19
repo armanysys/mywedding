@@ -1,3 +1,5 @@
+import 'server-only'
+
 import type { Logistics } from "../../Domain/Logistic"
 
 export const logisticsData: Logistics = {

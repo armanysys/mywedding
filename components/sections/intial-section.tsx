@@ -3,14 +3,14 @@
 import { ChevronDown } from "lucide-react"
 import { Countdown } from "../countdown/countdown"
 import { useEffect, useState } from "react"
-import type { Hero as HeroType } from "@/Domain/Hero"
+import { EventDetails } from "@/Domain/EventDetail"
 import type { Couple as CoupleType } from "@/Domain/CoupleInfo"
-import { getHeroDataClient } from "@/lib/services/hero.service"
+import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
 import { getCoupleInfoClient } from "@/lib/services/couple-info.service"
 import { formatDateSpanish } from "@/lib/utils"
 
 export function InitialSection() {
-  const [initialData, setInitialData] = useState<HeroType | null>(null)
+  const [eventDetails, setInitialData] = useState<EventDetails | null>(null)
   const [coupleInfo, setCoupleInfo] = useState<CoupleType | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -18,12 +18,12 @@ export function InitialSection() {
   useEffect(() => {
     async function loadInitialData() {
       try {
-        const [heroData, coupleData] = await Promise.all([
-          getHeroDataClient(),
+        const [eventDetailsData, coupleData] = await Promise.all([
+          getEventDetailsDataClient(),
           getCoupleInfoClient(),
         ])
 
-        setInitialData(heroData)
+        setInitialData(eventDetailsData)
         setCoupleInfo(coupleData)
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load initial data")
@@ -46,7 +46,7 @@ export function InitialSection() {
     )
   }
 
-  if (error || !initialData || !coupleInfo) {
+  if (error || !eventDetails || !coupleInfo) {
     return (
       <section className="relative h-screen flex items-center justify-center overflow-hidden bg-muted">
         <div className="text-center text-destructive">
@@ -62,8 +62,8 @@ export function InitialSection() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src={initialData.imageSrc || "/placeholder.svg"}
-          alt={initialData.imageAlt}
+          src={coupleInfo.PhotoSrcBride || "/placeholder.svg"}
+          alt={coupleInfo.BrideName || "Imagen de fondo"}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/20" />
@@ -77,16 +77,16 @@ export function InitialSection() {
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 text-balance">{coupleInfo.GroomName} & {coupleInfo.BrideName}</h1>
         )}
         <div className="w-16 h-px bg-white/60 mx-auto mb-6" />
-        <p className="text-xl md:text-2xl font-light tracking-wide">{formatDateSpanish(initialData.dateEvent)}</p>
+        <p className="text-xl md:text-2xl font-light tracking-wide">{formatDateSpanish(eventDetails.countDownDateEvent)}</p>
 
         {/* Countdown */}
-        <Countdown dateEvent={initialData.dateEvent} />
+        <Countdown dateEvent={eventDetails.countDownDateEvent} />
       </div>
 
       {/* Scroll Indicator */}
       <button
         onClick={() => {
-          document.getElementById(initialData.detailsId)?.scrollIntoView({ behavior: "smooth" })
+          document.getElementById(eventDetails.id)?.scrollIntoView({ behavior: "smooth" })
         }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white animate-bounce"
         aria-label="Scroll down"

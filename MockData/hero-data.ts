@@ -1,3 +1,5 @@
+import 'server-only'
+
 import type { Hero } from "@/Domain/Hero"
 
 /**
@@ -10,7 +12,6 @@ export const heroData: Hero = {
   subtitle: "Celebra con nosotros",
   dateEvent: "2026-04-19T00:00:00",
   imageSrc: "/romantic-wedding-photo-.jpg",
-  imageAlt: "Julia y Armando",
   detailsId: "details",
   hashtag: "#JuliaYArmando2026",
   facebookUrl: "https://facebook.com/juliayarmando",

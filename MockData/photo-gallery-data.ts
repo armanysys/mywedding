@@ -1,3 +1,4 @@
+import 'server-only'
 import type { PhotoDescriptio } from "@/Domain/PhotoDescription"
 
 /**
@@ -13,32 +14,32 @@ export const photoGalleryData: PhotoDescriptio = {
   photoItems: [
     {
       id: 1,
-      src: "/romantic-wedding-photo-.jpg",
+      src: "/002.jpg",
       alt: "Foto de boda 1",
     },
     {
       id: 2,
-      src: "/workship25.jpg",
+      src: "/003.jpg",
       alt: "Foto de boda 2",
     },
     {
       id: 3,
-      src: "/romantic-wedding-photo-.jpg",
+      src: "/004.jpg",
       alt: "Foto de boda 3",
     },
     {
       id: 4,
-      src: "/workship25.jpg",
+      src: "/005.jpg",
       alt: "Foto de boda 4",
     },
     {
       id: 5,
-      src: "/romantic-wedding-photo-.jpg",
+      src: "/006.jpg",
       alt: "Foto de boda 5",
     },
     {
       id: 6,
-      src: "/workship25.jpg",
+      src: "/007.jpg",
       alt: "Foto de boda 6",
     },
   ],

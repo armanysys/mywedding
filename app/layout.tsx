@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${playfair.variable} ${lato.variable}`}>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" style={{ backgroundColor: "#fdf6f0" }}>
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         <Analytics />
       </body>

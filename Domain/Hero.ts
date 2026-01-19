@@ -3,7 +3,6 @@ export interface Hero {
     subtitle: string
     dateEvent: string
     imageSrc: string
-    imageAlt: string
     detailsId: string
     hashtag: string
     facebookUrl: string

@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { Loader2, Trash2 } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { getLogisticsDataClient } from "@/lib/services/logistics.service"
+import { getLogisticsDataClient } from "@/Application/services"
 import type { Logistics, TransportOption, HotelRecommendation, DressCodeColor } from "@/Domain/Logistic"
 
 export function LogisticsForm() {

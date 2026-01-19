@@ -5,8 +5,7 @@ import { Countdown } from "../countdown/countdown"
 import { useEffect, useState } from "react"
 import { EventDetails } from "@/Domain/EventDetail"
 import type { Couple as CoupleType } from "@/Domain/CoupleInfo"
-import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
-import { getCoupleInfoClient } from "@/lib/services/couple-info.service"
+import { getEventDetailsDataClient, getCoupleInfoClient } from "@/Application/services"
 import { formatDateSpanish } from "@/lib/utils"
 
 export function InitialSection() {

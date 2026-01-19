@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { getGiftDescriptionDataClient } from "@/lib/services/gift-registry.service"
+import { getGiftDescriptionDataClient } from "@/Application/services"
 import type { GiftDescription, GiftRegistry, TransferAccount } from "@/Domain/GiftRegistry"
 import { Loader2, Trash2 } from "lucide-react"
 

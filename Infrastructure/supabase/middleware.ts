@@ -1,6 +1,12 @@
 import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
 
+/**
+ * Infrastructure Layer - Supabase Session Middleware
+ * 
+ * Handles session refresh and authentication for protected routes.
+ * This is the entry point for authentication checks in the middleware.
+ */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { getItineraryDataClient } from "@/lib/services/itinerary.service"
+import { getItineraryDataClient } from "@/Application/services"
 import type { ItineraryProps } from "@/Domain/ItineraryProps"
 import { iconMapping } from "@/Domain/IconMaping"
 import { Loader2 } from "lucide-react"

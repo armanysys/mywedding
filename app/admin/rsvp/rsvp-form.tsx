@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { getConfirmacionAsistenciaDataClient } from "@/lib/services/confirmacion-asistencia.service"
+import { getConfirmacionAsistenciaDataClient } from "@/Application/services"
 import type { ConfirmacionAsistencia } from "@/Domain/ConfirmacionAsistencia"
 import { Loader2 } from "lucide-react"
 

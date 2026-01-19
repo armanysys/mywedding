@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { getCoupleInfoClient } from "@/lib/services/couple-info.service"
+import { getCoupleInfoClient } from "@/Application/services"
 import type { Couple } from "@/Domain/CoupleInfo"
 import { Loader2 } from "lucide-react"
 

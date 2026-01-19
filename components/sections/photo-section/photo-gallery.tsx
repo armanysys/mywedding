@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react"
-import { getPhotoGalleryDataClient } from "@/lib/services/photo-gallery.service"
+import { getPhotoGalleryDataClient } from "@/Application/services"
 import type { PhotoDescriptio } from "@/Domain/PhotoDescription"
 import { Button as UiButton } from "@/components/ui/button"
 import { getImageUrl, usePhotoGallery } from "./photo-gallery.logic"

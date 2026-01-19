@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
-import { getEventDetailsDataClient } from "@/lib/services/event-details.service"
+import { getEventDetailsDataClient } from "@/Application/services"
 import type { EventDetails as EventDetailsType } from "@/Domain/EventDetail"
 import { iconMapping } from "@/Domain/IconMaping"
 

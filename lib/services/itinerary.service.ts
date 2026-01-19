@@ -1,41 +1,4 @@
-import type { ItineraryProps } from "@/Domain/ItineraryProps"
-
 /**
- * Itinerary Service
- * Centralized service for all itinerary-related API calls
+ * @deprecated This file is deprecated. Please import from "@/Application/services" instead.
  */
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || ""
-
-/**
- * Fetches itinerary section data from the API (Server-side)
- * @returns Promise<ItineraryProps> Itinerary data including schedule items
- * @throws Error if the request fails
- */
-export async function getItineraryData(): Promise<ItineraryProps> {
-  const response = await fetch(`${API_BASE_URL}/api/itinerary`, {
-    next: { revalidate: 3600 }, // Cache for 1 hour
-  })
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch itinerary data: ${response.statusText}`)
-  }
-
-  return response.json()
-}
-
-/**
- * Client-side version for use in client components
- * @returns Promise<ItineraryProps> Itinerary data including schedule items
- */
-export async function getItineraryDataClient(): Promise<ItineraryProps> {
-  const response = await fetch("/api/itinerary", {
-    cache: "no-store",
-  })
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch itinerary data: ${response.statusText}`)
-  }
-
-  return response.json()
-}
+export { getItineraryData, getItineraryDataClient } from "@/Application/services/itinerary.service"

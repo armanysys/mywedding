@@ -4,7 +4,7 @@ import { Gift, CreditCard, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useEffect, useState } from "react"
-import { getGiftDescriptionDataClient } from "@/lib/services/gift-registry.service"
+import { getGiftDescriptionDataClient } from "@/Application/services"
 import type { GiftDescription as GiftDescriptionType } from "@/Domain/GiftRegistry"
 
 export function GiftRegistrySection() {

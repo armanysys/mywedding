@@ -2,8 +2,13 @@ import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 
 /**
+ * Infrastructure Layer - Supabase Client
+ * 
  * Creates a Supabase client for server-side operations.
  * Always create a new client within each function - don't store in global variables.
+ * 
+ * This file is part of the Infrastructure layer and should be used by the Application layer
+ * for database access.
  */
 export async function createClient() {
   const cookieStore = await cookies()

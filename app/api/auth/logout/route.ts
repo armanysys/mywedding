@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from "@/Infrastructure/supabase"
 import { NextResponse } from "next/server"
 
 export async function POST() {

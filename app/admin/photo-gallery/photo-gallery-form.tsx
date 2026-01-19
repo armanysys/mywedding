@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { getPhotoGalleryDataClient } from "@/lib/services/photo-gallery.service"
+import { getPhotoGalleryDataClient } from "@/Application/services"
 import type { PhotoDescriptio } from "@/Domain/PhotoDescription"
 import { Loader2 } from "lucide-react"
 

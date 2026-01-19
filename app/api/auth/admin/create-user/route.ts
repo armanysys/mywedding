@@ -1,4 +1,4 @@
-import { createAdminClient } from "@/lib/supabase/admin"
+import { createAdminClient } from "@/Infrastructure/supabase"
 import { NextResponse } from "next/server"
 
 // Este endpoint solo debe usarse una vez para crear el super admin inicial

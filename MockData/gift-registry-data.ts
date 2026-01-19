@@ -21,13 +21,13 @@ export const giftRegistryData: GiftDescription = {
       url: "https://mesaderegalos.liverpool.com.mx/milistaderegalos/51890416",
       description: "Encuentra nuestra lista de regalos en Liverpool",
     },
-    {
-      id: "002",
-      codigo: "CODIGO",
-      name: "Amazon",
-      url: "https://amazon.com.mx",
-      description: "Encuentra nuestra lista en Amazon",
-    },
+    // {
+    //   id: "002",
+    //   codigo: "CODIGO",
+    //   name: "Amazon",
+    //   url: "https://amazon.com.mx",
+    //   description: "Encuentra nuestra lista en Amazon",
+    // },
   ],
   transferAccounts: [
     {

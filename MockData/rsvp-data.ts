@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { ConfirmacionAsistencia } from "@/Domain/ConfirmacionAsistencia";
 
 export const confirmacionDataDefault: ConfirmacionAsistencia = {

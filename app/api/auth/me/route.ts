@@ -1,5 +1,6 @@
 import { createClient } from "@/Infrastructure/supabase"
 import { NextResponse } from "next/server"
+import type { UserResponse } from "@/Domain/Auth"
 
 export async function GET() {
   try {
@@ -21,14 +22,17 @@ export async function GET() {
       .eq("id", user.id)
       .single()
 
-    return NextResponse.json({
+    const response: UserResponse = {
+      success: true,
       authenticated: true,
       user: {
         id: user.id,
-        email: user.email,
+        email: user.email || "",
       },
       profile: profile || null,
-    })
+    }
+
+    return NextResponse.json(response)
   } catch (error) {
     console.error("Auth check error:", error)
     return NextResponse.json({ authenticated: false })

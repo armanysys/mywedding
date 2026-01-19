@@ -1,5 +1,6 @@
 import { createClient } from "@/Infrastructure/supabase"
 import { NextResponse } from "next/server"
+import type { LoginResponse } from "@/Domain/Auth"
 
 export async function POST(request: Request) {
   try {
@@ -50,18 +51,20 @@ export async function POST(request: Request) {
       )
     }
 
-    return NextResponse.json({
+    const response: LoginResponse = {
       success: true,
       user: {
         id: authData.user.id,
-        email: authData.user.email,
+        email: authData.user.email || "",
       },
       profile: {
         role: profile.role,
         first_name: profile.first_name,
         last_name: profile.last_name,
       },
-    })
+    }
+
+    return NextResponse.json(response)
   } catch (error) {
     console.error("Login error:", error)
     return NextResponse.json({ success: false, error: "Error interno del servidor" }, { status: 500 })

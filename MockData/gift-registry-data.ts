@@ -32,16 +32,16 @@ export const giftRegistryData: GiftDescription = {
   transferAccounts: [
     {
       bank: "BBVA",
-      account: "0123456789",
-      clabe: "012345678901234567",
-      holder: "Julia García",
+      account: "4152-3145-0387-7568",
+      clabe: "012 580 01445762170 1",
+      holder: "Julia Judith Lopez",
     },
-    {
-      bank: "Santander",
-      account: "0123456789",
-      clabe: "012345678901234567",
-      holder: "Julia García",
-    },
+    // {
+    //   bank: "Santander",
+    //   account: "0123456789",
+    //   clabe: "012345678901234567",
+    //   holder: "Julia García",
+    // },
   ],
 }
 

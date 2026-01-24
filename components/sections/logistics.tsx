@@ -5,9 +5,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { getLogisticsDataClient } from "@/Application/services"
-import type { Logistics as LogisticsType } from "@/Domain/Logistic"
+import type { LogisticsType } from "@/Domain/Logistic"
 
-export function Logistics() {
+export function LogisticsSection() {
   const [data, setData] = useState<LogisticsType | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)

@@ -5,13 +5,38 @@
  * This service interacts with the api/auth endpoints for user authentication workflows.
  */
 
-import type {
-  LoginCredentials,
-  LoginResponse,
-  UserResponse,
-  CreateUserData,
-  CreateUserResponse,
-} from "@/Domain/Auth"
+interface LoginCredentials {
+  email: string
+  password: string
+}
+
+interface LoginResponse {
+  success: boolean
+  user?: {
+    id: string
+    email: string
+  }
+  profile?: {
+    role: string
+    first_name: string
+    last_name: string
+  } | null
+  error?: string
+}
+
+interface UserResponse {
+  success: boolean
+  user?: {
+    id: string
+    email: string
+  }
+  profile?: {
+    role: string
+    first_name: string
+    last_name: string
+  } | null
+  error?: string
+}
 
 /**
  * Authenticates a user with email and password
@@ -55,9 +80,15 @@ export async function getCurrentUser(): Promise<UserResponse> {
 /**
  * Creates a new admin user (requires super_admin role)
  * @param userData - New user data
- * @returns Promise<CreateUserResponse> Creation result
+ * @returns Promise<{ success: boolean; error?: string }> Creation result
  */
-export async function createAdminUser(userData: CreateUserData): Promise<CreateUserResponse> {
+export async function createAdminUser(userData: {
+  email: string
+  password: string
+  first_name: string
+  last_name: string
+  role: string
+}): Promise<{ success: boolean; error?: string }> {
   const response = await fetch("/api/auth/admin/create-user", {
     method: "POST",
     headers: {

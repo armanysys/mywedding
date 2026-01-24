@@ -1,9 +1,7 @@
-import type { Logistics } from "@/Domain/Logistic"
+import 'server-only'
 
-/**
- * Mock data for logistics section
- * Exported as named export for use in API routes and components
- */
+import type { Logistics } from "../../Domain/Logistic"
+
 export const logisticsData: Logistics = {
   title: "Información Práctica",
   intro: "Todo lo que necesitas saber para disfrutar al máximo",
@@ -38,3 +36,5 @@ export const logisticsData: Logistics = {
     ],
   },
 }
+
+export default logisticsData

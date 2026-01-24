@@ -4,13 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import type React from "react"
 import type { PhotoDescriptio } from "@/Domain/PhotoDescription"
 
-/**
- * Utility to generate responsive image URLs
- * @param src - The source image URL
- * @param size - The desired dimensions
- * @returns Formatted image URL with size parameters
- */
-export function getImageUrl(src: string, size: { width: number; height: number }): string {
+export const getImageUrl = (src: string, size: { width: number; height: number }) => {
   return `${src}?height=${size.height}&width=${size.width}`
 }
 
@@ -27,10 +21,6 @@ export type UsePhotoGalleryReturn = {
   handlePrevious: () => void
 }
 
-/**
- * Custom hook for photo gallery functionality
- * Handles touch gestures, keyboard navigation, and carousel behavior
- */
 export function usePhotoGallery(photoData: PhotoDescriptio): UsePhotoGalleryReturn {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [touchStart, setTouchStart] = useState<number | null>(null)

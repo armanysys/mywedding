@@ -6,7 +6,7 @@ import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react"
 import { getPhotoGalleryDataClient } from "@/Application/services"
 import type { PhotoDescriptio } from "@/Domain/PhotoDescription"
 import { Button as UiButton } from "@/components/ui/button"
-import { getImageUrl, usePhotoGallery } from "./photo-gallery.logic"
+import { getImageUrl, usePhotoGallery } from "./photo-gallery-logic"
 
 function PhotoTile({
   photo,

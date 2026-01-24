@@ -73,7 +73,7 @@ Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 \`\`\`
 ├── app/
 │   ├── admin/           # Panel de administración (protegido)
-│   ├── api/auth/        # API Routes de autenticación
+│   ├── api/             # API Routes (auth, data endpoints)
 │   ├── login/           # Página de login
 │   └── setup/           # Configuración inicial (eliminar en producción)
 ├── Application/         # Capa de aplicación (lógica de negocio)
@@ -82,14 +82,15 @@ Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 ├── Infrastructure/      # Capa de infraestructura (acceso a datos)
 │   └── supabase/        # Clientes de Supabase (client, admin, middleware)
 ├── Domain/              # Modelos y tipos de dominio
-├── lib/                 # Utilidades (re-exports deprecated para compatibilidad)
-│   ├── services/        # @deprecated - usar @/Application/services
-│   └── supabase/        # @deprecated - usar @/Infrastructure/supabase
+├── components/          # Componentes React reutilizables
+├── lib/                 # Utilidades compartidas
 ├── scripts/             # Scripts de base de datos
 └── middleware.ts        # Protección de rutas
 \`\`\`
 
 ## Arquitectura de Capas
+
+Esta aplicación sigue principios de **Clean Architecture** con separación clara de responsabilidades:
 
 ### Infrastructure (Infraestructura)
 Centraliza todas las configuraciones y acceso a Supabase:
@@ -98,23 +99,28 @@ Centraliza todas las configuraciones y acceso a Supabase:
 - \`Infrastructure/supabase/middleware.ts\` - Manejo de sesiones
 
 \`\`\`typescript
-// Importación recomendada
+// Importación desde Infrastructure
 import { createClient, createAdminClient } from "@/Infrastructure/supabase"
 \`\`\`
 
 ### Application (Aplicación)
 Maneja la lógica de negocio, procesamiento de datos y llamadas a API:
-- \`Application/services/\` - Servicios para cada entidad
-- \`Application/auth/\` - Servicios de autenticación
+- \`Application/services/\` - Servicios para cada entidad (hero, eventos, regalos, etc.)
+- \`Application/auth/\` - Servicios de autenticación (login, logout, getCurrentUser)
 
 \`\`\`typescript
-// Importación recomendada
+// Importación desde Application
 import { getHeroData, getCoupleInfo } from "@/Application/services"
 import { login, logout, getCurrentUser } from "@/Application/auth"
 \`\`\`
 
-### Compatibilidad
-Los imports antiguos (\`@/lib/supabase\`, \`@/lib/services\`) siguen funcionando pero están marcados como \`@deprecated\`. Se recomienda migrar a los nuevos paths.
+### Domain (Dominio)
+Define los modelos y tipos de negocio independientes de la infraestructura:
+
+\`\`\`typescript
+// Importación de tipos
+import type { Hero, EventDetails, Logistics } from "@/Domain"
+\`\`\`
 
 ## Roles de Usuario
 

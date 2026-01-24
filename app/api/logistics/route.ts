@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { logisticsData } from "../../../MockData//logistics.data"
+import { logisticsData } from "@/MockData/logistics-data"
 
 /**
  * GET /api/logistics

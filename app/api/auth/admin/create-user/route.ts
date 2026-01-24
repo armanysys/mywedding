@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/Infrastructure/supabase"
 import { NextResponse } from "next/server"
+import type { CreateUserResponse } from "@/Domain/Auth"
 
 // Este endpoint solo debe usarse una vez para crear el super admin inicial
 // Después debe ser eliminado o protegido
@@ -50,14 +51,16 @@ export async function POST(request: Request) {
       })
     }
 
-    return NextResponse.json({
+    const response: CreateUserResponse = {
       success: true,
       user: {
         id: authData.user.id,
-        email: authData.user.email,
+        email: authData.user.email || "",
       },
       message: "Usuario super_admin creado exitosamente.",
-    })
+    }
+
+    return NextResponse.json(response)
   } catch (error) {
     console.error("Error in create-user:", error)
     return NextResponse.json({ success: false, error: "Error interno del servidor" }, { status: 500 })

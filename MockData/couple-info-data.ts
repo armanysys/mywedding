@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { Couple } from '@/Domain/CoupleInfo';
-
+// Armando Antonio y Julia
 export const coupleInfo: Couple = {
   titleInitSection: 'Celebra con nosotros',
   GroomName: 'Armando Antonio',
